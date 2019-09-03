@@ -1,22 +1,7 @@
 ---
-title: "R Notebook"
+title: "rbasic_20190906_106_kim.Rmd"
 output: html_notebook
 ---
-
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
-
-```{r}
-plot(cars)
-```
-
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
-
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
-
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
-
 ## 3.2 The very basics
 
 Before we get started with the motivating dataset, we need to cover the very basics of R. 
@@ -49,15 +34,15 @@ Copy and paste the code above into your console to define the three variables. N
 To see the value stored in a variable, we simply ask R to evaulate `a` and it shows the stored value:
 
 ~~~{r}
-a
-#> [1] 1
+  a
+  #> [1] 1
 ~~~
 
 A more explicit way to ask R to show us the value stored in `a` is using `print` like this:
 
 ~~~{r}
-print(a)
-#> [1] 1
+  print(a)
+  #> [1] 1
 ~~~
 
 We use the term *object* to describe stuff that is stored in R. Variables are examples, but objects can also be more complicated entities such as functions, which are described later.
@@ -67,8 +52,8 @@ We use the term *object* to describe stuff that is stored in R. Variables are ex
 As we define objects in the console, we are actually changing the *workspace*. You can see all the variables saved in your workspace by typing:
 
 ~~~{r}
-ls()
-#> [1] "a" "b" "c" "img_path" "murders"
+  ls()
+  #> [1] "a" "b" "c" "img_path" "murders"
 ~~~
 
 In RStudio, the *Environment* tab shows the values:
@@ -78,10 +63,10 @@ We should see `a`, `b`, and `c`. If you try to recover the value of a variable t
 Now since these values are saved in variables, to obtain a solution to our equation, we use the quadratic formula:
 
 ~~~{r}
-(-b + sqrt(b^2 - 4*a*c) ) / ( 2*a )
-#> [1] 0.618034
-(-b - sqrt(b^2 - 4*a*c) ) / ( 2*a )
-#> [1] -1.618034
+  (-b + sqrt(b^2 - 4*a*c) ) / ( 2*a )
+  #> [1] 0.618034
+  (-b - sqrt(b^2 - 4*a*c) ) / ( 2*a )
+  #> [1] -1.618034
 ~~~
 
 ### 3.2.3 Functions
@@ -95,10 +80,10 @@ In general, we need to use parentheses to evalutate a function. If you type `ls`
 Unlike `ls`most functions require one or more *arguments*. Below is an example of how we assign an object to the argument of thefunciton `log`. Remeber that we earlier defined `a` to be 1:
 
 ~~~{r}
-log(8)
-#> [1] 2.079442
-log(a)
-#> [1] 0
+  log(8)
+  #> [1] 2.079442
+  log(a)
+  #> [1] 0
 ~~~
 
 You can find out what the function expects and what it does by reviewing the very useful manuals included in R. You can gey help by using the `help` function like this:
@@ -118,37 +103,37 @@ The help page will show you what arguments the function is expecting. For exampl
 If you want a quick look at the arguments without opening the help system, you can type:
 
 ~~~{r}
-args(log)
-#> function (x, base = exp(1)) 
-#> NULL
+  args(log)
+  #> function (x, base = exp(1)) 
+  #> NULL
 ~~~
 
 You can change the default values by simply assigning another object:
 
 ~~~{r}
-log(8, base = 2)
-#> [1] 3
+  log(8, base = 2)
+  #> [1] 3
 ~~~
 
 Note that we have not been specifying the argument `x` as such:
 
 ~~~{r}
-log(x = 8, base = 2)
-# [1] 3
+  log(x = 8, base = 2)
+  # [1] 3
 ~~~
 
 The above code works, but we can save ourselves some typing: if no argument name is used, R assumes you are entering arguments in the order shown in the help file or by `args`. So by not using the names, it assumes the arguments are `x` followed by `base`:
 
 ~~~{r}
-log(8,2)
-#> [1] 3
+  log(8,2)
+  #> [1] 3
 ~~~
 
 If using the arguments' names, then we can include them in whatever order we want:
 
 ~~~{r}
-log(base = 2, x = 8)
-#> [1] 3
+  log(base = 2, x = 8)
+  #> [1] 3
 ~~~
 
 To specify arguments, we must use `=`, and cannot use `<-`.
@@ -156,8 +141,8 @@ To specify arguments, we must use `=`, and cannot use `<-`.
 There are some exceptions to the rule that functions need the parentheses to be evalutaed. Among these, the most commonly used are the arithmetic and relational operators. For example:
 
 ~~~{r}
-2 ^ 3
-#> [1] 8
+  2 ^ 3
+  #> [1] 8
 ~~~
 
 You can see the arithmetic operators by typing:
@@ -203,10 +188,10 @@ R will show you Mauna Loa atmospheric CO2 concentration data.
 Other prebuilt objects are mathematical qauntities, such as the constant $\pi$ and $\infty$:
 
 ~~~{r}
-pi
-#> [1] 3.141593
-Inf+1
-#> [1] Inf
+  pi
+  #> [1] 3.141593
+  Inf+1
+  #> [1] Inf
 ~~~
 
 ### 3.2.5 Variable names
@@ -248,13 +233,13 @@ By creating and saving a script with the code above, we would not need to retype
 If a line of R code starts with the symbol `#`, it is not evaluted. We can use this write reminders of why we wrote particular code. Forexmaple, in the script above we could add:
 
 ~~~{r}
-## Code to compute solution to quadratic equation of the form ax^2 + bx + c
-## define the variables
+  ## Code to compute solution to quadratic equation of the form ax^2 + bx + c
+  ## define the variables
 a <- 3
 b <- 2
 c <- -1
 
-## now compute the solution
+  ## now compute the solution
 (-b + sqrt(b^2 - 4*a*c)) / (2*a)
 (-b - sqrt(b^2 - 4*a*c)) / (2*a)
 ~~~
@@ -273,7 +258,7 @@ x <- seq(1, n)
 sum(x)
 ~~~
 
-Based on the result, what do you think the functions `seq` and `sum` do? You can use the `hlep` system:
+Based on the result, what do you think the functions `seq` and `sum` do? You can use the `hlep` system: 
 
 A. `sum` creates a list of numbers and `seq` adds them up.
 
@@ -281,7 +266,177 @@ B. `seq` creates a list of numbers and `sum` adds them up.
 
 C. `seq` computes the difference between two arguments and `sum` computes the sum of 1 through 1000.
 
-D. `sum` always returns the same number.
+D. `sum` always returns the same number.  
 
 4. In math and programming, we say that we evaluate a function when we replace the argument with a given number. So if we type `sqrt(4)`, we evalutate the `sqrt` function. In R, you can evaluate a function inside another function. The evaluations happen from the inside out.
+
+5. Which of the following will always return the numeric value stored in `x`? You can try out examples and use the help system if you want.
+
+A. `log(10^x)`
+
+B. `log10(x^10)`
+
+C. `log(exp(x))`
+
+D. `exp(log(x, base = 2))`
+
+## 3.4 Data types
+
+Variables in R can be of different types For example, we need to distinguish numbers from character strings and tables from simple lists of numbers. The function `class` helps us determine what type of object we have:
+
+~~~{r}
+a <- 2
+class(a)
+  #> [1] "numeric"
+~~~
+
+To work efficiently in R, is is important to learn the differnet types of variables and what we can do with these.
+
+## 3.5 Data frames
+
+Up to now, the variables we have defined are just one number. This is not very useful for storing data. The most common way of storing a dataset in R is in a *data frame*. Conceptually, we can think of a data frame as a table with rows representing observations and the different variables reported for each observation defining the columns. Data frames are particularly useful for datasets because we can combine different data types into one object.
+
+A large proportion of data analysis challenges start with data stored in a data frame. For example, we stored the data for our motivating example in a data frame. You can access this dataset by loading the **dslabs** library and loading the `murders` dataset using the `data` function:
+
+~~~{r}
+  library{dslab}
+  data{murders}
+~~~
+
+To see that is in fact a data frame, we type:
+
+~~~{r}
+  class(muerders)
+  #> [1] "data.frame"
+~~~
+
+### 3.5.1 Examining an object
+
+The function `str` is useful for finding out more about the structure of an object
+
+~~~{r}
+  str(murders)
+  #> 'data.frame':    51 obs. of  5 variables:
+  #>  $ state     : chr  "Alabama" "Alaska" "Arizona" "Arkansas" ...
+  #>  $ abb       : chr  "AL" "AK" "AZ" "AR" ...
+  #>  $ region    : Factor w/ 4 levels "Northeast","South",..: 2 4 4 2 4 4 1 2 2 2 ...
+  #>  $ population: num  4779736 710231 6392017 2915918 37253956 ...
+  #>  $ total     : num  135 19 232 93 1257 ...
+~~~
+
+This tells us much more about the object. We see that the table has 51 rows (50 states plus DC) and five variables. We can show the first six lines using the fucntion `head`:
+
+~~~{r}
+  head(murders)
+  #>        state abb region population total
+  #> 1    Alabama  AL  South    4779736   135
+  #> 2     Alaska  AK   West     710231    19
+  #> 3    Arizona  AZ   West    6392017   232
+  #> 4   Arkansas  AR  South    2915918    93
+  #> 5 California  CA   West   37253956  1257
+  #> 6   Colorado  CO   West    5029196    65
+~~~
+
+In this dataset, each state us considered an observation and five variables are reported for each state.
+
+Before we go any further in answering our original question about different states, let's learn more about the components of this object.
+
+### 3.5.2 The accessor: `$`
+
+For our analysis, we will need to access the different variables represented by columns included in this data frame. To do this, we use the accessor operator `$` in the following way:
+
+~~~{r}
+  murders$population
+  #>  [1]  4779736   710231  6392017  2915918 37253956  5029196  3574097
+  #>  [8]   897934   601723 19687653  9920000  1360301  1567582 12830632
+  #> [15]  6483802  3046355  2853118  4339367  4533372  1328361  5773552
+  #> [22]  6547629  9883640  5303925  2967297  5988927   989415  1826341
+  #> [29]  2700551  1316470  8791894  2059179 19378102  9535483   672591
+  #> [36] 11536504  3751351  3831074 12702379  1052567  4625364   814180
+  #> [43]  6346105 25145561  2763885   625741  8001024  6724540  1852994
+  #> [50]  5686986   563626
+~~~
+
+But how did we know to use population? Previously, by applying the function `str` to the object `murders`, we revealed the names for each of the five variables stored in this table. We can quickly access the variable names using:
+
+~~~{r}
+  names(murders)
+  #> [1] "state"      "abb"        "region"     "population" "total"
+~~~
+
+It is important to know that the order of the entries in `murders$population` preserves the order of the rows in our data table. This will later permit us to manipulate one variable based on the results of another. For example, we will be able to order the state names by the number of murders.
+
+**Tip**: R comes with a very nide auto-complete functionality that saves us the trouble of typing out all the names. Try typing `murders$p` then hitting the *tab* key on your keyboard. This functionality and many other useful auto-complete features are available when working in RStudio.
+
+### 3.5.3 Vectors: numerics, characters, and logical
+
+The object `murders$population` is not one number but several. We call these types of objects *vectors*. A single number is technically a vector of lenght 1, but in general we use the term vectors to refer to objects with several entries. The function `length` tells you how many entries are in the vector:
+
+~~~{r}
+  pop <- murders$population
+  length(pop)
+  #> [1] 51
+~~~
+
+This particular vector is *numeric* since population sizes are numbers:
+
+~~~{r}
+  class(pop)
+  #> [1] "numeric"
+~~~
+
+In a numeric vector, every entry must be a number.
+
+To store character strings, vectors can also be of class *character*. For example, the state names are characters:
+
+~~~{r}
+  class{murders$state}
+  #> [1] "character"
+~~~
+
+As with numeric vectors, all entries in a character vector need to be character.
+
+Another important type of vectors are *logical vectors*. These must be either `TRUE` of `FALSE`.
+
+~~~{r}
+  z <- 3 == 2
+  z
+  #> [1] FALSE
+  class(z)
+  #> [1] "lpgical"
+~~~
+
+Here the `==` is a relational operator asking if 3 is equak to 2. In R, if you just one `=`, you actually assign a variable, but it you test for equality.
+
+You can see the other *relational operators* by typing:
+
+~~~{r}
+  ?comparison
+~~~
+
+In future section, you will see how useful relational operators can be.
+
+We discuss more important features of vectors after the next set of exercises.
+
+**Advanced**: Mathematically, the values in `pop` are integers and there is an integer class in R. However, by default, numbers are assigned class numeric even when they are round integers. For example, `class(1)` returns numeric, You can turn them into class integer with the `as.integer()` function or by adding an `L` like this: `1L`. Note the class by typing: `class(1L)`
+
+### 3.5.4 Factors
+
+In the `murders` dataset, we might expect the region to also be a character vector. However, it is not:
+
+~~~{r}
+  class(murders$region)
+  #> [1] "factor"
+~~~
+
+It is a *factor*. Factors are useful for storing categorical data. We can see that there are only 4 regions by using the `levels` function:
+
+~~~{r}
+  levels(murders$region)
+  #> [1] "Northeast"     "South"         "North Central" "West" 
+~~~
+
+In the background, R stores these *levels* as integers and keep a map to keep track of the labels. This is more memory efficient than storing all the characters.
+
+Note that the lvels have an order that is different from the order of appearance in the factor object. The default is for the levels to follow alphabetical order. However, often we want the levels to follow a different order. We will see several examples of this in the Data Visulalization part of the book. The function `reorder` lets us change the order of the levels of a factor variable based on a summary computed on a numeric vector. We will demonstrate this with a simple example.
 
