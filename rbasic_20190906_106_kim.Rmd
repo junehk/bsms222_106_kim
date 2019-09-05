@@ -606,6 +606,8 @@ You can also use single square brackets ([) to access rows and columns of a data
 
 Use the function `str` to examine the structure of the murders object. We can see that this object is a data frame with 51 rows and five columns. Which of the following best describes the variables represented in this data frame?
 
+>C
+
 A. The 51 states.
 
 B. The murder rates for all 50 states and DC.
@@ -616,9 +618,37 @@ D. str shows no relevant information.
 
 2. What are the column names used by the data frame for these five variables?
 
+~~~
+> str(murders)
+'data.frame':	51 obs. of  5 variables:
+ $ state     : chr  "Alabama" "Alaska" "Arizona" "Arkansas" ...
+ $ abb       : chr  "AL" "AK" "AZ" "AR" ...
+ $ region    : Factor w/ 4 levels "Northeast","South",..: 2 4 4 2 4 4 1 2 2 2 ...
+ $ population: num  4779736 710231 6392017 2915918 37253956 ...
+ $ total     : num  135 19 232 93 1257 ...
+~~~
+    state, abb, region, poplutaion, and total
+
 3. Use the accessor $ to extract the state abbreviations and assign them to the object a. What is the class of this object?
 
+~~~
+> class(murders$abb)
+[1] "character"
+~~~
+
 4. Now use the square brackets to extract the state abbreviations and assign them to the object b. Use the identical function to determine if a and b are the same.
+
+~~~
+> murders$abb
+ [1] "AL" "AK" "AZ" "AR" "CA" "CO" "CT" "DE" "DC" "FL" "GA" "HI" "ID" "IL" "IN" "IA" "KS" "KY"
+[19] "LA" "ME" "MD" "MA" "MI" "MN" "MS" "MO" "MT" "NE" "NV" "NH" "NJ" "NM" "NY" "NC" "ND" "OH"
+[37] "OK" "OR" "PA" "RI" "SC" "SD" "TN" "TX" "UT" "VT" "VA" "WA" "WV" "WI" "WY"
+> b <- c(murders$abb)
+> b
+ [1] "AL" "AK" "AZ" "AR" "CA" "CO" "CT" "DE" "DC" "FL" "GA" "HI" "ID" "IL" "IN" "IA" "KS" "KY"
+[19] "LA" "ME" "MD" "MA" "MI" "MN" "MS" "MO" "MT" "NE" "NV" "NH" "NJ" "NM" "NY" "NC" "ND" "OH"
+[37] "OK" "OR" "PA" "RI" "SC" "SD" "TN" "TX" "UT" "VT" "VA" "WA" "WV" "WI" "WY"
+~~~
 
 5. We saw that the region column stores a factor. You can corroborate this by typing:
 
@@ -628,4 +658,18 @@ D. str shows no relevant information.
 
 With one line of code, use the function levels and length to determine the number of regions defined by this dataset.
 
+~~~
+> length(levels(murders$region))
+[1] 4
+~~~
+
 6. The function `table` takes a vector and returns the frequency of each element. You can quickly see how many states are in each region by applying this function. Use this function in one line of code to create a table of states per region.
+
+~~~
+> table(murders$region)
+
+    Northeast         South North Central          West 
+            9            17            12            13 
+~~~
+
+
