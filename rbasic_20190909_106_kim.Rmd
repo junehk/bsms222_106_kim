@@ -259,3 +259,286 @@ These function live in different *namespaces*. R will follow a certain order whe
 search()
 ~~~
 
+The first entry in this list is the global environment which includes all the objects you define.
+
+So what if we want to use the **stats** `filter` instead of the **dplyr** filter but **dplyr** appears first in the search list? You can force the use of a specific name space by using double colons (`::`) like this:
+
+~~~
+stats::filter
+~~~
+
+If we want to be absolutely sure we use **dplyr** `filter` we can use
+
+~~~
+dplyr::filter
+~~~
+
+Also note that if we want to use a function in a package without loading the entire package, we can use the double colon as well.
+
+For more on this more advanced topic we recomment the [R packages](http://r-pkgs.had.co.nz/namespace.html) book.
+
+## 4.4 For-loops
+
+The formula for the sum of the series $1+2+\cdots +n$ is $n(n+1)/2$. What if we weren't sure that was the right function? How could we check? Using what we learned about functions we can create one that compute the $S_n$:
+
+~~~
+compute_s_n <- function(n){
+  x <- 1:n
+  sum(x)
+}
+~~~
+
+How can we compute $S_n$ for various values of $n$ say $n=1, \cdots , 25$? Do we write 25 lines of code calling `compute_s_n`? No, that is what for-loops are for in programming. In this case, we are perforiming exactly the same task over and over, and the only thing that is changing is the value of $n$. For-loops let us define the range that our variable takes (in our example $n= 1, \cdots, 10), then change the value and evalutate expression as you *loop*.
+
+Perhaps the simplest example of a for-loop is this useless piece of code:
+
+~~~
+for(i in 1:5){
+  print(i)
+}
+[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+~~~
+
+Here is the for-loop we would write for our$S_n$ example:
+
+~~~
+
+m <- 25
+s_n <- vector(length = m) # create an empty vector
+for(n in 1:m){
+  s_n[n] <- compute_s_n(n)
+}
+
+~~~
+
+In each iteration $n=1,~ n=2,$ etc..., we compute $S_n$ and store it in the $n$th entry of `s_n`.
+
+Now we can create a plot to search for a patter:
+
+```{r}
+n <- 1:m
+plot(n, s_n)
+```
+
+If you noticed that it appears to be quadratic, you are on the right track because the formula is $n(n+1)/2$, which we can confirm with a table:
+
+~~~
+head(data.frame(s_n = s_n, formula = n*(n+1)/2))
+  s_n formula
+1   1       1
+2   3       3
+3   6       6
+4  10      10
+5  15      15
+6  21      21
+~~~
+
+We can also overaly the two results by using the function `lines` to draw a line over the previously plotted points:
+
+```{r}
+plot(n, s_n)
+lines(n, n*(n+1)/2)
+```
+
+## 4.5 Vectorization an functionals
+
+Although for-loops are an important concept to understand, in R we rarely use them. As you learn more R, you will realize that *vectorization* is preferred over for-loops since it results in shorter and clearer code. We already saw examples in the Vector Arithmetic Section. A *vectorized* function is a function that will apply the same operation on each of the vectors.
+
+~~~
+x<- 1:10
+sqrt(x)
+ [1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490 2.645751 2.828427 3.000000
+[10] 3.162278
+
+y <- 1:10
+x*y
+ [1]   1   4   9  16  25  36  49  64  81 100
+~~~
+
+To make this calculation, there is no need for for-loops. However, not all functions work this way. For instance, the function we just wrote, `compute_s_n`, does not work element-wise since it is expecting a scalar. This piece of code does not run the function on each entry of `n`:
+
+~~~{r}
+n <- 1:25
+compute_s_n(n)
+Warning message:
+In 1:n : numerical expression has 25 elements: only the first used
+~~~
+
+*Functionals* are functions that help us apply the same function to each entry in a vector, matrix, data frame or list. Here we cover the functional that operates on numeric, logical and character vectors: `sapply`.
+
+The function `sapply` permits us to perform element-wise operations on any function. Here is how it works:
+
+~~~
+x <- 1:10
+sapply(x, sqrt)
+ [1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490 2.645751 2.828427 3.000000
+[10] 3.162278
+~~~
+
+Each eleEach element of `x` is passed on to the function `sqrt` and the result is returned. These results are concatenated. In this case, the result is a vector of the same length as the original `x`. This implies that the for-loop above can be written as follows:
+
+~~~
+n <- 1:25
+s_n <- sapply(n, compute_s_n)
+plot(n, s_n)
+~~~
+
+Other fucntionals are `apply`, `lapply`, `tapply`, `mapply`, `vapply`, and `replicate`. We mostly use `sapply`, `apply`, and `replicate` in this book, but we recommend familiarizing your selves with the others as they can be very useful.
+
+## 4.6 Excercises
+
+1. What will this conditional expression return?
+
+~~~
+x <- c(1,2,-3,4)
+
+if(all(x>0)){
+  print("A11 Positive")
+} else{
+  print("Not all positive")
+}
+~~~
+A : "Not all positive"
+
+2. Which of the following expressions is always `FALSE` when at least one entry of a logical vector `x` is TRUE?
+
+A. all(x)
+
+B. any(x)
+
+C. any(!x)
+
+D. all(!x)
+
+Answer : A
+
+3. The functin `nchar` tells you how many charcters long a character vector is.
+
+Write a line of code that assigns to the object `new_name` the state abbreviation when the state name is longer than 8 characters.
+
+```{r}
+현재 푸는 중
+```
+
+
+4. Create a function `sum_n` that for any given value, say $n$, computes the sum of the integers from 1 to n (inclusive). Use the function to determine the sum of intergers 1 to 5,000.
+
+```{r}
+sum_n <- function(n){
+ sum(1:n) 
+}
+
+sum_n(5000)
+
+sum_check <- function(n){
+  n*(n+1)/2
+}
+
+if(sum_n(5000) == sum_check(5000)){
+  print("This function is right")
+} else{
+  print("This function is wrong")
+}
+```
+
+5. Create a function `altman_plot` that takes two arguments, `x` and `y`, and plots the difference against the sum.
+
+```{r}
+현재 푸는 중
+```
+
+6. After running the code below, what is the value of `x`?
+
+```{r}
+x <- 3
+my_func <- function(y){
+  x <- 5
+  y+5
+}
+```
+Answer : 3
+
+
+7. Write a function `compute_s_n` that for any given $n$ computes the sum $S_n = 1^2 + 2+2 + 3^2 + \cdots n^2$. Report the value of the sum when $n=10$.
+
+$$S_n = \sum^n_{k=1}k^2 = {{n(n+1)(2n+1)}\over{6}}=(2n^3 + 3n^2 + n)/6$$
+
+```{r}
+compute_s_n <- function(x){
+  v_n <-vector(length = x)
+  for(n in 1:x){
+    v_n[n] <- n^2
+  }
+  sum(v_n)
+}
+
+  #Answer check:
+
+square_check <- function(n){
+  (2*n^3 + 3*n^2 + n)/6
+}
+
+if(compute_s_n(10) == square_check(10)){
+  print("Right")
+} else{
+  print("wrong")
+}
+
+```
+
+8. Define an empty numerical vector s_n of size 25 using `s_n <- vector("numeric", 25)` and store in the results of $S_1, S_2, \cdots, S_{25}$ using a for-loop.
+
+```{r}
+s_n <- vector("numeric", 25)
+
+for(n in 1: 25){
+  s_n[n] <- compute_s_n(n)
+}
+```
+
+9. Repeat exercise 8, but this time use `sapply`.
+
+```{r}
+s_n <- vector("numeric", 25)
+
+n <- 1:25
+s_n <- sapply(n, compute_s_n)
+```
+
+10. Repeat exercise 8, but this time use `map_dbl`.
+
+```{r}
+s_n <- vector("numeric", 25)
+
+n <- 1:25
+s_n <- purrr::map_dbl(n, compute_s_n)
+
+
+```
+
+11. Plot $S_n$ versus $n$. Use points defined by $n=1, \cdots, 25$.
+
+```{r}
+compute_s_n <- function(x){
+  v_n <-vector(length = x)
+  
+  for(n in 1:x){
+    v_n[n] <- n^2
+  }
+  sum(v_n)
+}
+
+s_n <- vector("numeric", 25)
+
+n <- 1:25
+s_n <- purrr::map_dbl(n, compute_s_n)
+
+plot(n, s_n)
+```
+
+12. Confirm that the formula for this sum is $S_n = n(n+1)(2n+1)/6$.
+
