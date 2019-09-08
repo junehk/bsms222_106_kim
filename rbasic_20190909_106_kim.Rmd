@@ -481,11 +481,11 @@ $$S_n = \sum^n_{k=1}k^2 = {{n(n+1)(2n+1)}\over{6}}=(2n^3 + 3n^2 + n)/6$$
 
 ```{r}
 compute_s_n <- function(x){
-  v_n <-vector(length = x)
+  a_n <-vector(length = x)
   for(n in 1:x){
-    v_n[n] <- n^2
+    a_n[n] <- n^2
   }
-  sum(v_n)
+  sum(a_n)
 }
 
   #Answer check:
@@ -536,12 +536,12 @@ s_n <- purrr::map_dbl(n, compute_s_n)
 
 ```{r}
 compute_s_n <- function(x){
-  v_n <-vector(length = x)
+  a_n <-vector(length = x)
   
   for(n in 1:x){
-    v_n[n] <- n^2
+    a_n[n] <- n^2
   }
-  sum(v_n)
+  sum(a_n)
 }
 
 s_n <- vector("numeric", 25)
@@ -554,3 +554,34 @@ plot(n, s_n)
 
 12. Confirm that the formula for this sum is $S_n = n(n+1)(2n+1)/6$.
 
+```{r}
+# First, let's use the function I made : compute_s_n
+
+compute_s_n <- function(x){
+  a_n <-vector(length = x)
+  
+  for(n in 1:x){
+    a_n[n] <- n^2
+  }
+  sum(a_n)
+}
+
+# Second, function for n*(n+1)*(2*n+1)/6
+
+formula_s_n <- function(x){
+  (2*x^3 + 3*x^2 + x)/6
+}
+
+# Then compare both function
+
+for(n in 1:25){
+  if(compute_s_n(n) == formula_s_n(n)){
+    print("ok")
+  } else{
+    print("nope")
+  }
+}
+
+#At least, this function is correct for n = 1 to 25
+
+```
