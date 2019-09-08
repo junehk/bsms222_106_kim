@@ -6,20 +6,20 @@ output: html_notebook
 <style type="text/css">
 
 body, td {
-   font-size: 20px;
+   font-size: 16px;
    font-family: 'Nanum Gothic', sans-serif;
 }
 code.r{
-  font-size: 18px;
+  font-size: 14px;
   font-family: 'Roboto', sans-serif;
 }
 pre {
-  font-size: 18px
+  font-size: 14px
   font-family: 'Nanum Gothic', sans-serif;
 }
 </style>
 
-##. 3.7 Vectors
+## 3.7 Vectors
 
 In R, the most basic objects available to store data are *vectors*. As we have seen, complex datasets can usually be broken down into components that are vectors. For example, in a data frame, each column is a vector. Here we learn more about this important class.
 

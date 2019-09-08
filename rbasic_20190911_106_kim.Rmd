@@ -6,15 +6,15 @@ output: html_notebook
 <style type="text/css">
 
 body, td {
-   font-size: 14px;
+   font-size: 16px;
    font-family: 'Nanum Gothic', sans-serif;
 }
 code.r{
-  font-size: 12px;
+  font-size: 14px;
   font-family: 'Roboto', sans-serif;
 }
 pre {
-  font-size: 12px
+  font-size: 14px
   font-family: 'Nanum Gothic', sans-serif;
 }
 </style>
