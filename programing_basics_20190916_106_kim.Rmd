@@ -1,8 +1,6 @@
 ---
-title: "rbasic_20190916_106_kim"
-output:
-  html_document:
-    df_print: paged
+title: "programing_basics_20190916_106_kim"
+output: html_notebook
 ---
 
 <style type="text/css">
