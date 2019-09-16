@@ -1,5 +1,5 @@
 ---
-title: "rbasic_20190909_106_kim"
+title: "programing_basics_20190916_106_kim"
 output: html_notebook
 ---
 
@@ -319,7 +319,7 @@ In each iteration $n=1,~ n=2,$ etc..., we compute $S_n$ and store it in the $n$t
 
 Now we can create a plot to search for a patter:
 
-```{r}
+```
 n <- 1:m
 plot(n, s_n)
 ```
@@ -339,7 +339,7 @@ head(data.frame(s_n = s_n, formula = n*(n+1)/2))
 
 We can also overaly the two results by using the function `lines` to draw a line over the previously plotted points:
 
-```{r}
+```
 plot(n, s_n)
 lines(n, n*(n+1)/2)
 ```
@@ -430,6 +430,14 @@ Abb_func<-function(new_name){
 }
 new_name <- vector(mode = "character")
 new_name <- sapply(state.name, Abb_func)
+new_name
+```
+
+```{r}
+# new code below
+new_name2 <- ifelse(nchar(state.name)>8 , state.abb, state.name)
+new_name_comparision <- data.frame(new_name, new_name2)
+new_name_comparision
 ```
 
 
