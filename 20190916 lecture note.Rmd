@@ -1,0 +1,68 @@
+---
+title: "20190916 lecture note"
+output: html_notebook
+---
+q1.
+d$age <- as.numeric(d$age)
+
+q2.
+d <- read.csv('myteam.txt')
+
+q3.
+d$age[which.max(d$age)]
+
+a = 1
+d <- 0
+
+if(a!=0){
+  print(1/a)
+} else{
+  print("Nope")
+}
+
+a <- 0
+ifelse(a >0 , 1/a, NA)
+
+a <- c (1, 0 ,2, 4)
+ifelse(a >0 , 1/a, NA)
+
+
+
+## 3.1
+> head(d$p.Protein)
+[1] "p.D12N"  "p.R28C"  "p.R36G"  "p.R36G"  "p.R36G"  "p.V76fs"
+> class(d$p.Protein)
+[1] "character"
+> summary(d$p.Protein)
+Length     Class      Mode 
+263 character character 
+> ?gsub
+
+gsub() 사용법
+> gsub('[^0-9]', '', 'p.R102X')
+[1] "102"
+> gsub('[^A-Z]', '', 'p.R102X')
+[1] "RX"
+> gsub('[0-9]', '', 'p.R102X')
+[1] "p.RX"
+> gsub('[A-Z]', '', 'p.R102X')
+[1] "p.102"
+
+for (row in d$p.Protein){
+  d <- mutate(d, n.protein = as.numeric(gsub('[^0-9]', '', d$p.Protein)))
+}
+
+
+for (i in 1:263){
+  a <- as.numeric(gsub('[^0-9]','',d[i,'p.Protein']))
+  d[i,'col'] <- a
+}
+
+a <- c(d$p.Protein)
+a <- as.numeric(gsub('[^0-9]','',a))
+summary(a)
+
+## 3.2
+# table 함수를 쓰면 빈도를 알 수 있다.
+c <- as.data.frame(table(d$p.Protein))
+order(c$Freq)

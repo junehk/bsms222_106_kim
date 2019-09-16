@@ -1,0 +1,55 @@
+---
+title: "20190911_lecture_note"
+output: html_notebook
+---
+
+#conditional expression
+#  if else
+#    ifelse
+
+
+a = "apple"
+b = "apple"
+    
+if (a ==b ){
+  print("This is an apple")
+} else{
+  print("nah. Not an apple")
+}
+
+
+
+ifelse(a == b, "This is an apple", "nah. Not an apple")
+
+
+#if else 나뉘어서 쓰는 것 보단 ifelse를 쓰는 것이 계산 속도가 빠르다.
+#if와 else를 나눠 쓰는 경우는 복잡하게 쓸 떄.
+
+
+if (a == 'banana'){
+  print("banana")
+} else if(a == 'pear'){
+  print("pear")
+} else {
+  print("smt")
+}
+
+
+d = c("apple", "banana", "apple", "pear")
+
+ifelse(d == "banana", "right", "nah")
+
+
+
+for(i in c(80, 90, 100, 2000)){
+  print(fahrenheit_to_celsius(i))
+}
+
+
+install.packages("ggplot2")
+library(ggplot2)
+
+install.packages("dplyr")
+library(dplyr)
+
+
