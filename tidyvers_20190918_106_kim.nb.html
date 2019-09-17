@@ -1771,8 +1771,9 @@ pre {
 <h1>Chapter 5 The tidyverse</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5zdGFsbC5wYWNrYWdlcyhcInRpZHl2ZXJzZVwiKVxuYGBgIn0= -->
-<pre class="r"><code>install.packages(&quot;tidyverse&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuaW5zdGFsbC5wYWNrYWdlcyhcXHRpZHl2ZXJzZVxcKVxuYGBgXG5gYGAifQ== -->
+<p><code>r</code>r install.packages()</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1780,8 +1781,9 @@ pre {
 <p>We can load all the tidyverse packages at once by installing and loading the tidyverse package:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
-<pre class="r"><code>library(tidyverse)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGBcbmBgYCJ9 -->
+<p><code>r</code>r library(tidyverse)</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1791,14 +1793,9 @@ pre {
 <p>We say that a data table is in <em>tidy</em> format if each row represents one observation and columns represent the different variables available for each of these observations. The <code>murders</code> dataset is an example of a tidy data frame.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIz4gICAgICAgIHN0YXRlIGFiYiByZWdpb24gcG9wdWxhdGlvbiB0b3RhbFxuIz4gMSAgICBBbGFiYW1hICBBTCAgU291dGggICAgNDc3OTczNiAgIDEzNVxuIz4gMiAgICAgQWxhc2thICBBSyAgIFdlc3QgICAgIDcxMDIzMSAgICAxOVxuIz4gMyAgICBBcml6b25hICBBWiAgIFdlc3QgICAgNjM5MjAxNyAgIDIzMlxuIz4gNCAgIEFya2Fuc2FzICBBUiAgU291dGggICAgMjkxNTkxOCAgICA5M1xuIz4gNSBDYWxpZm9ybmlhICBDQSAgIFdlc3QgICAzNzI1Mzk1NiAgMTI1N1xuIz4gNiAgIENvbG9yYWRvICBDTyAgIFdlc3QgICAgNTAyOTE5NiAgICA2NVxuYGBgIn0= -->
-<pre class="r"><code>#&gt;        state abb region population total
-#&gt; 1    Alabama  AL  South    4779736   135
-#&gt; 2     Alaska  AK   West     710231    19
-#&gt; 3    Arizona  AZ   West    6392017   232
-#&gt; 4   Arkansas  AR  South    2915918    93
-#&gt; 5 California  CA   West   37253956  1257
-#&gt; 6   Colorado  CO   West    5029196    65</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIz4gICAgICAgIHN0YXRlIGFiYiByZWdpb24gcG9wdWxhdGlvbiB0b3RhbFxuIz4gMSAgICBBbGFiYW1hICBBTCAgU291dGggICAgNDc3OTczNiAgIDEzNVxuIz4gMiAgICAgQWxhc2thICBBSyAgIFdlc3QgICAgIDcxMDIzMSAgICAxOVxuIz4gMyAgICBBcml6b25hICBBWiAgIFdlc3QgICAgNjM5MjAxNyAgIDIzMlxuIz4gNCAgIEFya2Fuc2FzICBBUiAgU291dGggICAgMjkxNTkxOCAgICA5M1xuIz4gNSBDYWxpZm9ybmlhICBDQSAgIFdlc3QgICAzNzI1Mzk1NiAgMTI1N1xuIz4gNiAgIENvbG9yYWRvICBDTyAgIFdlc3QgICAgNTAyOTE5NiAgICA2NVxuYGBgXG5gYGAifQ== -->
+<p><code>r</code>r #&gt; state abb region population total #&gt; 1 Alabama AL South 4779736 135 #&gt; 2 Alaska AK West 710231 19 #&gt; 3 Arizona AZ West 6392017 232 #&gt; 4 Arkansas AR South 2915918 93 #&gt; 5 California CA West 37253956 1257 #&gt; 6 Colorado CO West 5029196 65</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1806,20 +1803,9 @@ pre {
 <p>To see how the same information can be provided in different formats, consider the following example:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIz4gICAgICAgIGNvdW50cnkgeWVhciBmZXJ0aWxpdHlcbiM+IDEgICAgICBHZXJtYW55IDE5NjAgICAgICAyLjQxXG4jPiAyICBTb3V0aCBLb3JlYSAxOTYwICAgICAgNi4xNlxuIz4gMyAgICAgIEdlcm1hbnkgMTk2MSAgICAgIDIuNDRcbiM+IDQgIFNvdXRoIEtvcmVhIDE5NjEgICAgICA1Ljk5XG4jPiA1ICAgICAgR2VybWFueSAxOTYyICAgICAgMi40N1xuIz4gNiAgU291dGggS29yZWEgMTk2MiAgICAgIDUuNzlcbiM+IDcgICAgICBHZXJtYW55IDE5NjMgICAgICAyLjQ5XG4jPiA4ICBTb3V0aCBLb3JlYSAxOTYzICAgICAgNS41N1xuIz4gOSAgICAgIEdlcm1hbnkgMTk2NCAgICAgIDIuNDlcbiM+IDEwIFNvdXRoIEtvcmVhIDE5NjQgICAgICA1LjM2XG4jPiAxMSAgICAgR2VybWFueSAxOTY1ICAgICAgMi40OFxuIz4gMTIgU291dGggS29yZWEgMTk2NSAgICAgIDUuMTZcbmBgYCJ9 -->
-<pre class="r"><code>#&gt;        country year fertility
-#&gt; 1      Germany 1960      2.41
-#&gt; 2  South Korea 1960      6.16
-#&gt; 3      Germany 1961      2.44
-#&gt; 4  South Korea 1961      5.99
-#&gt; 5      Germany 1962      2.47
-#&gt; 6  South Korea 1962      5.79
-#&gt; 7      Germany 1963      2.49
-#&gt; 8  South Korea 1963      5.57
-#&gt; 9      Germany 1964      2.49
-#&gt; 10 South Korea 1964      5.36
-#&gt; 11     Germany 1965      2.48
-#&gt; 12 South Korea 1965      5.16</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIz4gICAgICAgIGNvdW50cnkgeWVhciBmZXJ0aWxpdHlcbiM+IDEgICAgICBHZXJtYW55IDE5NjAgICAgICAyLjQxXG4jPiAyICBTb3V0aCBLb3JlYSAxOTYwICAgICAgNi4xNlxuIz4gMyAgICAgIEdlcm1hbnkgMTk2MSAgICAgIDIuNDRcbiM+IDQgIFNvdXRoIEtvcmVhIDE5NjEgICAgICA1Ljk5XG4jPiA1ICAgICAgR2VybWFueSAxOTYyICAgICAgMi40N1xuIz4gNiAgU291dGggS29yZWEgMTk2MiAgICAgIDUuNzlcbiM+IDcgICAgICBHZXJtYW55IDE5NjMgICAgICAyLjQ5XG4jPiA4ICBTb3V0aCBLb3JlYSAxOTYzICAgICAgNS41N1xuIz4gOSAgICAgIEdlcm1hbnkgMTk2NCAgICAgIDIuNDlcbiM+IDEwIFNvdXRoIEtvcmVhIDE5NjQgICAgICA1LjM2XG4jPiAxMSAgICAgR2VybWFueSAxOTY1ICAgICAgMi40OFxuIz4gMTIgU291dGggS29yZWEgMTk2NSAgICAgIDUuMTZcbmBgYFxuYGBgIn0= -->
+<p><code>r</code>r #&gt; country year fertility #&gt; 1 Germany 1960 2.41 #&gt; 2 South Korea 1960 6.16 #&gt; 3 Germany 1961 2.44 #&gt; 4 South Korea 1961 5.99 #&gt; 5 Germany 1962 2.47 #&gt; 6 South Korea 1962 5.79 #&gt; 7 Germany 1963 2.49 #&gt; 8 South Korea 1963 5.57 #&gt; 9 Germany 1964 2.49 #&gt; 10 South Korea 1964 5.36 #&gt; 11 Germany 1965 2.48 #&gt; 12 South Korea 1965 5.16</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1861,13 +1847,9 @@ F. <code>UCBAdmissions</code></p></li>
 </ol>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGVhZChCSnNhbGVzKVxuaGVhZChFdVN0b2NrTWFya2V0cylcbmhlYWQoRE5hc2UpXG5oZWFkKEZvcm1hbGRlaHlkZSlcbmhlYWQoT3JhbmdlKVxuaGVhZChVQ0JBZG1pc3Npb25zKVxuYGBgIn0= -->
-<pre class="r"><code>head(BJsales)
-head(EuStockMarkets)
-head(DNase)
-head(Formaldehyde)
-head(Orange)
-head(UCBAdmissions)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuaGVhZChtdXJkZXJzKVxuIz4gICAgICAgIHN0YXRlIGFiYiByZWdpb24gcG9wdWxhdGlvbiB0b3RhbCByYXRlXG4jPiAxICAgIEFsYWJhbWEgIEFMICBTb3V0aCAgICA0Nzc5NzM2ICAgMTM1IDIuODJcbiM+IDIgICAgIEFsYXNrYSAgQUsgICBXZXN0ICAgICA3MTAyMzEgICAgMTkgMi42OFxuIz4gMyAgICBBcml6b25hICBBWiAgIFdlc3QgICAgNjM5MjAxNyAgIDIzMiAzLjYzXG4jPiA0ICAgQXJrYW5zYXMgIEFSICBTb3V0aCAgICAyOTE1OTE4ICAgIDkzIDMuMTlcbiM+IDUgQ2FsaWZvcm5pYSAgQ0EgICBXZXN0ICAgMzcyNTM5NTYgIDEyNTcgMy4zN1xuIz4gNiAgIENvbG9yYWRvICBDTyAgIFdlc3QgICAgNTAyOTE5NiAgICA2NSAxLjI5XG5gYGBcbmBgYCJ9 -->
+<p><code>r</code>r head(murders) #&gt; state abb region population total rate #&gt; 1 Alabama AL South 4779736 135 2.82 #&gt; 2 Alaska AK West 710231 19 2.68 #&gt; 3 Arizona AZ West 6392017 232 3.63 #&gt; 4 Arkansas AR South 2915918 93 3.19 #&gt; 5 California CA West 37253956 1257 3.37 #&gt; 6 Colorado CO West 5029196 65 1.29</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1881,10 +1863,9 @@ head(UCBAdmissions)</code></pre>
 <p>We want all the necessary information for our analysis to be included in the data table. So the first task is to add the murder rates to our murders data frame. The function <code>mutate</code> takes the data frame as a first argument and the name and values of the variable as a second argument using the convention <code>name = values</code>. So, to add murder rates, we use:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkc2xhYnMpXG5kYXRhKFwibXVyZGVyc1wiKVxubXVyZGVycyA8LSBtdXRhdGUobXVyZGVycywgcmF0ZSA9IHRvdGFsIC8gcG9wdWxhdGlvbiAqIDEwMDAwMClcbmBgYCJ9 -->
-<pre class="r"><code>library(dslabs)
-data(&quot;murders&quot;)
-murders &lt;- mutate(murders, rate = total / population * 100000)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZmlsdGVyKG11cmRlcnMsIHJhdGUgPD0gMC43MSlcbiM+ICAgICAgICAgICBzdGF0ZSBhYmIgICAgICAgIHJlZ2lvbiBwb3B1bGF0aW9uIHRvdGFsICByYXRlXG4jPiAxICAgICAgICBIYXdhaWkgIEhJICAgICAgICAgIFdlc3QgICAgMTM2MDMwMSAgICAgNyAwLjUxNVxuIz4gMiAgICAgICAgICBJb3dhICBJQSBOb3J0aCBDZW50cmFsICAgIDMwNDYzNTUgICAgMjEgMC42ODlcbiM+IDMgTmV3IEhhbXBzaGlyZSAgTkggICAgIE5vcnRoZWFzdCAgICAxMzE2NDcwICAgICA1IDAuMzgwXG4jPiA0ICBOb3J0aCBEYWtvdGEgIE5EIE5vcnRoIENlbnRyYWwgICAgIDY3MjU5MSAgICAgNCAwLjU5NVxuIz4gNSAgICAgICBWZXJtb250ICBWVCAgICAgTm9ydGhlYXN0ICAgICA2MjU3NDEgICAgIDIgMC4zMjBcbmBgYFxuYGBgIn0= -->
+<p><code>r</code>r filter(murders, rate &lt;= 0.71) #&gt; state abb region population total rate #&gt; 1 Hawaii HI West 1360301 7 0.515 #&gt; 2 Iowa IA North Central 3046355 21 0.689 #&gt; 3 New Hampshire NH Northeast 1316470 5 0.380 #&gt; 4 North Dakota ND North Central 672591 4 0.595 #&gt; 5 Vermont VT Northeast 625741 2 0.320</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1893,15 +1874,9 @@ murders &lt;- mutate(murders, rate = total / population * 100000)</code></pre>
 <p>We can see that the new column is added:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGVhZChtdXJkZXJzKVxuIz4gICAgICAgIHN0YXRlIGFiYiByZWdpb24gcG9wdWxhdGlvbiB0b3RhbCByYXRlXG4jPiAxICAgIEFsYWJhbWEgIEFMICBTb3V0aCAgICA0Nzc5NzM2ICAgMTM1IDIuODJcbiM+IDIgICAgIEFsYXNrYSAgQUsgICBXZXN0ICAgICA3MTAyMzEgICAgMTkgMi42OFxuIz4gMyAgICBBcml6b25hICBBWiAgIFdlc3QgICAgNjM5MjAxNyAgIDIzMiAzLjYzXG4jPiA0ICAgQXJrYW5zYXMgIEFSICBTb3V0aCAgICAyOTE1OTE4ICAgIDkzIDMuMTlcbiM+IDUgQ2FsaWZvcm5pYSAgQ0EgICBXZXN0ICAgMzcyNTM5NTYgIDEyNTcgMy4zN1xuIz4gNiAgIENvbG9yYWRvICBDTyAgIFdlc3QgICAgNTAyOTE5NiAgICA2NSAxLjI5XG5gYGAifQ== -->
-<pre class="r"><code>head(murders)
-#&gt;        state abb region population total rate
-#&gt; 1    Alabama  AL  South    4779736   135 2.82
-#&gt; 2     Alaska  AK   West     710231    19 2.68
-#&gt; 3    Arizona  AZ   West    6392017   232 3.63
-#&gt; 4   Arkansas  AR  South    2915918    93 3.19
-#&gt; 5 California  CA   West   37253956  1257 3.37
-#&gt; 6   Colorado  CO   West    5029196    65 1.29</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubmV3X3RhYmxlIDwtIHNlbGVjdChtdXJkZXJzLCBzdGF0ZSwgcmVnaW9uLCByYXRlKVxuZmlsdGVyKG5ld190YWJsZSwgcmF0ZSA8PSAwLjcxKVxuIz4gICAgICAgICAgIHN0YXRlICAgICAgICByZWdpb24gIHJhdGVcbiM+IDEgICAgICAgIEhhd2FpaSAgICAgICAgICBXZXN0IDAuNTE1XG4jPiAyICAgICAgICAgIElvd2EgTm9ydGggQ2VudHJhbCAwLjY4OVxuIz4gMyBOZXcgSGFtcHNoaXJlICAgICBOb3J0aGVhc3QgMC4zODBcbiM+IDQgIE5vcnRoIERha290YSBOb3J0aCBDZW50cmFsIDAuNTk1XG4jPiA1ICAgICAgIFZlcm1vbnQgICAgIE5vcnRoZWFzdCAwLjMyMFxuYGBgXG5gYGAifQ== -->
+<p><code>r</code>r new_table &lt;- select(murders, state, region, rate) filter(new_table, rate &lt;= 0.71) #&gt; state region rate #&gt; 1 Hawaii West 0.515 #&gt; 2 Iowa North Central 0.689 #&gt; 3 New Hampshire Northeast 0.380 #&gt; 4 North Dakota North Central 0.595 #&gt; 5 Vermont Northeast 0.320</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1912,14 +1887,9 @@ murders &lt;- mutate(murders, rate = total / population * 100000)</code></pre>
 <p>Now suppose that we want to filter the data table to only show the entries for which the murder rate is lower than 0.71. To do this we use the <code>filter</code> function, which takes the data table as the first argument and then the conditional statement as the second. Like <code>mutate</code>, we can use the unquoted variable names from <code>murders</code> inside the function and it will know we mean the columns and not objects in the workspace.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmlsdGVyKG11cmRlcnMsIHJhdGUgPD0gMC43MSlcbiM+ICAgICAgICAgICBzdGF0ZSBhYmIgICAgICAgIHJlZ2lvbiBwb3B1bGF0aW9uIHRvdGFsICByYXRlXG4jPiAxICAgICAgICBIYXdhaWkgIEhJICAgICAgICAgIFdlc3QgICAgMTM2MDMwMSAgICAgNyAwLjUxNVxuIz4gMiAgICAgICAgICBJb3dhICBJQSBOb3J0aCBDZW50cmFsICAgIDMwNDYzNTUgICAgMjEgMC42ODlcbiM+IDMgTmV3IEhhbXBzaGlyZSAgTkggICAgIE5vcnRoZWFzdCAgICAxMzE2NDcwICAgICA1IDAuMzgwXG4jPiA0ICBOb3J0aCBEYWtvdGEgIE5EIE5vcnRoIENlbnRyYWwgICAgIDY3MjU5MSAgICAgNCAwLjU5NVxuIz4gNSAgICAgICBWZXJtb250ICBWVCAgICAgTm9ydGhlYXN0ICAgICA2MjU3NDEgICAgIDIgMC4zMjBcbmBgYCJ9 -->
-<pre class="r"><code>filter(murders, rate &lt;= 0.71)
-#&gt;           state abb        region population total  rate
-#&gt; 1        Hawaii  HI          West    1360301     7 0.515
-#&gt; 2          Iowa  IA North Central    3046355    21 0.689
-#&gt; 3 New Hampshire  NH     Northeast    1316470     5 0.380
-#&gt; 4  North Dakota  ND North Central     672591     4 0.595
-#&gt; 5       Vermont  VT     Northeast     625741     2 0.320</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubGlicmFyeShkcGx5cilcbmxpYnJhcnkoZHNsYWJzKVxuZGF0YShtdXJkZXJzKVxuYGBgXG5gYGAifQ== -->
+<p><code>r</code>r library(dplyr) library(dslabs) data(murders)</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1929,15 +1899,9 @@ murders &lt;- mutate(murders, rate = total / population * 100000)</code></pre>
 <p>Although our data table only has six columns, some data tables include hundreds. If we want to view just a few, we can use the <strong>dplyr</strong> <code>select</code> function. In the code below we select three columns, assign this to a new object and then filter the new object:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmV3X3RhYmxlIDwtIHNlbGVjdChtdXJkZXJzLCBzdGF0ZSwgcmVnaW9uLCByYXRlKVxuZmlsdGVyKG5ld190YWJsZSwgcmF0ZSA8PSAwLjcxKVxuIz4gICAgICAgICAgIHN0YXRlICAgICAgICByZWdpb24gIHJhdGVcbiM+IDEgICAgICAgIEhhd2FpaSAgICAgICAgICBXZXN0IDAuNTE1XG4jPiAyICAgICAgICAgIElvd2EgTm9ydGggQ2VudHJhbCAwLjY4OVxuIz4gMyBOZXcgSGFtcHNoaXJlICAgICBOb3J0aGVhc3QgMC4zODBcbiM+IDQgIE5vcnRoIERha290YSBOb3J0aCBDZW50cmFsIDAuNTk1XG4jPiA1ICAgICAgIFZlcm1vbnQgICAgIE5vcnRoZWFzdCAwLjMyMFxuYGBgIn0= -->
-<pre class="r"><code>new_table &lt;- select(murders, state, region, rate)
-filter(new_table, rate &lt;= 0.71)
-#&gt;           state        region  rate
-#&gt; 1        Hawaii          West 0.515
-#&gt; 2          Iowa North Central 0.689
-#&gt; 3 New Hampshire     Northeast 0.380
-#&gt; 4  North Dakota North Central 0.595
-#&gt; 5       Vermont     Northeast 0.320</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubXVyZGVycyA8LSBtdXRhdGUobXVyZGVycywgcG9wdWxhdGlvbl9pbl9taWxsaW9ucyA9IHBvcHVsYXRpb24gLyAxMF42KVxuYGBgXG5gYGAifQ== -->
+<p><code>r</code>r murders &lt;- mutate(murders, population_in_millions = population / 10^6)</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1950,18 +1914,18 @@ filter(new_table, rate &lt;= 0.71)
 </ol>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkcGx5cilcbmxpYnJhcnkoZHNsYWJzKVxuZGF0YShtdXJkZXJzKVxuYGBgIn0= -->
-<pre class="r"><code>library(dplyr)
-library(dslabs)
-data(murders)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubXVyZGVycyA8LSBtdXRhdGUobXVyZGVycywgcmF0ZSA9IHRvdGFsIC8gcG9wdWxhdGlvbiAqIDEwMDAwMClcbmBgYFxuYGBgIn0= -->
+<p><code>r</code>r murders &lt;- mutate(murders, rate = total / population * 100000)</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>You can add columns using the <strong>dplyr</strong> function <code>mutate</code>. This function is aware of the column names and inside the function you can call them unquoted:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXVyZGVycyA8LSBtdXRhdGUobXVyZGVycywgcG9wdWxhdGlvbl9pbl9taWxsaW9ucyA9IHBvcHVsYXRpb24gLyAxMF42KVxuYGBgIn0= -->
-<pre class="r"><code>murders &lt;- mutate(murders, population_in_millions = population / 10^6)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubXVyZGVycyA8LSBtdXRhdGUobXVyZGVycywgcmF0ZSA9IHRvdGFsIC8gcG9wdWxhdGlvbiAqIDEwXjYpXG5tdXJkZXJzIDwtIG11dGF0ZShtdXJkZXJzLCByYW5rID0gcmFuaygtcmF0ZSkpXG5gYGBcbmBgYCJ9 -->
+<p><code>r</code>r murders &lt;- mutate(murders, rate = total / population * 10^6) murders &lt;- mutate(murders, rank = rank(-rate))</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1970,8 +1934,9 @@ data(murders)</code></pre>
 <p>answer:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXVyZGVycyA8LSBtdXRhdGUobXVyZGVycywgcmF0ZSA9IHRvdGFsIC8gcG9wdWxhdGlvbiAqIDEwMDAwMClcbmBgYCJ9 -->
-<pre class="r"><code>murders &lt;- mutate(murders, rate = total / population * 100000)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuc2VsZWN0KG11cmRlcnMsIHN0YXRlLCBwb3B1bGF0aW9uKSAlPiUgaGVhZCgpXG5gYGBcbmBgYCJ9 -->
+<p><code>r</code>r select(murders, state, population) %&gt;% head()</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1992,8 +1957,9 @@ murders &lt;- mutate(murders, rank = rank(-rate))</code></pre>
 </ol>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2VsZWN0KG11cmRlcnMsIHN0YXRlLCBwb3B1bGF0aW9uKSAlPiUgaGVhZCgpXG5gYGAifQ== -->
-<pre class="r"><code>select(murders, state, population) %&gt;% head()</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZmlsdGVyKG11cmRlcnMsIHN0YXRlID09IFxcTmV3IFlvcmtcXClcbllvdSBjYW4gdXNlIG90aGVyIGxvZ2ljYWwgdmVjdG9ycyB0byBmaWx0ZXIgcm93cy5cbmBgYFxuYGBgIn0= -->
+<p><code>r</code>r filter(murders, state == York) You can use other logical vectors to filter rows.</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -2004,6 +1970,13 @@ murders &lt;- mutate(murders, rank = rank(-rate))</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2VsZWN0KG11cmRlcnMsIHN0YXRlLCBhYmIpICU+JSBoZWFkKClcbmBgYCJ9 -->
 <pre class="r"><code>select(murders, state, abb) %&gt;% head()</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MiwibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUJsMVJ5MDdETUJEY09FMUtJeFdRK0k3bUFGeDZqTUlOSkZCUFZXK2JSOEZLYWxlMkt4QW52cnl3VG0wTE9aTGxtZkhPcmlmZVBHMGZpbTBCQUNta2VRSnBSaEN5K20zOXVBYVlNU0lKekdCaDl5OHF1aU5neFZ0YXVUdVlWeU0yZUVCSGM2SjZ3SENvK0xjVW5sNVZha0NoVVR0ZTFEanl2VlNDaDRwYWpsSmhKNk1wckhvSjZEbWdYVUFiaitvcW9OY29RaWJ3MEd2WG1IbFJHelM5SXlrMlRXUmFLUGxaZXVQU0duOWcrdks0ZTB2QmZYY3ZGaDBhTFBlSy9NVE9rV1V1ajRaTFFTWm0vMndXbVJNVkNUY25ZVy9TcmRxUGt4aFc5M2JBZEh4WlM3Zm4vekM3akdTL3JsWG1uNmtYNzF6NDNCazlZVDg2Y2sySnA4RGxVWEZoZkJKU2RXbWtRVjlYdEhMMHlwUU56bitBaS9nYVVBSUFBQT09In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["abb"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"Alabama","2":"AL","_rn_":"1"},{"1":"Alaska","2":"AK","_rn_":"2"},{"1":"Arizona","2":"AZ","_rn_":"3"},{"1":"Arkansas","2":"AR","_rn_":"4"},{"1":"California","2":"CA","_rn_":"5"},{"1":"Colorado","2":"CO","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <ol start="4" style="list-style-type: decimal">
@@ -2011,25 +1984,289 @@ murders &lt;- mutate(murders, rank = rank(-rate))</code></pre>
 </ol>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmlsdGVyKG11cmRlcnMsIHN0YXRlID09IFwiTmV3IFlvcmtcIilcbllvdSBjYW4gdXNlIG90aGVyIGxvZ2ljYWwgdmVjdG9ycyB0byBmaWx0ZXIgcm93cy5cbmBgYCJ9 -->
-<pre class="r"><code>filter(murders, state == &quot;New York&quot;)
-You can use other logical vectors to filter rows.</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmlsdGVyKG11cmRlcnMsIHN0YXRlID09IFwiTmV3IFlvcmtcIilcbmBgYCJ9 -->
+<pre class="r"><code>filter(murders, state == &quot;New York&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6NSwibnJvdyI6MX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJtMVJQVS9ETUJCMW1qaVFTQzFJL0lHT0xJMkVZT2tHS25PRVlLRGRjRkszaVdyc3lIRW9ZdUovSTVXZUhSdUlSYVJUN3IwNzM3dVB4L3ZsZGJwTUVVSWhDdU1BaFJoY2hCY1A4NXM1UXRFSVFJQWlsT2ovT3lSZDZDalkrWi9BYVU3MzA1V1FPNDhmNVN0NE1UYU1zVUc1bU5FM3lscjdKckpza2d1cEtrcGFaUW44SkRwVldUQTIwZW1DY2lVSnMyVDBUQ0Y3V0J5WGpMU3QxMCs4SWFVU0Vyd0QyRVJIN3VUSDF3c3luOEczbjVjOThzcHg4a3BkT2V6SVZoRkZMUWhKVVRnWlNiZTE0QmFsaldnNlJ0UXZnNVZRMFB4UUlaRmluemtWYjJYaHR6ZEl1aWFLWkJzSjZmMHdnMUlub3RGcVVHajAzN1VDNlJGbkhkZkM2MWxaZFh3M3U5SUN0Z0UwYk9iSHg3MWs1QnB6SzRrcDM5YmM3UVF6VWxCM3BRa01hT2JMR2xsemQ5MFUyRGJyRjJLWlVqREg5SWM2SEFIbmdCZVpwQUlBQUE9PSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["abb"],"name":[2],"type":["chr"],"align":["left"]},{"label":["region"],"name":[3],"type":["fctr"],"align":["left"]},{"label":["population"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["total"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"New York","2":"NY","3":"Northeast","4":"19378102","5":"517"}],"options":{"columns":{"min":{},"max":[10],"total":[5]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>You can use other logical vectors to filter rows.</p>
+<p>Use <code>filter</code> to show the top 5 states with the highest murder rates. After we add murder rate and rank, do not change the murders dataset, just show the result. Remember that you can filter based on the <code>rank</code> column.</p>
+<p>answer:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmlsdGVyKG11cmRlcnMsIDUgPj0gcmFuaylcbmBgYCJ9 -->
+<pre class="r"><code>filter(murders, 5 &gt;= rank)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6NywibnJvdyI6NX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJsMVNQVzhUTVJoMmNuZEpjMUtxU08xT2hNVFlTS2dzbFpCd2RDY2tvRjhRQ1NLQkJNN0ZhYXk2ZG1UN2dHN01MUFEvMEtVakMzTi9BRnNYSkJiNEJiREFSc0dmU1M2V3JPZDVINzkrdit3bitYQTdIYVlBZ0FoRWpScUlFazFCa2gzdTNOa0JJSzVyb3daaTBETDRWanR0YU5MVXUyTzgvTUZtVHFRU3BGQmRQdWxtbkpZbkk0TDhXV3VYbDBRU3hJS3d0b2ZFS1VWc1BMZUpsTHdVeE52ckExNnFhVGREZ2xPaWIxVlQxZk1zc04xK1lIdjVuQjBFTnNoMHNXMTdVMXRMTzNKWTZheEI4V3RNcGM4Vmg5TDN1VkJUaktUeVFtSkw4MGJibm5ZenpKUkExSXZ4TTZ5OXE4R1RnaUlaWXM4elRsQ2h1TkRzMnZSczNQbzNYL3d4cys4L2ZuVEQ0dFBHWFlkZlAxeGEvZnczY012NncrR2xOV0Q1eTZFNGRLZzZEc2wzVVBFZm4vMTRmM0RyRXh3OGg2ZkYxVGw4OFBMcUoyYWY0Y012Ri92NTJUZDQveFg1U3o5ZUJQOTdMaXlBUGdqc2VGenp1Qm5DVjl0bDZBU0hkcHRCbEFvcDdJMElqVVpoREFJZkVjNjhsYzc0cktSSUxaUkVjYlVZcmxqRTBKd2RyMlJ1Q2Y2bUY3S2JwNisvYy9VbHpqSDZ0L0lJNlJncDFKc0lmY1U5UkNWY2s4OU1KVHBZZmNQL28rWExOYkVpZEVwbWtvKzNpbW5KanJkdWI1c005dHl0dHVmSkVtKzZuSEdvTEh6ekJtWkhoSVZtRTRwR09FeGhYWGRwbSt6TkJHSGhhNlphbGIzbGFhVUZwMEZ4dit6NlA3WG1ieGZzQXdBQSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["abb"],"name":[2],"type":["chr"],"align":["left"]},{"label":["region"],"name":[3],"type":["fctr"],"align":["left"]},{"label":["population"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["total"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["rate"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["rank"],"name":[7],"type":["dbl"],"align":["right"]}],"data":[{"1":"District of Columbia","2":"DC","3":"South","4":"601723","5":"99","6":"164.52753","7":"1"},{"1":"Louisiana","2":"LA","3":"South","4":"4533372","5":"351","6":"77.42581","7":"2"},{"1":"Maryland","2":"MD","3":"South","4":"5773552","5":"293","6":"50.74866","7":"4"},{"1":"Missouri","2":"MO","3":"North Central","4":"5988927","5":"321","6":"53.59892","7":"3"},{"1":"South Carolina","2":"SC","3":"South","4":"4625364","5":"207","6":"44.75323","7":"5"}],"options":{"columns":{"min":{},"max":[10],"total":[7]},"rows":{"min":[10],"max":[10],"total":[5]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ol start="5" style="list-style-type: decimal">
+<li>We can remove rows using the <code>!=</code> operator. For example, to remove Florida, we would do this:</li>
+</ol>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubm9fZmxvcmlkYSA8LSBmaWx0ZXIobXVyZGVycywgc3RhdGUgIT0gXCJGbG9yaWRhXCIpXG5gYGAifQ== -->
+<pre class="r"><code>no_florida &lt;- filter(murders, state != &quot;Florida&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Use <code>filter</code> to show the top 5 states with the highest murder rates. After we add murder rate and rank, do not change the murders dataset, just show the result. Remember that you can filter based on the rank column.</p>
-<p>We can remove rows using the != operator. For example, to remove Florida, we would do this:</p>
-<p>no_florida &lt;- filter(murders, state != “Florida”) Create a new data frame called no_south that removes states from the South region. How many states are in this category? You can use the function nrow for this.</p>
-<p>We can also use %in% to filter with dplyr. You can therefore see the data from New York and Texas like this:</p>
-<p>filter(murders, state %in% c(“New York”, “Texas”)) Create a new data frame called murders_nw with only the states from the Northeast and the West. How many states are in this category?</p>
-<p>Suppose you want to live in the Northeast or West and want the murder rate to be less than 1. We want to see the data for the states satisfying these options. Note that you can use logical operators with filter. Here is an example in which we filter to keep only small states in the Northeast region.</p>
-<p>filter(murders, population &lt; 5000000 &amp; region == “Northeast”) Make sure murders has been defined with rate and rank and still has all states. Create a table called my_states that contains rows for states satisfying both the conditions: it is in the Northeast or West and the murder rate is less than 1. Use select to show only the state name, the rate and the rank.</p>
+<p>Create a new data frame called <code>no_south</code> that removes states from the South region. How many states are in this category? You can use the function <code>nrow</code> for this.</p>
+<p>answer:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubm9fc291dGggPC0gZmlsdGVyKG11cmRlcnMsIHJlZ2lvbiAhPSBcIlNvdXRoXCIpXG5ucm93KG5vX3NvdXRoKVxuYGBgIn0= -->
+<pre class="r"><code>no_south &lt;- filter(murders, region != &quot;South&quot;)
+nrow(no_south)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDM0XG4ifQ== -->
+<pre><code>[1] 34</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ol start="6" style="list-style-type: decimal">
+<li>We can also use <code>%in%</code> to filter with <strong>dplyr</strong>. You can therefore see the data from New York and Texas like this:</li>
+</ol>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmlsdGVyKG11cmRlcnMsIHN0YXRlICVpbiUgYyhcIk5ldyBZb3JrXCIsIFwiVGV4YXNcIikpXG5gYGAifQ== -->
+<pre class="r"><code>filter(murders, state %in% c(&quot;New York&quot;, &quot;Texas&quot;))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6NywibnJvdyI6Mn0sInJkZiI6Ikg0c0lBQUFBQUFBQUJtMVN5MHJEUUJTZHZCb2JhQlg4Z1c0RU53MktibW9SVXVxNmlCWnNkMDdUNllQR21UQ1oyT0xLcmE1Y3VmVUwvQUx4WC93T0M5V2JaQ1kxd2NBdzk1NjVjODY1TjNOMU1UaHhCZzVDeUVCR1JVT0dCU0d5dXBldDB4WkNwZzZKaGt4VVRmWVZGTzFEWU1QYWc2WExnNTBlV1RhR2pDOWtidlhKQ2tlbElyMDNWRkYvQUVTMTlDeGhUL2VDVWlVZzl5UlFES1pFcXozR3hZemdTQ2lkYXhhTG1VeHE2V21qUzZqZ09KQ2dlVU9ndWtodStRR09GSGV1T01HK1lCeWlEYXg2NHFuREg5YTNFSFNXNjlvTFNyOFU5eDRQMDhSN3l2WWNQM3YvYnJlZkR6eFArL3o0ZW4zTDhmT3N5RHRTNVVVN0ZOOFJaY2RXWUNTd0lESXg4R2lrYkhJeW5UTXFNeWRrWVJ4Z3NVVXN3Y1MyZWI3bGdKZ3VTc3BWenBhdVV2L25keGcvcFNFNVl5eXdPK0Z3SlJ0VWdjNW1ZZUlFeVBUa2tWaWx5eG92QWJzeFRjVEhUWDhXMDBYek9CR1FCcEEwSk0za3NaMUptc3FZcGNaQzZIUk9WYTlXZ0VkRURhRU9UYVk5dWlHZlUvVnlIRUFqOSsrd0hKOEZDc2tld2VZWGVwQW9VQnNEQUFBPSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["abb"],"name":[2],"type":["chr"],"align":["left"]},{"label":["region"],"name":[3],"type":["fctr"],"align":["left"]},{"label":["population"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["total"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["rate"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["rank"],"name":[7],"type":["dbl"],"align":["right"]}],"data":[{"1":"New York","2":"NY","3":"Northeast","4":"19378102","5":"517","6":"26.6796","7":"29"},{"1":"Texas","2":"TX","3":"South","4":"25145561","5":"805","6":"32.0136","7":"16"}],"options":{"columns":{"min":{},"max":[10],"total":[7]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Create a new data frame called <code>murders_nw</code> with only the states from the Northeast and the West. How many states are in this category?</p>
+<blockquote>
+<p><code>%in%</code>에 대하여<br />
+<code>Vector_A %in% Vector_B</code> 라고 할 때, A의 값이 B에 있나 확인하는 함수.<br />
+<code>c(&quot;Boston&quot;, &quot;Dakota&quot;, &quot;Washington&quot;) %in% murders$state</code><br />
+<code>#&gt; [1] FALSE FASLSE TRUE</code><br />
+<code>murders$state %in% c(&quot;Boston&quot;, &quot;Dakota&quot;, &quot;Washington&quot;)</code>의 경우 state column에 있는 모든 값들에 T,F 를 실시함. 총 51개 값이 나옴.</p>
+</blockquote>
+<p>answer:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXVyZGVyc19udyA8LSBmaWx0ZXIobXVyZGVycywgcmVnaW9uICVpbiUgYyhcIk5vcnRoZWFzdFwiLCBcIldlc3RcIikpXG5gYGAifQ== -->
+<pre class="r"><code>murders_nw &lt;- filter(murders, region %in% c(&quot;Northeast&quot;, &quot;West&quot;))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ol start="7" style="list-style-type: decimal">
+<li>Suppose you want to live in the Northeast or West <strong>and</strong> want the murder rate to be less than 1. We want to see the data for the states satisfying these options. Note that you can use logical operators with <code>filter</code>. Here is an example in which we filter to keep only small states in the Northeast region.</li>
+</ol>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmlsdGVyKG11cmRlcnMsIHBvcHVsYXRpb24gPCA1MDAwMDAwICYgcmVnaW9uID09IFwiTm9ydGhlYXN0XCIpXG5gYGAifQ== -->
+<pre class="r"><code>filter(murders, population &lt; 5000000 &amp; region == &quot;Northeast&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Make sure <code>murders</code> has been defined with <code>rate</code> and <code>rank</code> and still has all states. Create a table called <code>my_states</code> that contains rows for states satisfying both the conditions: it is in the Northeast or West and the murder rate is less than 1. Use <code>select</code> to show only the state name, the rate and the rank.</p>
+<p>answer:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBIb3cgdGhlIHJhdGUgY29sdW1uIGlzIGRlZmluZWRcbiMgbXVyZGVycyA8LSBtdXRhdGUobXVyZGVycywgcmF0ZSA9IHRvdGFsIC8gcG9wdWxhdGlvbiAqIDEwXjUpXG5cbm15X3RhYmxlIDwtIGZpbHRlcihtdXJkZXJzLCByZWdpb24gJWluJSBjKFwiTm9ydGhlYXN0XCIsIFwiV2VzdFwiKSAmIDEgPiByYXRlKVxuc2VsZWN0KG15X3RhYmxlLCBzdGF0ZSwgcmF0ZSwgcmFuaylcbmBgYCJ9 -->
+<pre class="r"><code># How the rate column is defined
+# murders &lt;- mutate(murders, rate = total / population * 10^5)
+
+my_table &lt;- filter(murders, region %in% c(&quot;Northeast&quot;, &quot;West&quot;) &amp; 1 &gt; rate)
+select(my_table, state, rate, rank)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6OH0sInJkZiI6Ikg0c0lBQUFBQUFBQUJndHlpVERtaXVCaVlHQmdabUJtWTJSZ1pnVXlHVmlkQXl4TkxCa1lXSmlBSEVZR0ZnWk9FRjBCVkNRTVZzbkFJQURFSEZBSk5vL0U4c1RNVENpUDFUTWxNU01meHZGTnpNeExoWEo0L1ZMTEZUd1Njd3VLTXpLTFlJSnMva1dwNmZsNVVCNUxhRWxpQnBUTkhwWmFsSnVmVndMamhsZm01MmJtcFFPWmZDREw3UitVZDg3dnRLbXhmMUhQYjczMjhUNzdWL1didG9zK1dHMS93Mi96WEk4N2EremZDVDQ1MU42blkvK3lZcTMrN2NXbjdhK1VySDdJZHIzVS9rMnkxZS9ndjR3d2N4dzhHa0JlWm5Cd1o0RFFibERhRTBxN3dzU2g2anlodEN1RVJnc2wxcnpFM05SaWFBZ3h3d1NMU3hKTFlENW1LVUpoNTJXam1jQlpsRit1QnpPRkY0aVpvQlp4b0Z1Vm5KTllETE1LSnNpVmtsaVNxSmRXQk5RUDVQMUQwOEtlWDFDU21aOEgxTVFFaWtsV05NMk1SV2dDL0tWNUlKZWs2Q1pubE9abDZ4cUJMQUJMUXdBdmxNMkJ4R2FHV01uMEgyb1VLeXlpVS9QU0VXbUJOU2N4S1RVSHl1RUQraGpzWWIyQ29reDRoSE1CUll2MVN2SkxFbUhxdUpMemMyQWlZTDh4L0FNQXFmT2w4Y0FDQUFBPSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["rate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["rank"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hawaii","2":"0.5145920","3":"49"},{"1":"Idaho","2":"0.7655102","3":"46"},{"1":"Maine","2":"0.8280881","3":"44"},{"1":"New Hampshire","2":"0.3798036","3":"50"},{"1":"Oregon","2":"0.9396843","3":"42"},{"1":"Utah","2":"0.7959810","3":"45"},{"1":"Vermont","2":"0.3196211","3":"51"},{"1":"Wyoming","2":"0.8871131","3":"43"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[8]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+</div>
+<div id="the-pipe" class="section level2">
+<h2>5.5 The pipe : %&gt;%</h2>
+<p>With <strong>dplyr</strong> we can perform a series of operations, for example <code>select</code> and then <code>filter</code>, by sending the results of one function to another using what is called the <em>pipe operator</em>: <code>%&gt;%</code>. Some details are included below.</p>
+<p>We wrote code above to show three variables (state, region, rate) for states that have murder rates below 0.71. To do this, we defined the intermediate object <code>new_table</code>. In <strong>dplyr</strong> we can write code that looks more like a description of what we want to do without intermediate objects:</p>
+<p><span class="math display">\[ \rm{orignial ~~ data} \rightarrow \rm{select} \rightarrow \rm{filter}\]</span></p>
+<p>For such an operation, we can use the pipe <code>%&gt;%</code>. The code looks like this:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXVyZGVycyAlPiUgc2VsZWN0KHN0YXRlLCByZWdpb24sIHJhdGUpICU+JSBmaWx0ZXIocmF0ZSA8PSAwLjcxKVxuIz4gICAgICAgICAgIHN0YXRlICAgICAgICByZWdpb24gIHJhdGVcbiM+IDEgICAgICAgIEhhd2FpaSAgICAgICAgICBXZXN0IDAuNTE1XG4jPiAyICAgICAgICAgIElvd2EgTm9ydGggQ2VudHJhbCAwLjY4OVxuIz4gMyBOZXcgSGFtcHNoaXJlICAgICBOb3J0aGVhc3QgMC4zODBcbiM+IDQgIE5vcnRoIERha290YSBOb3J0aCBDZW50cmFsIDAuNTk1XG4jPiA1ICAgICAgIFZlcm1vbnQgICAgIE5vcnRoZWFzdCAwLjMyMFxuYGBgIn0= -->
+<pre class="r"><code>murders %&gt;% select(state, region, rate) %&gt;% filter(rate &lt;= 0.71)
+#&gt;           state        region  rate
+#&gt; 1        Hawaii          West 0.515
+#&gt; 2          Iowa North Central 0.689
+#&gt; 3 New Hampshire     Northeast 0.380
+#&gt; 4  North Dakota North Central 0.595
+#&gt; 5       Vermont     Northeast 0.320</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>This line of code is equivalent to the two lines of code above. What is going on here?</p>
+<p>In general, the pipe sends the result of the left side of the pipe to be the first argument of the function on the right side of the pipe. Here is a very simple example:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuMTYgJT4lIHNxcnQoKVxuIz4gWzFdIDRcbmBgYCJ9 -->
+<pre class="r"><code>16 %&gt;% sqrt()
+#&gt; [1] 4</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>We can continue to pipe values along:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuMTYgJT4lIHNxcnQoKSAlPiUgbG9nMigpXG4jPiBbMV0gMlxuYGBgIn0= -->
+<pre class="r"><code>16 %&gt;% sqrt() %&gt;% log2()
+#&gt; [1] 2</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The above statement is equivalent to <code>log2(sqrt(16))</code>.</p>
+<p>Remember that the pipe sends values to the first argument, so we can define other arguments as if the first argument is already defined:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuMTYgJT4lIHNxcnQoKSAlPiUgbG9nKGJhc2UgPSAyKVxuIz4gWzFdIDJcbmBgYCJ9 -->
+<pre class="r"><code>16 %&gt;% sqrt() %&gt;% log(base = 2)
+#&gt; [1] 2</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Therefore, when using the pipe with data frames and <strong>dplyr</strong>, we no longer need to specify the required first argument since the <strong>dplyr</strong> functions we have described all take the data as the first argument. In the code we wrote:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXVyZGVycyAlPiUgc2VsZWN0KHN0YXRlLCByZWdpb24sIHJhdGUpICU+JSBmaWx0ZXIocmF0ZSA8PSAwLjcxKVxuYGBgIn0= -->
+<pre class="r"><code>murders %&gt;% select(state, region, rate) %&gt;% filter(rate &lt;= 0.71)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p><code>murders</code> is the first argument of the <code>select</code> function, and the new data frame (formerly <code>new_table</code>) is the first argument of the <code>filter</code> function.</p>
+<p>Note that the pipe works well with functions where the first argument is the input data. Functions in <strong>tidyverse</strong> packages like <strong>dplyr</strong> have this format and can be used easily with the pipe.</p>
+</div>
+<div id="exercises-1" class="section level2">
+<h2>5.6 Exercises</h2>
+<ol style="list-style-type: decimal">
+<li>The pipe <code>%&gt;%</code> can be used to perform operations sequentially without having to define intermediate objects. Start by redefining murder to include rate and rank.</li>
+</ol>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXVyZGVycyA8LSBtdXRhdGUobXVyZGVycywgcmF0ZSA9ICB0b3RhbCAvIHBvcHVsYXRpb24gKiAxMDAwMDAsIHJhbmsgPSByYW5rKC1yYXRlKSlcbmBgYCJ9 -->
+<pre class="r"><code>murders &lt;- mutate(murders, rate =  total / population * 100000, rank = rank(-rate))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>In the solution to the previous exercise, we did the following:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXlfc3RhdGVzIDwtIGZpbHRlcihtdXJkZXJzLCByZWdpb24gJWluJSBjKFwiTm9ydGhlYXN0XCIsIFwiV2VzdFwiKSAmIHJhdGUgPCAxKVxuXG5zZWxlY3QobXlfc3RhdGVzLCBzdGF0ZSwgcmF0ZSwgcmFuaylcbmBgYCJ9 -->
+<pre class="r"><code>my_states &lt;- filter(murders, region %in% c(&quot;Northeast&quot;, &quot;West&quot;) &amp; rate &lt; 1)
+
+select(my_states, state, rate, rank)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6OH0sInJkZiI6Ikg0c0lBQUFBQUFBQUJndHlpVERtaXVCaVlHQmdabUJtWTJSZ1pnVXlHVmlkQXl4TkxCa1lXSmlBSEVZR0ZnWk9FRjBCVkNRTVZzbkFJQURFSEZBSk5vL0U4c1RNVENpUDFUTWxNU01meHZGTnpNeExoWEo0L1ZMTEZUd1Njd3VLTXpLTFlJSnMva1dwNmZsNVVCNUxhRWxpQnBUTkhwWmFsSnVmVndMamhsZm01MmJtcFFPWmZDREw3UitVZDg3dnRLbXhmMUhQYjczMjhUNzdWL1didG9zK1dHMS93Mi96WEk4N2EremZDVDQ1MU42blkvK3lZcTMrN2NXbjdhK1VySDdJZHIzVS9rMnkxZS9ndjR3d2N4dzhHa0JlWm5Cd1o0RFFibERhRTBxN3dzU2g2anlodEN1RVJnc2wxcnpFM05SaWFBZ3h3d1NMU3hKTFlENW1LVUpoNTJXam1jQlpsRit1QnpPRkY0aVpvQlp4b0Z1Vm5KTllETE1LSnNpVmtsaVNxSmRXQk5RUDVQMUQwOEtlWDFDU21aOEgxTVFFaWtsV05NMk1SV2dDL0tWNUlKZWs2Q1pubE9abDZ4cUJMQUJMUXdBdmxNMkJ4R2FHV01uMEgyb1VLeXlpVS9QU0VXbUJOU2N4S1RVSHl1RUQraGpzWWIyQ29reDRoSE1CUll2MVN2SkxFbUhxdUpMemMyQWlZTDh4L0FNQXFmT2w4Y0FDQUFBPSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["rate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["rank"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hawaii","2":"0.5145920","3":"49"},{"1":"Idaho","2":"0.7655102","3":"46"},{"1":"Maine","2":"0.8280881","3":"44"},{"1":"New Hampshire","2":"0.3798036","3":"50"},{"1":"Oregon","2":"0.9396843","3":"42"},{"1":"Utah","2":"0.7959810","3":"45"},{"1":"Vermont","2":"0.3196211","3":"51"},{"1":"Wyoming","2":"0.8871131","3":"43"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[8]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The pipe <code>%&gt;%</code> permits us to perform both operations sequentially without having to define an intermediate variable <code>my_states</code>. We therefore could have mutated and selected in the same line like this:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXV0YXRlKG11cmRlcnMsIHJhdGUgPSAgdG90YWwgLyBwb3B1bGF0aW9uICogMTAwMDAwLCByYW5rID0gcmFuaygtcmF0ZSkpICU+JVxuc2VsZWN0KHN0YXRlLCByYXRlLCByYW5rKVxuYGBgIn0= -->
+<pre class="r"><code>mutate(murders, rate =  total / population * 100000, rank = rank(-rate)) %&gt;%
+select(state, rate, rank)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6NTF9LCJyZGYiOiJINHNJQUFBQUFBQUFCbTFWZTJ4VFZSaS9vNzE5YldNRFJvSkdUY1ZKQm1GbGM3dzJCdmVNYmJBQzNYQkRoa2FSMC9hdVBiUzlwN3ZubHE2R01Bd2FKTkg5UmNERUlSTENIemdYSXdRR2FraGNEQStGYUNJR0lvYlg1Q0ZCSVhGUmREZzhYYjl6T3hwdjJ2ek83enZuKzMyUGMrODVyUTNycWx6clhKSWtXU1NMTFUreXlId295ZldycStkV1M1SjFBaWQ1a2xWeXByR0xMNW95dGxLU2l2bS9DaWJzZFZIc3h6RU0xTVlwaTJCelVpZHZVRTFRUjUwZXdSckRETGlySGtkSkI5VTFZcTZvcDFHcTR5QUZubDlQTlUwTkdDU1FNTVNTQmpXS2sxaFhnWmMwRUdib0pHQzRhWWVidXlkaWZsUE92b3lya2FCSmw2dFVENW16dGlhdVF3Z3cyUnZFWVJIWDRZMUdpVWFKeU5UdTFZSUVtNFZZdlRScHFxd2NYNUpqcGFvWmlVQWtCZHk1aWlZSUcrY3ErekRSUk80T0g5WlRVYXdGZ1JmNk1HTTRFRTR3MVRCTVNSOEpoRWtJYTBMU1IzaFBHRFdFWkw2UE1KYit4ZU1rNjhNWVRlaUMyMzFVTTdKSk9KcFZ2ejV1bjJ6TjZpWnN0cW13V1UyNm0zQXN6c0xFYkxNcmJWeWg2a3hOamJmNDFDNFNvRm5acFB0bHFrZUFUMnltdWhGMjEyT2Q4bTRLK1lLTXRRRkhzaVZZVzhMRVZHbUpSUGxPWkYrcEZsME5VVkY5d1dwVjAxZ3F1Z2xuMzVxQzFqQU5xbTR2RzlmS2lXMDA4VCt4TTliSFlqdlhxT2wrTWxXVUtxOVJ1OHdOdGI1azRMRG80bHBWai9GR2lrVFhFdjQyWmROd3RXUGVNUzFrbU1rV3Rxdk1jT2NzYzdZVEZxQWFJMktWdlQxRlk5d3ZuWFg2eTBLMjl5TmJwdTQ3aStTT1V6ZDZ2MmxBaGM3RzNRY2FEeUxudHN2RFAzV1hJZGRvYlhWczVtbGx1SCtvNVpXQkxpUWZYVEQ1dGQ1cnFQaTNyWmNHMFh1b2d0M2FkL0hPTU1xZnMrVEl5SkZqYUdMcnpnTXpWN1FwVjVNNzl1Nm8zYXpjN2k1YTFEOTBBdGtPVGRzNk9HVWh5bnU3MFpyYTYxSnVGcFdTSzQydm9yeVA1MTJwSzd1TFpQK0FKL1RoZHZUTWcxRFozdU4yNVU3M29ZR3BWL3RReWFxRDc3NzQvT3ZLd3grUGYzNSs4MDVVZlBUMnVjRmpueW4zL3I0LzZkTFhsMUZ4ZWVtYjB6ZHNRVlBqMnp1L1o5ZVZQMEtuRDUvcnZxQThkSHhsMlpBNmp4elg2eUkvN0E0cUY1c1A3Mm42K1JOazg2L3ZpVm9RY3RrLzJsZys2eDZTMjBmOHV4eFBJL3Zvbm8wZDVkZVZJZnV0b1NjR1JwSGNYZlBrUDhWbmtMM3Z4cTdKMi9ZcnYwLzZaWEI3ejJ4VWNMcnl1eFM1b2p4bzlUV2ZmV2NYbW5Uemk4cm5qajZyM090c3cxV2Zia2I1SDd3MTQrVGtWdVRzOVorY1cxcXAvTnJWUCtmUy9tK1Y4MGJmTmR1RkJISTg4clNjT3RDcC9PayswU1BOcjFEK1d1M3RPaFA1VWhsWnNYYXg3bCt2M0EzVWpMVDltMmZ1endKcDdFR0xBRXNCS3dGbkE5WURWZ05PeTZCeUgvZ3N3T21BVFZzenVCejRmRUFGY0RuTUx3RmVDeWdCTGdNc0JvUUo5QlJnQTZBYjBDSHlCRjBFV0FWMkwrQkNRQS9nWXNDNUltL0FHc0I1Z0kyQU13RHJRTDlFNUFPOERIaUZxQVBzWHNBWHdMNFUrRktoSitKazdEbFhscXpobU1xa3pIVmxFVVptWUVOODZGYjlzYkVXeVZGdzZqVHBFU3FGL0Q4QkFsWGxoZ3J3VzArRUVrWlhFQnZZMDZGemY4NUdjMXpzTkc0UWZncHcwZlMxS3VjNDUrazVocUtFbHM0a1dNNXZCeTFTbm02OWEydzY4eFRDdUdyYzJKSUpPZUVSU01uaVFGVzFVUFlPa3ZuOXJVYkZxY2tySGl2WUU5ZUplZEM1dUpWNURINWtpbld1QUkwS3kxaHQwdWgvVStJOTFVMElBQUE9In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["rate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["rank"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Alabama","2":"2.8244238","3":"23"},{"1":"Alaska","2":"2.6751860","3":"27"},{"1":"Arizona","2":"3.6295273","3":"10"},{"1":"Arkansas","2":"3.1893901","3":"17"},{"1":"California","2":"3.3741383","3":"14"},{"1":"Colorado","2":"1.2924531","3":"38"},{"1":"Connecticut","2":"2.7139722","3":"25"},{"1":"Delaware","2":"4.2319369","3":"6"},{"1":"District of Columbia","2":"16.4527532","3":"1"},{"1":"Florida","2":"3.3980688","3":"13"},{"1":"Georgia","2":"3.7903226","3":"9"},{"1":"Hawaii","2":"0.5145920","3":"49"},{"1":"Idaho","2":"0.7655102","3":"46"},{"1":"Illinois","2":"2.8369608","3":"22"},{"1":"Indiana","2":"2.1900730","3":"31"},{"1":"Iowa","2":"0.6893484","3":"47"},{"1":"Kansas","2":"2.2081106","3":"30"},{"1":"Kentucky","2":"2.6732010","3":"28"},{"1":"Louisiana","2":"7.7425810","3":"2"},{"1":"Maine","2":"0.8280881","3":"44"},{"1":"Maryland","2":"5.0748655","3":"4"},{"1":"Massachusetts","2":"1.8021791","3":"32"},{"1":"Michigan","2":"4.1786225","3":"7"},{"1":"Minnesota","2":"0.9992600","3":"40"},{"1":"Mississippi","2":"4.0440846","3":"8"},{"1":"Missouri","2":"5.3598917","3":"3"},{"1":"Montana","2":"1.2128379","3":"39"},{"1":"Nebraska","2":"1.7521372","3":"33"},{"1":"Nevada","2":"3.1104763","3":"19"},{"1":"New Hampshire","2":"0.3798036","3":"50"},{"1":"New Jersey","2":"2.7980319","3":"24"},{"1":"New Mexico","2":"3.2537239","3":"15"},{"1":"New York","2":"2.6679599","3":"29"},{"1":"North Carolina","2":"2.9993237","3":"20"},{"1":"North Dakota","2":"0.5947151","3":"48"},{"1":"Ohio","2":"2.6871225","3":"26"},{"1":"Oklahoma","2":"2.9589340","3":"21"},{"1":"Oregon","2":"0.9396843","3":"42"},{"1":"Pennsylvania","2":"3.5977513","3":"11"},{"1":"Rhode Island","2":"1.5200933","3":"35"},{"1":"South Carolina","2":"4.4753235","3":"5"},{"1":"South Dakota","2":"0.9825837","3":"41"},{"1":"Tennessee","2":"3.4509357","3":"12"},{"1":"Texas","2":"3.2013603","3":"16"},{"1":"Utah","2":"0.7959810","3":"45"},{"1":"Vermont","2":"0.3196211","3":"51"},{"1":"Virginia","2":"3.1246001","3":"18"},{"1":"Washington","2":"1.3829942","3":"37"},{"1":"West Virginia","2":"1.4571013","3":"36"},{"1":"Wisconsin","2":"1.7056487","3":"34"},{"1":"Wyoming","2":"0.8871131","3":"43"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[51]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Notice that <code>select</code> no longer has a data frame as the first argument. The first argument is assumed to be the result of the operation conducted right before the <code>%&gt;%</code>.</p>
+<p>Repeat the previous exercise, but now instead of creating a new object, show the result and only include the state, rate, and rank columns. Use a pipe <code>%&gt;%</code> to do this in just one line.</p>
+<blockquote>
+<p><code>mutate</code> data frame을 첫번째 argument로 가져오고, name 과 변수의 값을 두번째 argument로 받는다.</p>
+</blockquote>
+<p>my answer:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyB0byBjbGVhciBhbGwgdGhlIG11dGF0ZWQgZGF0YSwgSSBhcHBseWVkIHRoZSBjb2RlIGJlbG93OlxuIyBkYXRhKCdtdXJkZXJzJylcblxubXV0YXRlKG11cmRlcnMsIHJhdGUgPSB0b3RhbCAvIHBvcHVsYXRpb24gKiAxMF41LCByYW5rID0gcmFuaygtcmF0ZSkpICU+JSBzZWxlY3Qoc3RhdGUsIHJhdGUsIHJhbmspXG5gYGAifQ== -->
+<pre class="r"><code># to clear all the mutated data, I applyed the code below:
+# data(&#39;murders&#39;)
+
+mutate(murders, rate = total / population * 10^5, rank = rank(-rate)) %&gt;% select(state, rate, rank)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6NTF9LCJyZGYiOiJINHNJQUFBQUFBQUFCbTFWZTJ3VVJSemVjcmYzYWtzTGxBU05taE1yS1lRZXJlWFZVdGdwYmFFSFhJc3RValNLek4xdDc0YTcyN251N0hFOVF5Z0dEWkpvL3lKZ1loRUo0UStzalJFQ0JUVWtOb2FIUWpRUkF4SERxL0tRb0pEWUtGb3N6dlYrczFjdWJuYnp6ZmVibWUvM21ObVoxb1oxVmE1MUxrbVNMSkxGbGlkWlpONlU1UHJWMVhPckpjazZnWk04eVNvNTA5akZCMDBaR3lsSnhmeXJnZzU3WFJUN2NRd0R0WEhLSXRqczFNa2JWQlBVVWFkSHNNWXdBKzZxeDFIU1FYV05tQ1BxYVpUcU9FaUI1OWRUVFZNREJna2tEREdrUVkzaUpOWlY0Q1VOaEJrNkNSaHUydUhtMHhNeHZ5bG5YOGJWU05Da3kxV3FoOHhlV3hQWElRU1k3QTNpc1BEcjhFYWpSS05FUkdyM2FrR0N6VVNzWHBvMFZWYU9UOG14VXRXTVJDQ1NBdTVjUlJPRWpac3ErekRSUk93T0g5WlRVYXdGZ1JmNk1HTTRFRTR3MVRCTVNSOEpoRWtJYTBMU1IzaE5HRFdFWkw2UE1KWis0M0dTbmNNWVRlaUMyMzFVTTdKQk9KcFZ2ejV1bld6TjZpWnNscW13V1UyNm0zQXN6c0xFTExNcmJWeWg2a3hOamJmNDFDNFNvRm5acFB0bHFrZUFUMnltdWhGMjEyT2Q4bW9LK1lLTXRRRkhzaWxZVzhMRVZHbUpSUGxLWkxkVWk2NkdxTWkrWUxXcWFTd1YzWVN6dTZhZ05VeURxdHZMeHBWeVlodE4vSS92alBVeDM4NDFhcnFlVEJXcHltdlVMbk5CclM4Wk9DeXF1RmJWWTd5UUl0QzFoTyttYkJpdWRzd3Jwb1VNTTlqQ2RwVVo3cHhoem5iQ0FsUmpSSXl5dDZkb2pNOUxSNTMrczVEdC9jaVdxZnZPSXJuajFJM2VieHBRb2JOeDk0SEdnOGk1N2ZMd1Q5MWx5RFZhV3gyYmVWb1o3aDlxZVdXZ0M4bEhGMHgrcmZjYUt2NXQ2NlZCOUI2cVlMZjJYYnd6alBMbkxEa3ljdVFZbXRpNjg4RE1GVzNLMWVTT3ZUdHFOeXUzdTRzVzlRK2RRTFpEMDdZT1RsbUk4dDV1dEtiMnVwU2JSYVhrU3VPcktPL2plVmZxeXU0aTJUL2dDWDI0SFQzeklGUzI5N2hkdWROOWFHRHExVDVVc3VyZ3V5OCsvN3J5OE1mam41L2Z2Qk1WSDcxOWJ2RFlaOHE5dis5UHV2VDFaVlJjWHZybTlBMWIwTlQ0OXM3djJYWGxqOURwdytlNkx5Z1BIVjlaTnFUT0k4ZjF1c2dQdTRQS3hlYkRlNXArL2dUWi9PdDdvaGFFWFBhUE5wYlB1b2ZrOWhIL0xzZlR5RDY2WjJOSCtYVmx5SDVyNkltQlVTUjMxeno1VC9FWlpPKzdzV3Z5dHYzSzc1TitHZHplTXhzVm5LNzhMa1d1S0E5YWZjMW4zOW1GSnQzOG92SzVvODhxOXpyYmNOV25tMUgrQjIvTk9EbTVGVGw3L1NmbmxsWXF2M2IxejdtMC8xdmx2TkYzelhZaGdSeVBQQzJuRG5RcWY3cFA5RWp6SzVTL1ZudTd6a1MrVkVaV3JGMnMrOWNyZHdNMUkyMy81cG5yczBBYWU5QWl3RkxBU3NEWmdQV0ExWURUTXFqY0J6NExjRHBnMDlZTUxnYytIMUFCWEE3OVM0RFhBa3FBeXdDTEFhRURQUVhZQU9nR2RJZzRRUmNCVm9IZEM3Z1EwQU80R0hDdWlCdXdCbkFlWUNQZ0RNQTYwQzhSOFFBdkExNGg4Z0M3Ri9BRnNDOEZ2bFRvQ1Q4WmU4NlZKV3M0cGpJcGMxMVpoSkVaMkJBL3VsVi9ySzFGY2hTY09rMTZoRW9oL3lhQW82cGNWd0YrNndsWHd1Z0tZZ043T25RK243UFJuQ2wyR2pjSVB3VzRhUHBhbFhNbTUrazVocUtFbG80a1dNNXZCeTFTbnQ1cXJySHV6Rk1JN2FweGJVdkc1WVJISUNXTEExWFZRdGs3U09iM3R4b1ZweWJQZUN4aFQxd241a0huNGxibU1maVJLY2E1QWpRcUxHTzVTYVAvQWJoT2F1Qk5DQUFBIn0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["rate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["rank"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Alabama","2":"2.8244238","3":"23"},{"1":"Alaska","2":"2.6751860","3":"27"},{"1":"Arizona","2":"3.6295273","3":"10"},{"1":"Arkansas","2":"3.1893901","3":"17"},{"1":"California","2":"3.3741383","3":"14"},{"1":"Colorado","2":"1.2924531","3":"38"},{"1":"Connecticut","2":"2.7139722","3":"25"},{"1":"Delaware","2":"4.2319369","3":"6"},{"1":"District of Columbia","2":"16.4527532","3":"1"},{"1":"Florida","2":"3.3980688","3":"13"},{"1":"Georgia","2":"3.7903226","3":"9"},{"1":"Hawaii","2":"0.5145920","3":"49"},{"1":"Idaho","2":"0.7655102","3":"46"},{"1":"Illinois","2":"2.8369608","3":"22"},{"1":"Indiana","2":"2.1900730","3":"31"},{"1":"Iowa","2":"0.6893484","3":"47"},{"1":"Kansas","2":"2.2081106","3":"30"},{"1":"Kentucky","2":"2.6732010","3":"28"},{"1":"Louisiana","2":"7.7425810","3":"2"},{"1":"Maine","2":"0.8280881","3":"44"},{"1":"Maryland","2":"5.0748655","3":"4"},{"1":"Massachusetts","2":"1.8021791","3":"32"},{"1":"Michigan","2":"4.1786225","3":"7"},{"1":"Minnesota","2":"0.9992600","3":"40"},{"1":"Mississippi","2":"4.0440846","3":"8"},{"1":"Missouri","2":"5.3598917","3":"3"},{"1":"Montana","2":"1.2128379","3":"39"},{"1":"Nebraska","2":"1.7521372","3":"33"},{"1":"Nevada","2":"3.1104763","3":"19"},{"1":"New Hampshire","2":"0.3798036","3":"50"},{"1":"New Jersey","2":"2.7980319","3":"24"},{"1":"New Mexico","2":"3.2537239","3":"15"},{"1":"New York","2":"2.6679599","3":"29"},{"1":"North Carolina","2":"2.9993237","3":"20"},{"1":"North Dakota","2":"0.5947151","3":"48"},{"1":"Ohio","2":"2.6871225","3":"26"},{"1":"Oklahoma","2":"2.9589340","3":"21"},{"1":"Oregon","2":"0.9396843","3":"42"},{"1":"Pennsylvania","2":"3.5977513","3":"11"},{"1":"Rhode Island","2":"1.5200933","3":"35"},{"1":"South Carolina","2":"4.4753235","3":"5"},{"1":"South Dakota","2":"0.9825837","3":"41"},{"1":"Tennessee","2":"3.4509357","3":"12"},{"1":"Texas","2":"3.2013603","3":"16"},{"1":"Utah","2":"0.7959810","3":"45"},{"1":"Vermont","2":"0.3196211","3":"51"},{"1":"Virginia","2":"3.1246001","3":"18"},{"1":"Washington","2":"1.3829942","3":"37"},{"1":"West Virginia","2":"1.4571013","3":"36"},{"1":"Wisconsin","2":"1.7056487","3":"34"},{"1":"Wyoming","2":"0.8871131","3":"43"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[51]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ol start="2" style="list-style-type: decimal">
+<li>Reset <code>murders</code> to the original table by using <code>data(murders)</code>. Use a pipe to create a new data frame called <code>my_states</code> that considers only states in the Northeast or West which have a murder rate lower than 1, and contains only the state, rate and rank columns. The pipe should also have four components separated by three <code>%&gt;%</code>. The code should look something like this:</li>
+</ol>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXlfc3RhdGVzIDwtIG11cmRlcnMgJT4lXG4gIG11dGF0ZSBTT01FVEhJTkcgJT4lIFxuICBmaWx0ZXIgU09NRVRISU5HICU+JSBcbiAgc2VsZWN0IFNPTUVUSElOR1xuYGBgIn0= -->
+<pre class="r"><code>my_states &lt;- murders %&gt;%
+  mutate SOMETHING %&gt;% 
+  filter SOMETHING %&gt;% 
+  select SOMETHING</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>my answer:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXlfc3RhdGUgPC0gbXVyZGVycyAlPiVcbiAgbXV0YXRlKHJhdGUgPSB0b3RhbCAvIHBvcHVsYXRpb24gKiAxMF41LCByYW5rID0gcmFuaygtcmF0ZSkpICU+JVxuICBmaWx0ZXIocmF0ZSA8IDEgJiByZWdpb24gJWluJSBjKFwiTm9ydGhlc3RcIiwgXCJXZXN0XCIpKSAlPiVcbiAgc2VsZWN0KHN0YXRlKVxuXG5teV9zdGF0ZVxuYGBgIn0= -->
+<pre class="r"><code>my_state &lt;- murders %&gt;%
+  mutate(rate = total / population * 10^5, rank = rank(-rate)) %&gt;%
+  filter(rate &lt; 1 &amp; region %in% c(&quot;Northest&quot;, &quot;West&quot;)) %&gt;%
+  select(state)
+
+my_state</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MSwibnJvdyI6NX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJsMVF5MDdETUJCY0ozR3JSdUloOVR1YUMzRG9HUTV3QWlFaGVsMFNrMWlrNjhweFZiang1WVZOdWtiQ2xpenZ6TTdzdzg5M202dHlVd0pBRHZsTVFhNDVCSDM3dEw1ZUF4UVpBd1VGTE1iM2swWExpUUM0SEZXU21OM2pBYTBWcEI4YTdGeE1QWHJUT2hKVXZBVHNKSjYvZnJtdHBUWnBvZ20zWnBBR2YrUVFNSmhFdWZEdVVFWDFHZC9zRzZhajA1SjFqME5hc213d1lQWHUyYy9vbUZqbWJoZXNJelpseTFQRmYyYmxFK0ppVCtNa3phcnU5dlN4dWhrYnlFZUJUS2VrVG96VnFXWDJrMzZtb2RhU2liUDMrR1o2QWVlODhiUnd0Zk9XUXR5RTJhRUtMbURVbGJYckl6UHRCc2RmbGF0WnlPY0JBQUE9In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"Hawaii"},{"1":"Idaho"},{"1":"Oregon"},{"1":"Utah"},{"1":"Wyoming"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[5]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Done.</p>
 <!-- rnb-text-end -->
 </div>
 </div>
-</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogInRpZHl2ZXJzZV8yMDE5MDkxOF8xMDZfa2ltIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4NCg0KYm9keSwgdGQgew0KICAgZm9udC1zaXplOiAxNnB4Ow0KICAgZm9udC1mYW1pbHk6ICdOYW51bSBHb3RoaWMnLCBzYW5zLXNlcmlmOw0KICAgbGluZS1oZWlnaHQ6IDEuN2VtDQp9DQpjb2RlLnJ7DQogIGZvbnQtc2l6ZTogMTRweDsNCiAgZm9udC1mYW1pbHk6ICdOYW51bSBHb3RoaWMnLCBzYW5zLXNlcmlmOw0KICBsaW5lLWhlaWdodDogMmVtDQp9DQpwcmUgew0KICBmb250LXNpemU6IDE0cHgNCiAgZm9udC1mYW1pbHk6ICdOYW51bSBHb3RoaWMnLCBzYW5zLXNlcmlmOw0KfQ0KfQ0KPC9zdHlsZT4NCg0KIyBDaGFwdGVyIDUgVGhlIHRpZHl2ZXJzZQ0KDQpgYGB7cn0NCmluc3RhbGwucGFja2FnZXMoInRpZHl2ZXJzZSIpDQpgYGANCg0KVXAgdG8gbm93IHdlIGhhdmUgYmVlbiBtYW5pcHVsYXRpbmcgdmVjdG9ycyBieSByZW9yZGVyaW5nIGFuZCBzdWJzZXR0aW5nIHRoZW0gdGhyb3VnaCBpbmRleGluZy4gSG93ZXZlciwgb25jZSB3ZSBzdGFydCBtb3JlIGFkdmFuY2VkIGFuYWx5c2VzLCB0aGUgcHJlZmVycmVkIHVuaXQgZm9yIGRhdGEgc3RvcmFnZSBpcyBub3QgdGhlIHZlY3RvciBidXQgdGhlIGRhdGEgZnJhbWUuIEluIHRoaXMgY2hhcHRlciB3ZSBsZWFybiB0byB3b3JrIGRpcmVjdGx5IHdpdGggZGF0YSBmcmFtZXMsIHdoaWNoIGdyZWF0bHkgZmFjaWxpdGF0ZSB0aGUgb3JnYW5pemF0aW9uIG9mIGluZm9ybWF0aW9uLi4gV2Ugd2lsbCBiZSB1c2luZyBkYXRhIGZyYW1lcyBmb3IgdGhlIG1ham9yaXR5IG9mIHRoaXMgYm9vay4gV2Ugd2lsbCBmb2N1cyBvbiBhIHNwZWNpZmljIGRhdGEgZm9ybWF0IHJlZmVycmVkIHRvIGFzIHRpZHkgYW5kIG9uIHNwZWNpZmljIGNvbGxlY3Rpb24gb2YgcGFja2FnZXMgdGhhdCBhcmUgcGFydGljdWxhcmx5IGhlbHBmdWwgZm9yIHdvcmtpbmcgd2l0aCB0aWR5IGRhdGEgcmVmZXJyZWQgdG8gYXMgdGhlICp0aWR5dmVyc2UqLg0KDQpXZSBjYW4gbG9hZCBhbGwgdGhlIHRpZHl2ZXJzZSBwYWNrYWdlcyBhdCBvbmNlIGJ5IGluc3RhbGxpbmcgYW5kIGxvYWRpbmcgdGhlIHRpZHl2ZXJzZSBwYWNrYWdlOg0KDQpgYGB7cn0NCmxpYnJhcnkodGlkeXZlcnNlKQ0KYGBgDQoNCldlIHdpbGwgbGVhcm4gaG93IHRvIGltcGxlbWVudCB0aGUgdGlkeXZlcnNlIGFwcHJvYWNoIHRocm91Z2hvdXQgdGhlIGJvb2ssIGJ1dCBiZWZvcmUgZGVsdmluZyBpbnRvIHRoZSBkZXRhaWxzLCBpbiB0aGlzIGNoYXB0ZXIgd2UgaW50cm9kdWNlIHNvbWUgb2YgdGhlIG1vc3Qgd2lkZWx5IHVzZWQgdGlkeXZlcnNlIGZ1bmN0aW9uYWxpdHkuIHN0YXJ0aW5nIHdpdGggdGhlICoqZHBseXIqKiBwYWNrYWdlIGZvciBtYW5pcHVsYXRpbmcgZGF0YSBmcmFtZXMgYW5kIHRoZSAqKnB1cnJyKiogcGFja2FnZSBmb3Igd29ya2luZyB3aXRoIGZ1bmN0aW9ucy4gTm90ZSB0aGF0IHRoZSB0aWR5dmVyc2UgYWxzbyBpbmNsdWRlcyBhIGdyYXBoaW5nIHBhY2thZ2UsICoqZ2dwbG90MioqLCB3aGljaCB3ZSBpbnRyb2R1Y2UgbGF0ZXIgaW4gQ2hhcHRlciA4IGluIHRoZSBEYXRhIFZpc3VhbGl6YXRpb24gcGFydCBvZiB0aGUgYm9vazsgdGhlICoqcmVhZHIqKiBwYWNrYWdlIGRpc2N1c3NlZCBpbiBDaGFwdGVyIDY7IGFuZCBtYW55IG90aGVycy4gSW4gdGhpcyBjaGFwdGVyLCB3ZSBmaXJzdCBpbnRyb2R1Y2UgdGhlIGNvbmNlcHQgb2YgKnRpZHkgZGF0YSogYW5kIHRoZW4gZGVtb25zdHJhdGUgaG93IHdlIHVzZSB0aGUgdGlkeXZlcnNlIHRvIHdvcmsgd2l0aCBkYXRhIGZyYW1lcyBpbiB0aGlzIGZvcm1hdC4NCg0KIyMgNS4xIFRpZHkgZnJhbWUNCg0KV2Ugc2F5IHRoYXQgYSBkYXRhIHRhYmxlIGlzIGluICp0aWR5KiBmb3JtYXQgaWYgZWFjaCByb3cgcmVwcmVzZW50cyBvbmUgb2JzZXJ2YXRpb24gYW5kIGNvbHVtbnMgcmVwcmVzZW50IHRoZSBkaWZmZXJlbnQgdmFyaWFibGVzIGF2YWlsYWJsZSBmb3IgZWFjaCBvZiB0aGVzZSBvYnNlcnZhdGlvbnMuIFRoZSBgbXVyZGVyc2AgZGF0YXNldCBpcyBhbiBleGFtcGxlIG9mIGEgdGlkeSBkYXRhIGZyYW1lLg0KDQpgYGB7cn0NCiM+ICAgICAgICBzdGF0ZSBhYmIgcmVnaW9uIHBvcHVsYXRpb24gdG90YWwNCiM+IDEgICAgQWxhYmFtYSAgQUwgIFNvdXRoICAgIDQ3Nzk3MzYgICAxMzUNCiM+IDIgICAgIEFsYXNrYSAgQUsgICBXZXN0ICAgICA3MTAyMzEgICAgMTkNCiM+IDMgICAgQXJpem9uYSAgQVogICBXZXN0ICAgIDYzOTIwMTcgICAyMzINCiM+IDQgICBBcmthbnNhcyAgQVIgIFNvdXRoICAgIDI5MTU5MTggICAgOTMNCiM+IDUgQ2FsaWZvcm5pYSAgQ0EgICBXZXN0ICAgMzcyNTM5NTYgIDEyNTcNCiM+IDYgICBDb2xvcmFkbyAgQ08gICBXZXN0ICAgIDUwMjkxOTYgICAgNjUNCmBgYA0KDQpFYWNoIHJvdyByZXByZXNlbnQgYSBzdGF0ZSB3aXRoIGVhY2ggb2YgdGhlIGZpdmUgY29sdW1ucyBwcm92aWRpbmcgYSBkaWZmZXJlbnQgdmFyaWFibGUgcmVsYXRlZCB0byB0aGVzZSBzdGF0ZXM6IG5hbWUsIGFiYnJldmlhdGlvbiwgcmVnaW9uLCBwb3B1bGF0aW9uLCBhbmQgdG90YWwgbXVyZGVycy4NCg0KVG8gc2VlIGhvdyB0aGUgc2FtZSBpbmZvcm1hdGlvbiBjYW4gYmUgcHJvdmlkZWQgaW4gZGlmZmVyZW50IGZvcm1hdHMsIGNvbnNpZGVyIHRoZSBmb2xsb3dpbmcgZXhhbXBsZToNCg0KYGBge3J9DQojPiAgICAgICAgY291bnRyeSB5ZWFyIGZlcnRpbGl0eQ0KIz4gMSAgICAgIEdlcm1hbnkgMTk2MCAgICAgIDIuNDENCiM+IDIgIFNvdXRoIEtvcmVhIDE5NjAgICAgICA2LjE2DQojPiAzICAgICAgR2VybWFueSAxOTYxICAgICAgMi40NA0KIz4gNCAgU291dGggS29yZWEgMTk2MSAgICAgIDUuOTkNCiM+IDUgICAgICBHZXJtYW55IDE5NjIgICAgICAyLjQ3DQojPiA2ICBTb3V0aCBLb3JlYSAxOTYyICAgICAgNS43OQ0KIz4gNyAgICAgIEdlcm1hbnkgMTk2MyAgICAgIDIuNDkNCiM+IDggIFNvdXRoIEtvcmVhIDE5NjMgICAgICA1LjU3DQojPiA5ICAgICAgR2VybWFueSAxOTY0ICAgICAgMi40OQ0KIz4gMTAgU291dGggS29yZWEgMTk2NCAgICAgIDUuMzYNCiM+IDExICAgICBHZXJtYW55IDE5NjUgICAgICAyLjQ4DQojPiAxMiBTb3V0aCBLb3JlYSAxOTY1ICAgICAgNS4xNg0KYGBgDQoNClRoaXMgdGlkeSBkYXRhc2V0IHByb3ZpZGVzIGZlcnRpbGl0eSByYXRlcyBmb3IgdHdvIGNvdW50cmllcyBhY3Jvc3MgdGhlIHllYXJzLiBUaGlzIGlzIGEgdGlkeSBkYXRhc2V0IGJlY2F1c2UgZWFjaCByb3cgcHJlc2VudHMgb25lIG9ic2VydmF0aW9uIHdpdGggdGhlIHRocmVlIHZhcmlhYmxlcyBiZWluZyBjb3VudHksIHllYXIgYW5kIGZlcnRpbGl0eSByYXRlLiBIb3dldmVyLCB0aGlzIGRhdGFzZXQgb3JpZ2luYWxseSBjYW1lIGluIGFub3RoZXIgZm9ybWF0IGFuZCB3YXMgcmVzaGFwZWQgZm9yIHRoZSAqKmRzbGFicyoqIHBhY2thZ2UuIE9yaWdpbmFsbHksIHRoZSBkYXRhIHdhcyBpbiB0aGUgZm9sbG93aW5nIGZvcm1hdDoNCg0KYGBgDQojPiAgICAgICBjb3VudHJ5IDE5NjAgMTk2MSAxOTYyIDE5NjMgMTk2NCAxOTY1DQojPiAxICAgICBHZXJtYW55IDIuNDEgMi40NCAyLjQ3IDIuNDkgMi40OSAyLjQ4DQojPiAyIFNvdXRoIEtvcmVhIDYuMTYgNS45OSA1Ljc5IDUuNTcgNS4zNiA1LjE2DQpgYGANCg0KVGhlIHNhbWUgaW5mb3JtYXRpb24gaXMgcHJvdmlkZWQsIGJ1dCB0aGVyZSBhcmUgdHdvIGltcG9ydGFudCBkaWZmZXJlbmNlcyBpbiB0aGUgZm9ybWF0OiAxKSBlYWNoIHJvdyBpbmNsdWRlcyBzZXZlcmFsIG9ic2VydmF0aW9ucyBhbmQgMikgb25lIG9mIHRoZSB2YXJpYWJsZXMsIHllYXIsIGlzIHN0b3JlZCBpbiB0aGUgaGVhZGVyLiBGb3IgdGhlIHRpZHl2ZXJzZSBwYWNrYWdlcyB0byBiZSBvcHRpbWFsbHkgdXNlZCwgZGF0YSBuZWVkIHRvIGJlIHJlc2hhcGVkIGludG8gYHRpZHlgIGZvcm1hdCwgd2hpY2ggeW91IHdpbGwgbGVhcm4gdG8gZG8gaW4gdGhlIERhdGEgV3JhbmdsaW5nIHBhcnQgb2YgdGhlIGJvb2suIFVudGlsIHRoZW4sIHdlIHdpbGwgdXNlIGV4YW1wbGUgZGF0YXNldHMgdGhhdCBhcmUgYWxyZWFkeSBpbiB0aWR5IGZvcm1hdC4NCg0KQWx0aG91Z2ggbm90IGltbWVkaWF0ZWx5IG9idmlvdXMsIGFzIHlvdSBnbyB0aHJvdWdoIHRoZSBib29rIHlvdSB3aWxsIHN0YXJ0IHRvIGFwcHJlY2lhdGUgdGhlIGFkdmFudGFnZXMgb2Ygd29ya2luZyBpbiBhIGZyYW1ld29yayBpbiB3aGljaCBmdW5jdGlvbnMgdXNlIHRpZHkgZm9ybWF0cyBmb3IgYm90aCBpbnB1dHMgYW5kIG91dHB1dHMuIFlvdSB3aWxsIHNlZSBob3cgdGhpcyBwZXJtaXRzIHRoZSBkYXRhIGFuYWx5c3QgdG8gZm9jdXMgb24gbW9yZSBpbXBvcnRhbnQgYXNwZWN0cyBvZiB0aGUgYW5hbHlzaXMgcmF0aGVyIHRoYW4gdGhlIGZvcm1hdCBvZiB0aGUgZGF0YS4NCg0KIyMgNS4yIEV4Y2VyY2lzZXMNCg0KDQoxLiBFeGFtaW5lIHRoZSBidWlsdC1pbiBkYXRhc2V0IGBjbzJgLiBXaGljaCBvZiB0aGUgZm9sbG93aW5nIGlzIHRydWU6ICAgIA0KQS4gYGNvMmAgaXMgdGlkeSBkYXRhOiBpdCBoYXMgb25lIHllYXIgZm9yIGVhY2ggcm93LiAgDQpCLiBgY28yYCBpcyBub3QgdGlkeTogd2UgbmVlZCBhdCBsZWFzdCBvbmUgY29sdW1uIHdpdGggYSBjaGFyYWN0ZXIgdmVjdG9yLiAgDQpDLiBgY28yYCBpcyBub3QgdGlkeTogaXQgaXMgYSBtYXRyaXggaW5zdGVhZCBvZiBhIGRhdGEgZnJhbWUuICANCkQuIGBjbzJgIGlzIG5vdCB0aWR5OiB0byBiZSB0aWR5IHdlIHdvdWxkIGhhdmUgdG8gd3JhbmdsZSBpdCB0byBoYXZlIHRocmVlIGNvbHVtbnMgKHllYXIsIG1vbnRoIGFuZCB2YWx1ZSksIHRoZW4gZWFjaCBjbzIgb2JzZXJ2YXRpb24gd291bGQgaGF2ZSBhIHJvdy4gIA0KYW5zd2VyIDogQw0KDQoyLiBFeGFtaW5lIHRoZSBidWlsdC1pbiBkYXRhc2V0IGBDaGlja1dlaWdodGAuIFdoaWNoIG9mIHRoZSBmb2xsb3dpbmcgaXMgdHJ1ZTogIA0KQS4gYENoaWNrV2VpZ2h0YCBpcyBub3QgdGlkeTogZWFjaCBjaGljayBoYXMgbW9yZSB0aGFuIG9uZSByb3cuICANCkIuIGBDaGlja1dlaWdodGAgaXMgdGlkeTogZWFjaCBvYnNlcnZhdGlvbiAoYSB3ZWlnaHQpIGlzIHJlcHJlc2VudGVkIGJ5IG9uZSByb3cuIFRoZSBjaGljayBmcm9tIHdoaWNoIHRoaXMgbWVhc3VyZW1lbnQgY2FtZSBmcm9tIGlzIG9uZSB0aGUgdmFyaWFibGVzLiAgDQpDLiBgQ2hpY2tXZWlnaHRgIGlzIG5vdCBhIHRpZHk6IHdlIGFyZSBtaXNzaW5nIHRoZSB5ZWFyIGNvbHVtbi4gIA0KRC4gYENoaWNrV2VpZ2h0YCBpcyB0aWR5OiBpdCBpcyBzdG9yZWQgaW4gYSBkYXRhIGZyYW1lLiAgDQphbnN3ZXIgOiBCDQoNCjMuIEV4YW1pbmUgdGhlIGJ1aWx0LWluIGRhdGFzZXQgYEJPRGAuIFdoaWNoIG9mIHRoZSBmb2xsb3dpbmcgaXMgdHJ1ZTogIA0KQS4gYEJPRGAgaXMgbm90IHRpZHk6IGl0IG9ubHkgaGFzIHNpeCByb3dzLiAgDQpCLiBgQk9EYCBpcyBub3QgdGlkeTogdGhlIGZpcnN0IGNvbHVtbiBpcyBqdXN0IGFuIGluZGV4LiAgDQpDLiBgQk9EYCBpcyB0aWR5OiBlYWNoIHJvdyBpcyBhbiBvYnNlcnZhdGlvbiB3aXRoIHR3byB2YWx1ZXMgKHRpbWUgYW5kIGRlbWFuZCkgIA0KRC4gYEJPRGAgaXMgdGlkeTogYWxsIHNtYWxsIGRhdGFzZXRzIGFyZSB0aWR5IGJ5IGRlZmluaXRpb24uICANCmFuc3dlcjogQw0KDQo0LiBXaGljaCBvZiB0aGUgZm9sbG93aW5nIGJ1aWx0LWluIGRhdGFzZXRzIGlzIHRpZHkgKHlvdSBjYW4gcGljayBtb3JlIHRoYW4gb25lKTogIA0KQS4gYEJKc2FsZXNgICANCkIuIGBFdVN0b2NrTWFya2V0c2AgIA0KQy4gYEROYXNlYCAgDQpELiBgRm9ybWFsZGVoeWRlYCAgDQpFLiBgT3JhbmdlYCAgDQpGLiBgVUNCQWRtaXNzaW9uc2AgIA0KYGBge3J9DQpoZWFkKEJKc2FsZXMpDQpoZWFkKEV1U3RvY2tNYXJrZXRzKQ0KaGVhZChETmFzZSkNCmhlYWQoRm9ybWFsZGVoeWRlKQ0KaGVhZChPcmFuZ2UpDQpoZWFkKFVDQkFkbWlzc2lvbnMpDQpgYGANCmFuc3dlcjogQyxELEUsIA0KDQojIyA1LjMgTWFuaXB1bGF0aW5nIGRhdGEgZnJhbWVzDQoNClRoZSAqKmRwbHlyKiogcGFja2FnZSBmcm9tIHRoZSAqKnRpZHl2ZXJzZSoqIGludHJvZHVjZXMgZnVuY3Rpb25zIHRoYXQgcGVyZm9ybSBzb21lIG9mIHRoZSBtb3N0IGNvbW1vbiBvcGVyYXRpb25zIHdoZW4gd29ya2luZyB3aXRoIGRhdGEgZnJhbWVzIGFuZCB1c2VzIG5hbWVzIGZvciB0aGVzZSBmdW5jdGlvbnMgdGhhdCBhcmUgcmVsYXRpdmVseSBlYXN5IHRvIHJlbWVtYmVyLiBGb3IgaW5zdGFuY2UsIHRvIGNoYW5nZSB0aGUgZGF0YSB0YWJsZSBieSBhZGRpbmcgYSBuZXcgY29sdW1uLCB3ZSB1c2UgYG11dGF0ZWAuIFRvIGZpbHRlciB0aGUgZGF0YSB0YWJsZSB0byBhIHN1YnNldCBvZiByb3dzLCB3ZSB1c2UgYGZpbHRlcmAuIEZpbmFsbHksIHRvIHN1YnNldCB0aGUgZGF0YSBieSBzZWxlY3Rpbmcgc3BlY2lmaWMgY29sdW1ucywgd2UgdXNlIGBzZWxlY3RgLg0KDQojIyMgNS4zLjEgQWRkaW5nIGEgY29sdW1uIHdpdGggYG11dGF0ZWANCg0KV2Ugd2FudCBhbGwgdGhlIG5lY2Vzc2FyeSBpbmZvcm1hdGlvbiBmb3Igb3VyIGFuYWx5c2lzIHRvIGJlIGluY2x1ZGVkIGluIHRoZSBkYXRhIHRhYmxlLiBTbyB0aGUgZmlyc3QgdGFzayBpcyB0byBhZGQgdGhlIG11cmRlciByYXRlcyB0byBvdXIgbXVyZGVycyBkYXRhIGZyYW1lLiBUaGUgZnVuY3Rpb24gYG11dGF0ZWAgdGFrZXMgdGhlIGRhdGEgZnJhbWUgYXMgYSBmaXJzdCBhcmd1bWVudCBhbmQgdGhlIG5hbWUgYW5kIHZhbHVlcyBvZiB0aGUgdmFyaWFibGUgYXMgYSBzZWNvbmQgYXJndW1lbnQgdXNpbmcgdGhlIGNvbnZlbnRpb24gYG5hbWUgPSB2YWx1ZXNgLiBTbywgdG8gYWRkIG11cmRlciByYXRlcywgd2UgdXNlOg0KDQpgYGB7cn0NCmxpYnJhcnkoZHNsYWJzKQ0KZGF0YSgibXVyZGVycyIpDQptdXJkZXJzIDwtIG11dGF0ZShtdXJkZXJzLCByYXRlID0gdG90YWwgLyBwb3B1bGF0aW9uICogMTAwMDAwKQ0KYGBgDQoNCk5vdGljZSB0aGF0IGhlcmUgd2UgdXNlZCBgdG90YWxgIGFuZCBgcG9wdWxhdGlvbmAgaW5zaWRlIHRoZSBmdW5jdGlvbiwgd2hpY2ggYXJlIG9iamVjdHMgdGhhdCBhcmUgKipub3QqKiBkZWZpbmVkIGluIG91ciB3b3Jrc3BhY2UuIEJ1dCB3aHkgZG9u4oCZdCB3ZSBnZXQgYW4gZXJyb3I/DQoNClRoaXMgaXMgb25lIG9mICoqZHBseXIqKuKAmXMgbWFpbiBmZWF0dXJlcy4gRnVuY3Rpb25zIGluIHRoaXMgcGFja2FnZSwgc3VjaCBhcyBgbXV0YXRlYCwga25vdyB0byBsb29rIGZvciB2YXJpYWJsZXMgaW4gdGhlIGRhdGEgZnJhbWUgcHJvdmlkZWQgaW4gdGhlIGZpcnN0IGFyZ3VtZW50LiBJbiB0aGUgY2FsbCB0byBtdXRhdGUgYWJvdmUsIGB0b3RhbGAgd2lsbCBoYXZlIHRoZSB2YWx1ZXMgaW4gYG11cmRlcnMkdG90YWxgLiBUaGlzIGFwcHJvYWNoIG1ha2VzIHRoZSBjb2RlIG11Y2ggbW9yZSByZWFkYWJsZS4NCg0KV2UgY2FuIHNlZSB0aGF0IHRoZSBuZXcgY29sdW1uIGlzIGFkZGVkOg0KDQpgYGB7cn0NCmhlYWQobXVyZGVycykNCiM+ICAgICAgICBzdGF0ZSBhYmIgcmVnaW9uIHBvcHVsYXRpb24gdG90YWwgcmF0ZQ0KIz4gMSAgICBBbGFiYW1hICBBTCAgU291dGggICAgNDc3OTczNiAgIDEzNSAyLjgyDQojPiAyICAgICBBbGFza2EgIEFLICAgV2VzdCAgICAgNzEwMjMxICAgIDE5IDIuNjgNCiM+IDMgICAgQXJpem9uYSAgQVogICBXZXN0ICAgIDYzOTIwMTcgICAyMzIgMy42Mw0KIz4gNCAgIEFya2Fuc2FzICBBUiAgU291dGggICAgMjkxNTkxOCAgICA5MyAzLjE5DQojPiA1IENhbGlmb3JuaWEgIENBICAgV2VzdCAgIDM3MjUzOTU2ICAxMjU3IDMuMzcNCiM+IDYgICBDb2xvcmFkbyAgQ08gICBXZXN0ICAgIDUwMjkxOTYgICAgNjUgMS4yOQ0KYGBgDQoNCkFsdGhvdWdoIHdlIGhhdmUgb3ZlcndyaXR0ZW4gdGhlIG9yaWdpbmFsIGBtdXJkZXJzYCBvYmplY3QsIHRoaXMgZG9lcyBub3QgY2hhbmdlIHRoZSBvYmplY3QgdGhhdCBsb2FkZWQgd2l0aCBgZGF0YShtdXJkZXJzKWAuIElmIHdlIGxvYWQgdGhlIGBtdXJkZXJzYCBkYXRhIGFnYWluLCB0aGUgb3JpZ2luYWwgd2lsbCBvdmVyd3JpdGUgb3VyIG11dGF0ZWQgdmVyc2lvbi4NCg0KIyMjIDUuMy4yIFN1YnNldHRpbmcgd2l0aCBgZmlsdGVyYA0KDQpOb3cgc3VwcG9zZSB0aGF0IHdlIHdhbnQgdG8gZmlsdGVyIHRoZSBkYXRhIHRhYmxlIHRvIG9ubHkgc2hvdyB0aGUgZW50cmllcyBmb3Igd2hpY2ggdGhlIG11cmRlciByYXRlIGlzIGxvd2VyIHRoYW4gMC43MS4gVG8gZG8gdGhpcyB3ZSB1c2UgdGhlIGBmaWx0ZXJgIGZ1bmN0aW9uLCB3aGljaCB0YWtlcyB0aGUgZGF0YSB0YWJsZSBhcyB0aGUgZmlyc3QgYXJndW1lbnQgYW5kIHRoZW4gdGhlIGNvbmRpdGlvbmFsIHN0YXRlbWVudCBhcyB0aGUgc2Vjb25kLiBMaWtlIGBtdXRhdGVgLCB3ZSBjYW4gdXNlIHRoZSB1bnF1b3RlZCB2YXJpYWJsZSBuYW1lcyBmcm9tIGBtdXJkZXJzYCBpbnNpZGUgdGhlIGZ1bmN0aW9uIGFuZCBpdCB3aWxsIGtub3cgd2UgbWVhbiB0aGUgY29sdW1ucyBhbmQgbm90IG9iamVjdHMgaW4gdGhlIHdvcmtzcGFjZS4NCg0KYGBge3J9DQpmaWx0ZXIobXVyZGVycywgcmF0ZSA8PSAwLjcxKQ0KIz4gICAgICAgICAgIHN0YXRlIGFiYiAgICAgICAgcmVnaW9uIHBvcHVsYXRpb24gdG90YWwgIHJhdGUNCiM+IDEgICAgICAgIEhhd2FpaSAgSEkgICAgICAgICAgV2VzdCAgICAxMzYwMzAxICAgICA3IDAuNTE1DQojPiAyICAgICAgICAgIElvd2EgIElBIE5vcnRoIENlbnRyYWwgICAgMzA0NjM1NSAgICAyMSAwLjY4OQ0KIz4gMyBOZXcgSGFtcHNoaXJlICBOSCAgICAgTm9ydGhlYXN0ICAgIDEzMTY0NzAgICAgIDUgMC4zODANCiM+IDQgIE5vcnRoIERha290YSAgTkQgTm9ydGggQ2VudHJhbCAgICAgNjcyNTkxICAgICA0IDAuNTk1DQojPiA1ICAgICAgIFZlcm1vbnQgIFZUICAgICBOb3J0aGVhc3QgICAgIDYyNTc0MSAgICAgMiAwLjMyMA0KYGBgDQoNCiMjIyA1LjMuMyBTZWxlY3RpbmcgY29sdW1ucyB3aXRoIGBzZWxlY3RgDQoNCkFsdGhvdWdoIG91ciBkYXRhIHRhYmxlIG9ubHkgaGFzIHNpeCBjb2x1bW5zLCBzb21lIGRhdGEgdGFibGVzIGluY2x1ZGUgaHVuZHJlZHMuIElmIHdlIHdhbnQgdG8gdmlldyBqdXN0IGEgZmV3LCB3ZSBjYW4gdXNlIHRoZSAqKmRwbHlyKiogYHNlbGVjdGAgZnVuY3Rpb24uIEluIHRoZSBjb2RlIGJlbG93IHdlIHNlbGVjdCB0aHJlZSBjb2x1bW5zLCBhc3NpZ24gdGhpcyB0byBhIG5ldyBvYmplY3QgYW5kIHRoZW4gZmlsdGVyIHRoZSBuZXcgb2JqZWN0Og0KDQpgYGB7cn0NCm5ld190YWJsZSA8LSBzZWxlY3QobXVyZGVycywgc3RhdGUsIHJlZ2lvbiwgcmF0ZSkNCmZpbHRlcihuZXdfdGFibGUsIHJhdGUgPD0gMC43MSkNCiM+ICAgICAgICAgICBzdGF0ZSAgICAgICAgcmVnaW9uICByYXRlDQojPiAxICAgICAgICBIYXdhaWkgICAgICAgICAgV2VzdCAwLjUxNQ0KIz4gMiAgICAgICAgICBJb3dhIE5vcnRoIENlbnRyYWwgMC42ODkNCiM+IDMgTmV3IEhhbXBzaGlyZSAgICAgTm9ydGhlYXN0IDAuMzgwDQojPiA0ICBOb3J0aCBEYWtvdGEgTm9ydGggQ2VudHJhbCAwLjU5NQ0KIz4gNSAgICAgICBWZXJtb250ICAgICBOb3J0aGVhc3QgMC4zMjANCmBgYA0KDQpJbiB0aGUgY2FsbCB0byBgc2VsZWN0YCwgdGhlIGZpcnN0IGFyZ3VtZW50IGBtdXJkZXJzYCBpcyBhbiBvYmplY3RzLCBidXQgYHN0YXRlYCwgYHJlZ2lvbmAsIGFuZCBgcmF0ZWAgYXJlIHZhcmlhYmxlIG5hbWVzLg0KDQojIyMgNS40IEV4ZXJjaXNlcw0KDQoxLiBMb2FkIHRoZSBkcGx5ciBwYWNrYWdlIGFuZCB0aGUgbXVyZGVycyBkYXRhc2V0Lg0KDQpgYGB7cn0NCmxpYnJhcnkoZHBseXIpDQpsaWJyYXJ5KGRzbGFicykNCmRhdGEobXVyZGVycykNCmBgYCANCg0KWW91IGNhbiBhZGQgY29sdW1ucyB1c2luZyB0aGUgKipkcGx5cioqIGZ1bmN0aW9uIGBtdXRhdGVgLiBUaGlzIGZ1bmN0aW9uIGlzIGF3YXJlIG9mIHRoZSBjb2x1bW4gbmFtZXMgYW5kIGluc2lkZSB0aGUgZnVuY3Rpb24geW91IGNhbiBjYWxsIHRoZW0gdW5xdW90ZWQ6DQoNCmBgYHtyfQ0KbXVyZGVycyA8LSBtdXRhdGUobXVyZGVycywgcG9wdWxhdGlvbl9pbl9taWxsaW9ucyA9IHBvcHVsYXRpb24gLyAxMF42KQ0KYGBgDQoNCldlIGNhbiB3cml0ZSBgcG9wdWxhdGlvbmAgcmF0aGVyIHRoYW4gYG11cmRlcnMkcG9wdWxhdGlvbmAuIFRoZSBmdW5jdGlvbiBgbXV0YXRlYCBrbm93cyB3ZSBhcmUgZ3JhYmJpbmcgY29sdW1ucyBmcm9tIGBtdXJkZXJzYC4NCg0KVXNlIHRoZSBmdW5jdGlvbiBgbXV0YXRlYCB0byBhZGQgYSBtdXJkZXJzIGNvbHVtbiBuYW1lZCBgcmF0ZWAgd2l0aCB0aGUgcGVyIDEwMCwwMDAgbXVyZGVyIHJhdGUgYXMgaW4gdGhlIGV4YW1wbGUgY29kZSBhYm92ZS4gTWFrZSBzdXJlIHlvdSByZWRlZmluZSBgbXVyZGVyc2AgYXMgZG9uZSBpbiB0aGUgZXhhbXBsZSBjb2RlIGFib3ZlICggbXVyZGVycyA8LSBbeW91ciBjb2RlXSkgc28gd2UgY2FuIGtlZXAgdXNpbmcgdGhpcyB2YXJpYWJsZS4NCg0KYW5zd2VyOg0KDQpgYGB7cn0NCm11cmRlcnMgPC0gbXV0YXRlKG11cmRlcnMsIHJhdGUgPSB0b3RhbCAvIHBvcHVsYXRpb24gKiAxMDAwMDApDQpgYGANCg0KMi4gSWYgYHJhbmsoeClgIGdpdmVzIHlvdSB0aGUgcmFua3Mgb2YgYHhgIGZyb20gbG93ZXN0IHRvIGhpZ2hlc3QsIGByYW5rKC14KWAgZ2l2ZXMgeW91IHRoZSByYW5rcyBmcm9tIGhpZ2hlc3QgdG8gbG93ZXN0LiBVc2UgdGhlIGZ1bmN0aW9uIGBtdXRhdGVgIHRvIGFkZCBhIGNvbHVtbiBgcmFua2AgY29udGFpbmluZyB0aGUgcmFuaywgZnJvbSBoaWdoZXN0IHRvIGxvd2VzdCBtdXJkZXIgcmF0ZS4gTWFrZSBzdXJlIHlvdSByZWRlZmluZSBgbXVyZGVyc2Agc28gd2UgY2FuIGtlZXAgdXNpbmcgdGhpcyB2YXJpYWJsZS4NCg0KYW5zd2VyOg0KDQpgYGB7cn0NCm11cmRlcnMgPC0gbXV0YXRlKG11cmRlcnMsIHJhdGUgPSB0b3RhbCAvIHBvcHVsYXRpb24gKiAxMF42KQ0KbXVyZGVycyA8LSBtdXRhdGUobXVyZGVycywgcmFuayA9IHJhbmsoLXJhdGUpKQ0KYGBgDQoNCjMuIFdpdGggKipkcGx5cioqLCB3ZSBjYW4gdXNlIGBzZWxlY3RgIHRvIHNob3cgb25seSBjZXJ0YWluIGNvbHVtbnMuIEZvciBleGFtcGxlLCB3aXRoIHRoaXMgY29kZSB3ZSB3b3VsZCBvbmx5IHNob3cgdGhlIHN0YXRlcyBhbmQgcG9wdWxhdGlvbiBzaXplczoNCg0KYGBge3J9DQpzZWxlY3QobXVyZGVycywgc3RhdGUsIHBvcHVsYXRpb24pICU+JSBoZWFkKCkNCmBgYA0KDQpVc2UgYHNlbGVjdGAgdG8gc2hvdyB0aGUgc3RhdGUgbmFtZXMgYW5kIGFiYnJldmlhdGlvbnMgaW4gYG11cmRlcnNgLiBEbyBub3QgcmVkZWZpbmUgbXVyZGVycywganVzdCBzaG93IHRoZSByZXN1bHRzLg0KDQoNCmFuc3dlcjoNCg0KYGBge3J9DQpzZWxlY3QobXVyZGVycywgc3RhdGUsIGFiYikgJT4lIGhlYWQoKQ0KYGBgDQoNCjQuIFRoZSAqKmRwbHlyKiogZnVuY3Rpb24gYGZpbHRlcmAgaXMgdXNlZCB0byBjaG9vc2Ugc3BlY2lmaWMgcm93cyBvZiB0aGUgZGF0YSBmcmFtZSB0byBrZWVwLiBVbmxpa2UgYHNlbGVjdGAgd2hpY2ggaXMgZm9yIGNvbHVtbnMsIGZpbHRlciBpcyBmb3Igcm93cy4gRm9yIGV4YW1wbGUsIHlvdSBjYW4gc2hvdyBqdXN0IHRoZSBOZXcgWW9yayByb3cgbGlrZSB0aGlzOg0KDQpgYGB7cn0NCmZpbHRlcihtdXJkZXJzLCBzdGF0ZSA9PSAiTmV3IFlvcmsiKQ0KWW91IGNhbiB1c2Ugb3RoZXIgbG9naWNhbCB2ZWN0b3JzIHRvIGZpbHRlciByb3dzLg0KYGBgDQoNClVzZSBgZmlsdGVyYCB0byBzaG93IHRoZSB0b3AgNSBzdGF0ZXMgd2l0aCB0aGUgaGlnaGVzdCBtdXJkZXIgcmF0ZXMuIEFmdGVyIHdlIGFkZCBtdXJkZXIgcmF0ZSBhbmQgcmFuaywgZG8gbm90IGNoYW5nZSB0aGUgbXVyZGVycyBkYXRhc2V0LCBqdXN0IHNob3cgdGhlIHJlc3VsdC4gUmVtZW1iZXIgdGhhdCB5b3UgY2FuIGZpbHRlciBiYXNlZCBvbiB0aGUgcmFuayBjb2x1bW4uDQoNCldlIGNhbiByZW1vdmUgcm93cyB1c2luZyB0aGUgIT0gb3BlcmF0b3IuIEZvciBleGFtcGxlLCB0byByZW1vdmUgRmxvcmlkYSwgd2Ugd291bGQgZG8gdGhpczoNCg0Kbm9fZmxvcmlkYSA8LSBmaWx0ZXIobXVyZGVycywgc3RhdGUgIT0gIkZsb3JpZGEiKQ0KQ3JlYXRlIGEgbmV3IGRhdGEgZnJhbWUgY2FsbGVkIG5vX3NvdXRoIHRoYXQgcmVtb3ZlcyBzdGF0ZXMgZnJvbSB0aGUgU291dGggcmVnaW9uLiBIb3cgbWFueSBzdGF0ZXMgYXJlIGluIHRoaXMgY2F0ZWdvcnk/IFlvdSBjYW4gdXNlIHRoZSBmdW5jdGlvbiBucm93IGZvciB0aGlzLg0KDQpXZSBjYW4gYWxzbyB1c2UgJWluJSB0byBmaWx0ZXIgd2l0aCBkcGx5ci4gWW91IGNhbiB0aGVyZWZvcmUgc2VlIHRoZSBkYXRhIGZyb20gTmV3IFlvcmsgYW5kIFRleGFzIGxpa2UgdGhpczoNCg0KZmlsdGVyKG11cmRlcnMsIHN0YXRlICVpbiUgYygiTmV3IFlvcmsiLCAiVGV4YXMiKSkNCkNyZWF0ZSBhIG5ldyBkYXRhIGZyYW1lIGNhbGxlZCBtdXJkZXJzX253IHdpdGggb25seSB0aGUgc3RhdGVzIGZyb20gdGhlIE5vcnRoZWFzdCBhbmQgdGhlIFdlc3QuIEhvdyBtYW55IHN0YXRlcyBhcmUgaW4gdGhpcyBjYXRlZ29yeT8NCg0KU3VwcG9zZSB5b3Ugd2FudCB0byBsaXZlIGluIHRoZSBOb3J0aGVhc3Qgb3IgV2VzdCBhbmQgd2FudCB0aGUgbXVyZGVyIHJhdGUgdG8gYmUgbGVzcyB0aGFuIDEuIFdlIHdhbnQgdG8gc2VlIHRoZSBkYXRhIGZvciB0aGUgc3RhdGVzIHNhdGlzZnlpbmcgdGhlc2Ugb3B0aW9ucy4gTm90ZSB0aGF0IHlvdSBjYW4gdXNlIGxvZ2ljYWwgb3BlcmF0b3JzIHdpdGggZmlsdGVyLiBIZXJlIGlzIGFuIGV4YW1wbGUgaW4gd2hpY2ggd2UgZmlsdGVyIHRvIGtlZXAgb25seSBzbWFsbCBzdGF0ZXMgaW4gdGhlIE5vcnRoZWFzdCByZWdpb24uDQoNCmZpbHRlcihtdXJkZXJzLCBwb3B1bGF0aW9uIDwgNTAwMDAwMCAmIHJlZ2lvbiA9PSAiTm9ydGhlYXN0IikNCk1ha2Ugc3VyZSBtdXJkZXJzIGhhcyBiZWVuIGRlZmluZWQgd2l0aCByYXRlIGFuZCByYW5rIGFuZCBzdGlsbCBoYXMgYWxsIHN0YXRlcy4gQ3JlYXRlIGEgdGFibGUgY2FsbGVkIG15X3N0YXRlcyB0aGF0IGNvbnRhaW5zIHJvd3MgZm9yIHN0YXRlcyBzYXRpc2Z5aW5nIGJvdGggdGhlIGNvbmRpdGlvbnM6IGl0IGlzIGluIHRoZSBOb3J0aGVhc3Qgb3IgV2VzdCBhbmQgdGhlIG11cmRlciByYXRlIGlzIGxlc3MgdGhhbiAxLiBVc2Ugc2VsZWN0IHRvIHNob3cgb25seSB0aGUgc3RhdGUgbmFtZSwgdGhlIHJhdGUgYW5kIHRoZSByYW5rLg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogInRpZHl2ZXJzZV8yMDE5MDkxOF8xMDZfa2ltIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4NCg0KYm9keSwgdGQgew0KICAgZm9udC1zaXplOiAxNnB4Ow0KICAgZm9udC1mYW1pbHk6ICdOYW51bSBHb3RoaWMnLCBzYW5zLXNlcmlmOw0KICAgbGluZS1oZWlnaHQ6IDEuN2VtDQp9DQpjb2RlLnJ7DQogIGZvbnQtc2l6ZTogMTRweDsNCiAgZm9udC1mYW1pbHk6ICdOYW51bSBHb3RoaWMnLCBzYW5zLXNlcmlmOw0KICBsaW5lLWhlaWdodDogMmVtDQp9DQpwcmUgew0KICBmb250LXNpemU6IDE0cHgNCiAgZm9udC1mYW1pbHk6ICdOYW51bSBHb3RoaWMnLCBzYW5zLXNlcmlmOw0KfQ0KfQ0KPC9zdHlsZT4NCg0KIyBDaGFwdGVyIDUgVGhlIHRpZHl2ZXJzZQ0KDQpgYGB7cn0NCmluc3RhbGwucGFja2FnZXMoInRpZHl2ZXJzZSIpDQpgYGANCg0KVXAgdG8gbm93IHdlIGhhdmUgYmVlbiBtYW5pcHVsYXRpbmcgdmVjdG9ycyBieSByZW9yZGVyaW5nIGFuZCBzdWJzZXR0aW5nIHRoZW0gdGhyb3VnaCBpbmRleGluZy4gSG93ZXZlciwgb25jZSB3ZSBzdGFydCBtb3JlIGFkdmFuY2VkIGFuYWx5c2VzLCB0aGUgcHJlZmVycmVkIHVuaXQgZm9yIGRhdGEgc3RvcmFnZSBpcyBub3QgdGhlIHZlY3RvciBidXQgdGhlIGRhdGEgZnJhbWUuIEluIHRoaXMgY2hhcHRlciB3ZSBsZWFybiB0byB3b3JrIGRpcmVjdGx5IHdpdGggZGF0YSBmcmFtZXMsIHdoaWNoIGdyZWF0bHkgZmFjaWxpdGF0ZSB0aGUgb3JnYW5pemF0aW9uIG9mIGluZm9ybWF0aW9uLi4gV2Ugd2lsbCBiZSB1c2luZyBkYXRhIGZyYW1lcyBmb3IgdGhlIG1ham9yaXR5IG9mIHRoaXMgYm9vay4gV2Ugd2lsbCBmb2N1cyBvbiBhIHNwZWNpZmljIGRhdGEgZm9ybWF0IHJlZmVycmVkIHRvIGFzIHRpZHkgYW5kIG9uIHNwZWNpZmljIGNvbGxlY3Rpb24gb2YgcGFja2FnZXMgdGhhdCBhcmUgcGFydGljdWxhcmx5IGhlbHBmdWwgZm9yIHdvcmtpbmcgd2l0aCB0aWR5IGRhdGEgcmVmZXJyZWQgdG8gYXMgdGhlICp0aWR5dmVyc2UqLg0KDQpXZSBjYW4gbG9hZCBhbGwgdGhlIHRpZHl2ZXJzZSBwYWNrYWdlcyBhdCBvbmNlIGJ5IGluc3RhbGxpbmcgYW5kIGxvYWRpbmcgdGhlIHRpZHl2ZXJzZSBwYWNrYWdlOg0KDQpgYGB7cn0NCmxpYnJhcnkodGlkeXZlcnNlKQ0KYGBgDQoNCldlIHdpbGwgbGVhcm4gaG93IHRvIGltcGxlbWVudCB0aGUgdGlkeXZlcnNlIGFwcHJvYWNoIHRocm91Z2hvdXQgdGhlIGJvb2ssIGJ1dCBiZWZvcmUgZGVsdmluZyBpbnRvIHRoZSBkZXRhaWxzLCBpbiB0aGlzIGNoYXB0ZXIgd2UgaW50cm9kdWNlIHNvbWUgb2YgdGhlIG1vc3Qgd2lkZWx5IHVzZWQgdGlkeXZlcnNlIGZ1bmN0aW9uYWxpdHkuIHN0YXJ0aW5nIHdpdGggdGhlICoqZHBseXIqKiBwYWNrYWdlIGZvciBtYW5pcHVsYXRpbmcgZGF0YSBmcmFtZXMgYW5kIHRoZSAqKnB1cnJyKiogcGFja2FnZSBmb3Igd29ya2luZyB3aXRoIGZ1bmN0aW9ucy4gTm90ZSB0aGF0IHRoZSB0aWR5dmVyc2UgYWxzbyBpbmNsdWRlcyBhIGdyYXBoaW5nIHBhY2thZ2UsICoqZ2dwbG90MioqLCB3aGljaCB3ZSBpbnRyb2R1Y2UgbGF0ZXIgaW4gQ2hhcHRlciA4IGluIHRoZSBEYXRhIFZpc3VhbGl6YXRpb24gcGFydCBvZiB0aGUgYm9vazsgdGhlICoqcmVhZHIqKiBwYWNrYWdlIGRpc2N1c3NlZCBpbiBDaGFwdGVyIDY7IGFuZCBtYW55IG90aGVycy4gSW4gdGhpcyBjaGFwdGVyLCB3ZSBmaXJzdCBpbnRyb2R1Y2UgdGhlIGNvbmNlcHQgb2YgKnRpZHkgZGF0YSogYW5kIHRoZW4gZGVtb25zdHJhdGUgaG93IHdlIHVzZSB0aGUgdGlkeXZlcnNlIHRvIHdvcmsgd2l0aCBkYXRhIGZyYW1lcyBpbiB0aGlzIGZvcm1hdC4NCg0KIyMgNS4xIFRpZHkgZnJhbWUNCg0KV2Ugc2F5IHRoYXQgYSBkYXRhIHRhYmxlIGlzIGluICp0aWR5KiBmb3JtYXQgaWYgZWFjaCByb3cgcmVwcmVzZW50cyBvbmUgb2JzZXJ2YXRpb24gYW5kIGNvbHVtbnMgcmVwcmVzZW50IHRoZSBkaWZmZXJlbnQgdmFyaWFibGVzIGF2YWlsYWJsZSBmb3IgZWFjaCBvZiB0aGVzZSBvYnNlcnZhdGlvbnMuIFRoZSBgbXVyZGVyc2AgZGF0YXNldCBpcyBhbiBleGFtcGxlIG9mIGEgdGlkeSBkYXRhIGZyYW1lLg0KDQpgYGB7cn0NCiM+ICAgICAgICBzdGF0ZSBhYmIgcmVnaW9uIHBvcHVsYXRpb24gdG90YWwNCiM+IDEgICAgQWxhYmFtYSAgQUwgIFNvdXRoICAgIDQ3Nzk3MzYgICAxMzUNCiM+IDIgICAgIEFsYXNrYSAgQUsgICBXZXN0ICAgICA3MTAyMzEgICAgMTkNCiM+IDMgICAgQXJpem9uYSAgQVogICBXZXN0ICAgIDYzOTIwMTcgICAyMzINCiM+IDQgICBBcmthbnNhcyAgQVIgIFNvdXRoICAgIDI5MTU5MTggICAgOTMNCiM+IDUgQ2FsaWZvcm5pYSAgQ0EgICBXZXN0ICAgMzcyNTM5NTYgIDEyNTcNCiM+IDYgICBDb2xvcmFkbyAgQ08gICBXZXN0ICAgIDUwMjkxOTYgICAgNjUNCmBgYA0KDQpFYWNoIHJvdyByZXByZXNlbnQgYSBzdGF0ZSB3aXRoIGVhY2ggb2YgdGhlIGZpdmUgY29sdW1ucyBwcm92aWRpbmcgYSBkaWZmZXJlbnQgdmFyaWFibGUgcmVsYXRlZCB0byB0aGVzZSBzdGF0ZXM6IG5hbWUsIGFiYnJldmlhdGlvbiwgcmVnaW9uLCBwb3B1bGF0aW9uLCBhbmQgdG90YWwgbXVyZGVycy4NCg0KVG8gc2VlIGhvdyB0aGUgc2FtZSBpbmZvcm1hdGlvbiBjYW4gYmUgcHJvdmlkZWQgaW4gZGlmZmVyZW50IGZvcm1hdHMsIGNvbnNpZGVyIHRoZSBmb2xsb3dpbmcgZXhhbXBsZToNCg0KYGBge3J9DQojPiAgICAgICAgY291bnRyeSB5ZWFyIGZlcnRpbGl0eQ0KIz4gMSAgICAgIEdlcm1hbnkgMTk2MCAgICAgIDIuNDENCiM+IDIgIFNvdXRoIEtvcmVhIDE5NjAgICAgICA2LjE2DQojPiAzICAgICAgR2VybWFueSAxOTYxICAgICAgMi40NA0KIz4gNCAgU291dGggS29yZWEgMTk2MSAgICAgIDUuOTkNCiM+IDUgICAgICBHZXJtYW55IDE5NjIgICAgICAyLjQ3DQojPiA2ICBTb3V0aCBLb3JlYSAxOTYyICAgICAgNS43OQ0KIz4gNyAgICAgIEdlcm1hbnkgMTk2MyAgICAgIDIuNDkNCiM+IDggIFNvdXRoIEtvcmVhIDE5NjMgICAgICA1LjU3DQojPiA5ICAgICAgR2VybWFueSAxOTY0ICAgICAgMi40OQ0KIz4gMTAgU291dGggS29yZWEgMTk2NCAgICAgIDUuMzYNCiM+IDExICAgICBHZXJtYW55IDE5NjUgICAgICAyLjQ4DQojPiAxMiBTb3V0aCBLb3JlYSAxOTY1ICAgICAgNS4xNg0KYGBgDQoNClRoaXMgdGlkeSBkYXRhc2V0IHByb3ZpZGVzIGZlcnRpbGl0eSByYXRlcyBmb3IgdHdvIGNvdW50cmllcyBhY3Jvc3MgdGhlIHllYXJzLiBUaGlzIGlzIGEgdGlkeSBkYXRhc2V0IGJlY2F1c2UgZWFjaCByb3cgcHJlc2VudHMgb25lIG9ic2VydmF0aW9uIHdpdGggdGhlIHRocmVlIHZhcmlhYmxlcyBiZWluZyBjb3VudHksIHllYXIgYW5kIGZlcnRpbGl0eSByYXRlLiBIb3dldmVyLCB0aGlzIGRhdGFzZXQgb3JpZ2luYWxseSBjYW1lIGluIGFub3RoZXIgZm9ybWF0IGFuZCB3YXMgcmVzaGFwZWQgZm9yIHRoZSAqKmRzbGFicyoqIHBhY2thZ2UuIE9yaWdpbmFsbHksIHRoZSBkYXRhIHdhcyBpbiB0aGUgZm9sbG93aW5nIGZvcm1hdDoNCg0KYGBgDQojPiAgICAgICBjb3VudHJ5IDE5NjAgMTk2MSAxOTYyIDE5NjMgMTk2NCAxOTY1DQojPiAxICAgICBHZXJtYW55IDIuNDEgMi40NCAyLjQ3IDIuNDkgMi40OSAyLjQ4DQojPiAyIFNvdXRoIEtvcmVhIDYuMTYgNS45OSA1Ljc5IDUuNTcgNS4zNiA1LjE2DQpgYGANCg0KVGhlIHNhbWUgaW5mb3JtYXRpb24gaXMgcHJvdmlkZWQsIGJ1dCB0aGVyZSBhcmUgdHdvIGltcG9ydGFudCBkaWZmZXJlbmNlcyBpbiB0aGUgZm9ybWF0OiAxKSBlYWNoIHJvdyBpbmNsdWRlcyBzZXZlcmFsIG9ic2VydmF0aW9ucyBhbmQgMikgb25lIG9mIHRoZSB2YXJpYWJsZXMsIHllYXIsIGlzIHN0b3JlZCBpbiB0aGUgaGVhZGVyLiBGb3IgdGhlIHRpZHl2ZXJzZSBwYWNrYWdlcyB0byBiZSBvcHRpbWFsbHkgdXNlZCwgZGF0YSBuZWVkIHRvIGJlIHJlc2hhcGVkIGludG8gYHRpZHlgIGZvcm1hdCwgd2hpY2ggeW91IHdpbGwgbGVhcm4gdG8gZG8gaW4gdGhlIERhdGEgV3JhbmdsaW5nIHBhcnQgb2YgdGhlIGJvb2suIFVudGlsIHRoZW4sIHdlIHdpbGwgdXNlIGV4YW1wbGUgZGF0YXNldHMgdGhhdCBhcmUgYWxyZWFkeSBpbiB0aWR5IGZvcm1hdC4NCg0KQWx0aG91Z2ggbm90IGltbWVkaWF0ZWx5IG9idmlvdXMsIGFzIHlvdSBnbyB0aHJvdWdoIHRoZSBib29rIHlvdSB3aWxsIHN0YXJ0IHRvIGFwcHJlY2lhdGUgdGhlIGFkdmFudGFnZXMgb2Ygd29ya2luZyBpbiBhIGZyYW1ld29yayBpbiB3aGljaCBmdW5jdGlvbnMgdXNlIHRpZHkgZm9ybWF0cyBmb3IgYm90aCBpbnB1dHMgYW5kIG91dHB1dHMuIFlvdSB3aWxsIHNlZSBob3cgdGhpcyBwZXJtaXRzIHRoZSBkYXRhIGFuYWx5c3QgdG8gZm9jdXMgb24gbW9yZSBpbXBvcnRhbnQgYXNwZWN0cyBvZiB0aGUgYW5hbHlzaXMgcmF0aGVyIHRoYW4gdGhlIGZvcm1hdCBvZiB0aGUgZGF0YS4NCg0KIyMgNS4yIEV4Y2VyY2lzZXMNCg0KDQoxLiBFeGFtaW5lIHRoZSBidWlsdC1pbiBkYXRhc2V0IGBjbzJgLiBXaGljaCBvZiB0aGUgZm9sbG93aW5nIGlzIHRydWU6ICAgIA0KQS4gYGNvMmAgaXMgdGlkeSBkYXRhOiBpdCBoYXMgb25lIHllYXIgZm9yIGVhY2ggcm93LiAgDQpCLiBgY28yYCBpcyBub3QgdGlkeTogd2UgbmVlZCBhdCBsZWFzdCBvbmUgY29sdW1uIHdpdGggYSBjaGFyYWN0ZXIgdmVjdG9yLiAgDQpDLiBgY28yYCBpcyBub3QgdGlkeTogaXQgaXMgYSBtYXRyaXggaW5zdGVhZCBvZiBhIGRhdGEgZnJhbWUuICANCkQuIGBjbzJgIGlzIG5vdCB0aWR5OiB0byBiZSB0aWR5IHdlIHdvdWxkIGhhdmUgdG8gd3JhbmdsZSBpdCB0byBoYXZlIHRocmVlIGNvbHVtbnMgKHllYXIsIG1vbnRoIGFuZCB2YWx1ZSksIHRoZW4gZWFjaCBjbzIgb2JzZXJ2YXRpb24gd291bGQgaGF2ZSBhIHJvdy4gIA0KYW5zd2VyIDogQw0KDQoyLiBFeGFtaW5lIHRoZSBidWlsdC1pbiBkYXRhc2V0IGBDaGlja1dlaWdodGAuIFdoaWNoIG9mIHRoZSBmb2xsb3dpbmcgaXMgdHJ1ZTogIA0KQS4gYENoaWNrV2VpZ2h0YCBpcyBub3QgdGlkeTogZWFjaCBjaGljayBoYXMgbW9yZSB0aGFuIG9uZSByb3cuICANCkIuIGBDaGlja1dlaWdodGAgaXMgdGlkeTogZWFjaCBvYnNlcnZhdGlvbiAoYSB3ZWlnaHQpIGlzIHJlcHJlc2VudGVkIGJ5IG9uZSByb3cuIFRoZSBjaGljayBmcm9tIHdoaWNoIHRoaXMgbWVhc3VyZW1lbnQgY2FtZSBmcm9tIGlzIG9uZSB0aGUgdmFyaWFibGVzLiAgDQpDLiBgQ2hpY2tXZWlnaHRgIGlzIG5vdCBhIHRpZHk6IHdlIGFyZSBtaXNzaW5nIHRoZSB5ZWFyIGNvbHVtbi4gIA0KRC4gYENoaWNrV2VpZ2h0YCBpcyB0aWR5OiBpdCBpcyBzdG9yZWQgaW4gYSBkYXRhIGZyYW1lLiAgDQphbnN3ZXIgOiBCDQoNCjMuIEV4YW1pbmUgdGhlIGJ1aWx0LWluIGRhdGFzZXQgYEJPRGAuIFdoaWNoIG9mIHRoZSBmb2xsb3dpbmcgaXMgdHJ1ZTogIA0KQS4gYEJPRGAgaXMgbm90IHRpZHk6IGl0IG9ubHkgaGFzIHNpeCByb3dzLiAgDQpCLiBgQk9EYCBpcyBub3QgdGlkeTogdGhlIGZpcnN0IGNvbHVtbiBpcyBqdXN0IGFuIGluZGV4LiAgDQpDLiBgQk9EYCBpcyB0aWR5OiBlYWNoIHJvdyBpcyBhbiBvYnNlcnZhdGlvbiB3aXRoIHR3byB2YWx1ZXMgKHRpbWUgYW5kIGRlbWFuZCkgIA0KRC4gYEJPRGAgaXMgdGlkeTogYWxsIHNtYWxsIGRhdGFzZXRzIGFyZSB0aWR5IGJ5IGRlZmluaXRpb24uICANCmFuc3dlcjogQw0KDQo0LiBXaGljaCBvZiB0aGUgZm9sbG93aW5nIGJ1aWx0LWluIGRhdGFzZXRzIGlzIHRpZHkgKHlvdSBjYW4gcGljayBtb3JlIHRoYW4gb25lKTogIA0KQS4gYEJKc2FsZXNgICANCkIuIGBFdVN0b2NrTWFya2V0c2AgIA0KQy4gYEROYXNlYCAgDQpELiBgRm9ybWFsZGVoeWRlYCAgDQpFLiBgT3JhbmdlYCAgDQpGLiBgVUNCQWRtaXNzaW9uc2AgIA0KYGBge3J9DQpoZWFkKEJKc2FsZXMpDQpoZWFkKEV1U3RvY2tNYXJrZXRzKQ0KaGVhZChETmFzZSkNCmhlYWQoRm9ybWFsZGVoeWRlKQ0KaGVhZChPcmFuZ2UpDQpoZWFkKFVDQkFkbWlzc2lvbnMpDQpgYGANCmFuc3dlcjogQyxELEUsIA0KDQojIyA1LjMgTWFuaXB1bGF0aW5nIGRhdGEgZnJhbWVzDQoNClRoZSAqKmRwbHlyKiogcGFja2FnZSBmcm9tIHRoZSAqKnRpZHl2ZXJzZSoqIGludHJvZHVjZXMgZnVuY3Rpb25zIHRoYXQgcGVyZm9ybSBzb21lIG9mIHRoZSBtb3N0IGNvbW1vbiBvcGVyYXRpb25zIHdoZW4gd29ya2luZyB3aXRoIGRhdGEgZnJhbWVzIGFuZCB1c2VzIG5hbWVzIGZvciB0aGVzZSBmdW5jdGlvbnMgdGhhdCBhcmUgcmVsYXRpdmVseSBlYXN5IHRvIHJlbWVtYmVyLiBGb3IgaW5zdGFuY2UsIHRvIGNoYW5nZSB0aGUgZGF0YSB0YWJsZSBieSBhZGRpbmcgYSBuZXcgY29sdW1uLCB3ZSB1c2UgYG11dGF0ZWAuIFRvIGZpbHRlciB0aGUgZGF0YSB0YWJsZSB0byBhIHN1YnNldCBvZiByb3dzLCB3ZSB1c2UgYGZpbHRlcmAuIEZpbmFsbHksIHRvIHN1YnNldCB0aGUgZGF0YSBieSBzZWxlY3Rpbmcgc3BlY2lmaWMgY29sdW1ucywgd2UgdXNlIGBzZWxlY3RgLg0KDQojIyMgNS4zLjEgQWRkaW5nIGEgY29sdW1uIHdpdGggYG11dGF0ZWANCg0KV2Ugd2FudCBhbGwgdGhlIG5lY2Vzc2FyeSBpbmZvcm1hdGlvbiBmb3Igb3VyIGFuYWx5c2lzIHRvIGJlIGluY2x1ZGVkIGluIHRoZSBkYXRhIHRhYmxlLiBTbyB0aGUgZmlyc3QgdGFzayBpcyB0byBhZGQgdGhlIG11cmRlciByYXRlcyB0byBvdXIgbXVyZGVycyBkYXRhIGZyYW1lLiBUaGUgZnVuY3Rpb24gYG11dGF0ZWAgdGFrZXMgdGhlIGRhdGEgZnJhbWUgYXMgYSBmaXJzdCBhcmd1bWVudCBhbmQgdGhlIG5hbWUgYW5kIHZhbHVlcyBvZiB0aGUgdmFyaWFibGUgYXMgYSBzZWNvbmQgYXJndW1lbnQgdXNpbmcgdGhlIGNvbnZlbnRpb24gYG5hbWUgPSB2YWx1ZXNgLiBTbywgdG8gYWRkIG11cmRlciByYXRlcywgd2UgdXNlOg0KDQpgYGB7cn0NCmxpYnJhcnkoZHNsYWJzKQ0KZGF0YSgibXVyZGVycyIpDQptdXJkZXJzIDwtIG11dGF0ZShtdXJkZXJzLCByYXRlID0gdG90YWwgLyBwb3B1bGF0aW9uICogMTAwMDAwKQ0KYGBgDQoNCk5vdGljZSB0aGF0IGhlcmUgd2UgdXNlZCBgdG90YWxgIGFuZCBgcG9wdWxhdGlvbmAgaW5zaWRlIHRoZSBmdW5jdGlvbiwgd2hpY2ggYXJlIG9iamVjdHMgdGhhdCBhcmUgKipub3QqKiBkZWZpbmVkIGluIG91ciB3b3Jrc3BhY2UuIEJ1dCB3aHkgZG9u4oCZdCB3ZSBnZXQgYW4gZXJyb3I/DQoNClRoaXMgaXMgb25lIG9mICoqZHBseXIqKuKAmXMgbWFpbiBmZWF0dXJlcy4gRnVuY3Rpb25zIGluIHRoaXMgcGFja2FnZSwgc3VjaCBhcyBgbXV0YXRlYCwga25vdyB0byBsb29rIGZvciB2YXJpYWJsZXMgaW4gdGhlIGRhdGEgZnJhbWUgcHJvdmlkZWQgaW4gdGhlIGZpcnN0IGFyZ3VtZW50LiBJbiB0aGUgY2FsbCB0byBtdXRhdGUgYWJvdmUsIGB0b3RhbGAgd2lsbCBoYXZlIHRoZSB2YWx1ZXMgaW4gYG11cmRlcnMkdG90YWxgLiBUaGlzIGFwcHJvYWNoIG1ha2VzIHRoZSBjb2RlIG11Y2ggbW9yZSByZWFkYWJsZS4NCg0KV2UgY2FuIHNlZSB0aGF0IHRoZSBuZXcgY29sdW1uIGlzIGFkZGVkOg0KDQpgYGB7cn0NCmhlYWQobXVyZGVycykNCiM+ICAgICAgICBzdGF0ZSBhYmIgcmVnaW9uIHBvcHVsYXRpb24gdG90YWwgcmF0ZQ0KIz4gMSAgICBBbGFiYW1hICBBTCAgU291dGggICAgNDc3OTczNiAgIDEzNSAyLjgyDQojPiAyICAgICBBbGFza2EgIEFLICAgV2VzdCAgICAgNzEwMjMxICAgIDE5IDIuNjgNCiM+IDMgICAgQXJpem9uYSAgQVogICBXZXN0ICAgIDYzOTIwMTcgICAyMzIgMy42Mw0KIz4gNCAgIEFya2Fuc2FzICBBUiAgU291dGggICAgMjkxNTkxOCAgICA5MyAzLjE5DQojPiA1IENhbGlmb3JuaWEgIENBICAgV2VzdCAgIDM3MjUzOTU2ICAxMjU3IDMuMzcNCiM+IDYgICBDb2xvcmFkbyAgQ08gICBXZXN0ICAgIDUwMjkxOTYgICAgNjUgMS4yOQ0KYGBgDQoNCkFsdGhvdWdoIHdlIGhhdmUgb3ZlcndyaXR0ZW4gdGhlIG9yaWdpbmFsIGBtdXJkZXJzYCBvYmplY3QsIHRoaXMgZG9lcyBub3QgY2hhbmdlIHRoZSBvYmplY3QgdGhhdCBsb2FkZWQgd2l0aCBgZGF0YShtdXJkZXJzKWAuIElmIHdlIGxvYWQgdGhlIGBtdXJkZXJzYCBkYXRhIGFnYWluLCB0aGUgb3JpZ2luYWwgd2lsbCBvdmVyd3JpdGUgb3VyIG11dGF0ZWQgdmVyc2lvbi4NCg0KIyMjIDUuMy4yIFN1YnNldHRpbmcgd2l0aCBgZmlsdGVyYA0KDQpOb3cgc3VwcG9zZSB0aGF0IHdlIHdhbnQgdG8gZmlsdGVyIHRoZSBkYXRhIHRhYmxlIHRvIG9ubHkgc2hvdyB0aGUgZW50cmllcyBmb3Igd2hpY2ggdGhlIG11cmRlciByYXRlIGlzIGxvd2VyIHRoYW4gMC43MS4gVG8gZG8gdGhpcyB3ZSB1c2UgdGhlIGBmaWx0ZXJgIGZ1bmN0aW9uLCB3aGljaCB0YWtlcyB0aGUgZGF0YSB0YWJsZSBhcyB0aGUgZmlyc3QgYXJndW1lbnQgYW5kIHRoZW4gdGhlIGNvbmRpdGlvbmFsIHN0YXRlbWVudCBhcyB0aGUgc2Vjb25kLiBMaWtlIGBtdXRhdGVgLCB3ZSBjYW4gdXNlIHRoZSB1bnF1b3RlZCB2YXJpYWJsZSBuYW1lcyBmcm9tIGBtdXJkZXJzYCBpbnNpZGUgdGhlIGZ1bmN0aW9uIGFuZCBpdCB3aWxsIGtub3cgd2UgbWVhbiB0aGUgY29sdW1ucyBhbmQgbm90IG9iamVjdHMgaW4gdGhlIHdvcmtzcGFjZS4NCg0KYGBge3J9DQpmaWx0ZXIobXVyZGVycywgcmF0ZSA8PSAwLjcxKQ0KIz4gICAgICAgICAgIHN0YXRlIGFiYiAgICAgICAgcmVnaW9uIHBvcHVsYXRpb24gdG90YWwgIHJhdGUNCiM+IDEgICAgICAgIEhhd2FpaSAgSEkgICAgICAgICAgV2VzdCAgICAxMzYwMzAxICAgICA3IDAuNTE1DQojPiAyICAgICAgICAgIElvd2EgIElBIE5vcnRoIENlbnRyYWwgICAgMzA0NjM1NSAgICAyMSAwLjY4OQ0KIz4gMyBOZXcgSGFtcHNoaXJlICBOSCAgICAgTm9ydGhlYXN0ICAgIDEzMTY0NzAgICAgIDUgMC4zODANCiM+IDQgIE5vcnRoIERha290YSAgTkQgTm9ydGggQ2VudHJhbCAgICAgNjcyNTkxICAgICA0IDAuNTk1DQojPiA1ICAgICAgIFZlcm1vbnQgIFZUICAgICBOb3J0aGVhc3QgICAgIDYyNTc0MSAgICAgMiAwLjMyMA0KYGBgDQoNCiMjIyA1LjMuMyBTZWxlY3RpbmcgY29sdW1ucyB3aXRoIGBzZWxlY3RgDQoNCkFsdGhvdWdoIG91ciBkYXRhIHRhYmxlIG9ubHkgaGFzIHNpeCBjb2x1bW5zLCBzb21lIGRhdGEgdGFibGVzIGluY2x1ZGUgaHVuZHJlZHMuIElmIHdlIHdhbnQgdG8gdmlldyBqdXN0IGEgZmV3LCB3ZSBjYW4gdXNlIHRoZSAqKmRwbHlyKiogYHNlbGVjdGAgZnVuY3Rpb24uIEluIHRoZSBjb2RlIGJlbG93IHdlIHNlbGVjdCB0aHJlZSBjb2x1bW5zLCBhc3NpZ24gdGhpcyB0byBhIG5ldyBvYmplY3QgYW5kIHRoZW4gZmlsdGVyIHRoZSBuZXcgb2JqZWN0Og0KDQpgYGB7cn0NCm5ld190YWJsZSA8LSBzZWxlY3QobXVyZGVycywgc3RhdGUsIHJlZ2lvbiwgcmF0ZSkNCmZpbHRlcihuZXdfdGFibGUsIHJhdGUgPD0gMC43MSkNCiM+ICAgICAgICAgICBzdGF0ZSAgICAgICAgcmVnaW9uICByYXRlDQojPiAxICAgICAgICBIYXdhaWkgICAgICAgICAgV2VzdCAwLjUxNQ0KIz4gMiAgICAgICAgICBJb3dhIE5vcnRoIENlbnRyYWwgMC42ODkNCiM+IDMgTmV3IEhhbXBzaGlyZSAgICAgTm9ydGhlYXN0IDAuMzgwDQojPiA0ICBOb3J0aCBEYWtvdGEgTm9ydGggQ2VudHJhbCAwLjU5NQ0KIz4gNSAgICAgICBWZXJtb250ICAgICBOb3J0aGVhc3QgMC4zMjANCmBgYA0KDQpJbiB0aGUgY2FsbCB0byBgc2VsZWN0YCwgdGhlIGZpcnN0IGFyZ3VtZW50IGBtdXJkZXJzYCBpcyBhbiBvYmplY3RzLCBidXQgYHN0YXRlYCwgYHJlZ2lvbmAsIGFuZCBgcmF0ZWAgYXJlIHZhcmlhYmxlIG5hbWVzLg0KDQojIyMgNS40IEV4ZXJjaXNlcw0KDQoxLiBMb2FkIHRoZSBkcGx5ciBwYWNrYWdlIGFuZCB0aGUgbXVyZGVycyBkYXRhc2V0Lg0KDQpgYGB7cn0NCmxpYnJhcnkoZHBseXIpDQpsaWJyYXJ5KGRzbGFicykNCmRhdGEobXVyZGVycykNCmBgYCANCg0KWW91IGNhbiBhZGQgY29sdW1ucyB1c2luZyB0aGUgKipkcGx5cioqIGZ1bmN0aW9uIGBtdXRhdGVgLiBUaGlzIGZ1bmN0aW9uIGlzIGF3YXJlIG9mIHRoZSBjb2x1bW4gbmFtZXMgYW5kIGluc2lkZSB0aGUgZnVuY3Rpb24geW91IGNhbiBjYWxsIHRoZW0gdW5xdW90ZWQ6DQoNCmBgYHtyfQ0KbXVyZGVycyA8LSBtdXRhdGUobXVyZGVycywgcG9wdWxhdGlvbl9pbl9taWxsaW9ucyA9IHBvcHVsYXRpb24gLyAxMF42KQ0KYGBgDQoNCldlIGNhbiB3cml0ZSBgcG9wdWxhdGlvbmAgcmF0aGVyIHRoYW4gYG11cmRlcnMkcG9wdWxhdGlvbmAuIFRoZSBmdW5jdGlvbiBgbXV0YXRlYCBrbm93cyB3ZSBhcmUgZ3JhYmJpbmcgY29sdW1ucyBmcm9tIGBtdXJkZXJzYC4NCg0KVXNlIHRoZSBmdW5jdGlvbiBgbXV0YXRlYCB0byBhZGQgYSBtdXJkZXJzIGNvbHVtbiBuYW1lZCBgcmF0ZWAgd2l0aCB0aGUgcGVyIDEwMCwwMDAgbXVyZGVyIHJhdGUgYXMgaW4gdGhlIGV4YW1wbGUgY29kZSBhYm92ZS4gTWFrZSBzdXJlIHlvdSByZWRlZmluZSBgbXVyZGVyc2AgYXMgZG9uZSBpbiB0aGUgZXhhbXBsZSBjb2RlIGFib3ZlICggbXVyZGVycyA8LSBbeW91ciBjb2RlXSkgc28gd2UgY2FuIGtlZXAgdXNpbmcgdGhpcyB2YXJpYWJsZS4NCg0KYW5zd2VyOg0KDQpgYGB7cn0NCm11cmRlcnMgPC0gbXV0YXRlKG11cmRlcnMsIHJhdGUgPSB0b3RhbCAvIHBvcHVsYXRpb24gKiAxMDAwMDApDQpgYGANCg0KMi4gSWYgYHJhbmsoeClgIGdpdmVzIHlvdSB0aGUgcmFua3Mgb2YgYHhgIGZyb20gbG93ZXN0IHRvIGhpZ2hlc3QsIGByYW5rKC14KWAgZ2l2ZXMgeW91IHRoZSByYW5rcyBmcm9tIGhpZ2hlc3QgdG8gbG93ZXN0LiBVc2UgdGhlIGZ1bmN0aW9uIGBtdXRhdGVgIHRvIGFkZCBhIGNvbHVtbiBgcmFua2AgY29udGFpbmluZyB0aGUgcmFuaywgZnJvbSBoaWdoZXN0IHRvIGxvd2VzdCBtdXJkZXIgcmF0ZS4gTWFrZSBzdXJlIHlvdSByZWRlZmluZSBgbXVyZGVyc2Agc28gd2UgY2FuIGtlZXAgdXNpbmcgdGhpcyB2YXJpYWJsZS4NCg0KYW5zd2VyOg0KDQpgYGB7cn0NCm11cmRlcnMgPC0gbXV0YXRlKG11cmRlcnMsIHJhdGUgPSB0b3RhbCAvIHBvcHVsYXRpb24gKiAxMF41KQ0KbXVyZGVycyA8LSBtdXRhdGUobXVyZGVycywgcmFuayA9IHJhbmsoLXJhdGUpKQ0KYGBgDQoNCjMuIFdpdGggKipkcGx5cioqLCB3ZSBjYW4gdXNlIGBzZWxlY3RgIHRvIHNob3cgb25seSBjZXJ0YWluIGNvbHVtbnMuIEZvciBleGFtcGxlLCB3aXRoIHRoaXMgY29kZSB3ZSB3b3VsZCBvbmx5IHNob3cgdGhlIHN0YXRlcyBhbmQgcG9wdWxhdGlvbiBzaXplczoNCg0KYGBge3J9DQpzZWxlY3QobXVyZGVycywgc3RhdGUsIHBvcHVsYXRpb24pICU+JSBoZWFkKCkNCmBgYA0KDQpVc2UgYHNlbGVjdGAgdG8gc2hvdyB0aGUgc3RhdGUgbmFtZXMgYW5kIGFiYnJldmlhdGlvbnMgaW4gYG11cmRlcnNgLiBEbyBub3QgcmVkZWZpbmUgbXVyZGVycywganVzdCBzaG93IHRoZSByZXN1bHRzLg0KDQoNCmFuc3dlcjoNCg0KYGBge3J9DQpzZWxlY3QobXVyZGVycywgc3RhdGUsIGFiYikgJT4lIGhlYWQoKQ0KYGBgDQoNCjQuIFRoZSAqKmRwbHlyKiogZnVuY3Rpb24gYGZpbHRlcmAgaXMgdXNlZCB0byBjaG9vc2Ugc3BlY2lmaWMgcm93cyBvZiB0aGUgZGF0YSBmcmFtZSB0byBrZWVwLiBVbmxpa2UgYHNlbGVjdGAgd2hpY2ggaXMgZm9yIGNvbHVtbnMsIGZpbHRlciBpcyBmb3Igcm93cy4gRm9yIGV4YW1wbGUsIHlvdSBjYW4gc2hvdyBqdXN0IHRoZSBOZXcgWW9yayByb3cgbGlrZSB0aGlzOg0KDQpgYGB7cn0NCmZpbHRlcihtdXJkZXJzLCBzdGF0ZSA9PSAiTmV3IFlvcmsiKQ0KYGBgDQoNCllvdSBjYW4gdXNlIG90aGVyIGxvZ2ljYWwgdmVjdG9ycyB0byBmaWx0ZXIgcm93cy4NCg0KVXNlIGBmaWx0ZXJgIHRvIHNob3cgdGhlIHRvcCA1IHN0YXRlcyB3aXRoIHRoZSBoaWdoZXN0IG11cmRlciByYXRlcy4gQWZ0ZXIgd2UgYWRkIG11cmRlciByYXRlIGFuZCByYW5rLCBkbyBub3QgY2hhbmdlIHRoZSBtdXJkZXJzIGRhdGFzZXQsIGp1c3Qgc2hvdyB0aGUgcmVzdWx0LiBSZW1lbWJlciB0aGF0IHlvdSBjYW4gZmlsdGVyIGJhc2VkIG9uIHRoZSBgcmFua2AgY29sdW1uLg0KDQphbnN3ZXI6DQpgYGB7cn0NCiMgSG93IHRoZSByYW5rIGNvbHVtbiBpcyBkZWZpbmVkDQojIG11cmRlcnMgPC0gbXV0YXRlKG11cmRlcnMsIHJhdGUgPSB0b3RhbCAvIHBvcHVsYXRpb24gKiAxMF41KQ0KIyBtdXJkZXJzIDwtIG11dGF0ZShtdXJkZXJzLCByYW5rID0gcmFuaygtcmF0ZSkpDQoNCmZpbHRlcihtdXJkZXJzLCA1ID49IHJhbmspDQpgYGANCg0KNS4gV2UgY2FuIHJlbW92ZSByb3dzIHVzaW5nIHRoZSBgIT1gIG9wZXJhdG9yLiBGb3IgZXhhbXBsZSwgdG8gcmVtb3ZlIEZsb3JpZGEsIHdlIHdvdWxkIGRvIHRoaXM6DQoNCmBgYHtyfQ0Kbm9fZmxvcmlkYSA8LSBmaWx0ZXIobXVyZGVycywgc3RhdGUgIT0gIkZsb3JpZGEiKQ0KYGBgDQoNCkNyZWF0ZSBhIG5ldyBkYXRhIGZyYW1lIGNhbGxlZCBgbm9fc291dGhgIHRoYXQgcmVtb3ZlcyBzdGF0ZXMgZnJvbSB0aGUgU291dGggcmVnaW9uLiBIb3cgbWFueSBzdGF0ZXMgYXJlIGluIHRoaXMgY2F0ZWdvcnk/IFlvdSBjYW4gdXNlIHRoZSBmdW5jdGlvbiBgbnJvd2AgZm9yIHRoaXMuDQoNCmFuc3dlcjoNCmBgYHtyfQ0Kbm9fc291dGggPC0gZmlsdGVyKG11cmRlcnMsIHJlZ2lvbiAhPSAiU291dGgiKQ0KbnJvdyhub19zb3V0aCkNCmBgYA0KDQo2LiBXZSBjYW4gYWxzbyB1c2UgYCVpbiVgIHRvIGZpbHRlciB3aXRoICoqZHBseXIqKi4gWW91IGNhbiB0aGVyZWZvcmUgc2VlIHRoZSBkYXRhIGZyb20gTmV3IFlvcmsgYW5kIFRleGFzIGxpa2UgdGhpczoNCg0KYGBge3J9DQpmaWx0ZXIobXVyZGVycywgc3RhdGUgJWluJSBjKCJOZXcgWW9yayIsICJUZXhhcyIpKQ0KYGBgDQoNCkNyZWF0ZSBhIG5ldyBkYXRhIGZyYW1lIGNhbGxlZCBgbXVyZGVyc19ud2Agd2l0aCBvbmx5IHRoZSBzdGF0ZXMgZnJvbSB0aGUgTm9ydGhlYXN0IGFuZCB0aGUgV2VzdC4gSG93IG1hbnkgc3RhdGVzIGFyZSBpbiB0aGlzIGNhdGVnb3J5Pw0KDQo+IGAlaW4lYOyXkCDrjIDtlZjsl6wgIA0KPiBgVmVjdG9yX0EgJWluJSBWZWN0b3JfQmAg65286rOgIO2VoCDrlYwsIEHsnZgg6rCS7J20IELsl5Ag7J6I64KYIO2ZleyduO2VmOuKlCDtlajsiJguICANCj4gYGMoIkJvc3RvbiIsICJEYWtvdGEiLCAiV2FzaGluZ3RvbiIpICVpbiUgbXVyZGVycyRzdGF0ZWAgIA0KPiBgIz4gWzFdIEZBTFNFIEZBU0xTRSBUUlVFYCAgDQo+IGBtdXJkZXJzJHN0YXRlICVpbiUgYygiQm9zdG9uIiwgIkRha290YSIsICJXYXNoaW5ndG9uIilg7J2YIOqyveyasCBzdGF0ZSBjb2x1bW7sl5Ag7J6I64qUIOuqqOuToCDqsJLrk6Tsl5AgVCxGIOulvCDsi6Tsi5ztlaguIOy0nSA1MeqwnCDqsJLsnbQg64KY7Ji0Lg0KDQphbnN3ZXI6DQpgYGB7cn0NCm11cmRlcnNfbncgPC0gZmlsdGVyKG11cmRlcnMsIHJlZ2lvbiAlaW4lIGMoIk5vcnRoZWFzdCIsICJXZXN0IikpDQpgYGANCg0KDQo3LiBTdXBwb3NlIHlvdSB3YW50IHRvIGxpdmUgaW4gdGhlIE5vcnRoZWFzdCBvciBXZXN0ICoqYW5kKiogd2FudCB0aGUgbXVyZGVyIHJhdGUgdG8gYmUgbGVzcyB0aGFuIDEuIFdlIHdhbnQgdG8gc2VlIHRoZSBkYXRhIGZvciB0aGUgc3RhdGVzIHNhdGlzZnlpbmcgdGhlc2Ugb3B0aW9ucy4gTm90ZSB0aGF0IHlvdSBjYW4gdXNlIGxvZ2ljYWwgb3BlcmF0b3JzIHdpdGggYGZpbHRlcmAuIEhlcmUgaXMgYW4gZXhhbXBsZSBpbiB3aGljaCB3ZSBmaWx0ZXIgdG8ga2VlcCBvbmx5IHNtYWxsIHN0YXRlcyBpbiB0aGUgTm9ydGhlYXN0IHJlZ2lvbi4NCg0KYGBge3J9DQpmaWx0ZXIobXVyZGVycywgcG9wdWxhdGlvbiA8IDUwMDAwMDAgJiByZWdpb24gPT0gIk5vcnRoZWFzdCIpDQpgYGANCg0KTWFrZSBzdXJlIGBtdXJkZXJzYCBoYXMgYmVlbiBkZWZpbmVkIHdpdGggYHJhdGVgIGFuZCBgcmFua2AgYW5kIHN0aWxsIGhhcyBhbGwgc3RhdGVzLiBDcmVhdGUgYSB0YWJsZSBjYWxsZWQgYG15X3N0YXRlc2AgdGhhdCBjb250YWlucyByb3dzIGZvciBzdGF0ZXMgc2F0aXNmeWluZyBib3RoIHRoZSBjb25kaXRpb25zOiBpdCBpcyBpbiB0aGUgTm9ydGhlYXN0IG9yIFdlc3QgYW5kIHRoZSBtdXJkZXIgcmF0ZSBpcyBsZXNzIHRoYW4gMS4gVXNlIGBzZWxlY3RgIHRvIHNob3cgb25seSB0aGUgc3RhdGUgbmFtZSwgdGhlIHJhdGUgYW5kIHRoZSByYW5rLg0KDQphbnN3ZXI6DQpgYGB7cn0NCiMgSG93IHRoZSByYXRlIGNvbHVtbiBpcyBkZWZpbmVkDQojIG11cmRlcnMgPC0gbXV0YXRlKG11cmRlcnMsIHJhdGUgPSB0b3RhbCAvIHBvcHVsYXRpb24gKiAxMF41KQ0KDQpteV90YWJsZSA8LSBmaWx0ZXIobXVyZGVycywgcmVnaW9uICVpbiUgYygiTm9ydGhlYXN0IiwgIldlc3QiKSAmIDEgPiByYXRlKQ0Kc2VsZWN0KG15X3RhYmxlLCBzdGF0ZSwgcmF0ZSwgcmFuaykNCmBgYA0KDQojIyA1LjUgVGhlIHBpcGUgOiAlPiUNCg0KV2l0aCAqKmRwbHlyKiogd2UgY2FuIHBlcmZvcm0gYSBzZXJpZXMgb2Ygb3BlcmF0aW9ucywgZm9yIGV4YW1wbGUgYHNlbGVjdGAgYW5kIHRoZW4gYGZpbHRlcmAsIGJ5IHNlbmRpbmcgdGhlIHJlc3VsdHMgb2Ygb25lIGZ1bmN0aW9uIHRvIGFub3RoZXIgdXNpbmcgd2hhdCBpcyBjYWxsZWQgdGhlICpwaXBlIG9wZXJhdG9yKjogYCU+JWAuIFNvbWUgZGV0YWlscyBhcmUgaW5jbHVkZWQgYmVsb3cuDQoNCldlIHdyb3RlIGNvZGUgYWJvdmUgdG8gc2hvdyB0aHJlZSB2YXJpYWJsZXMgKHN0YXRlLCByZWdpb24sIHJhdGUpIGZvciBzdGF0ZXMgdGhhdCBoYXZlIG11cmRlciByYXRlcyBiZWxvdyAwLjcxLiBUbyBkbyB0aGlzLCB3ZSBkZWZpbmVkIHRoZSBpbnRlcm1lZGlhdGUgb2JqZWN0IGBuZXdfdGFibGVgLiBJbiAqKmRwbHlyKiogd2UgY2FuIHdyaXRlIGNvZGUgdGhhdCBsb29rcyBtb3JlIGxpa2UgYSBkZXNjcmlwdGlvbiBvZiB3aGF0IHdlIHdhbnQgdG8gZG8gd2l0aG91dCBpbnRlcm1lZGlhdGUgb2JqZWN0czoNCg0KJCQgXHJte29yaWduaWFsIH5+IGRhdGF9IFxyaWdodGFycm93IFxybXtzZWxlY3R9IFxyaWdodGFycm93IFxybXtmaWx0ZXJ9JCQNCg0KRm9yIHN1Y2ggYW4gb3BlcmF0aW9uLCB3ZSBjYW4gdXNlIHRoZSBwaXBlIGAlPiVgLiBUaGUgY29kZSBsb29rcyBsaWtlIHRoaXM6DQoNCmBgYHtyfQ0KbXVyZGVycyAlPiUgc2VsZWN0KHN0YXRlLCByZWdpb24sIHJhdGUpICU+JSBmaWx0ZXIocmF0ZSA8PSAwLjcxKQ0KIz4gICAgICAgICAgIHN0YXRlICAgICAgICByZWdpb24gIHJhdGUNCiM+IDEgICAgICAgIEhhd2FpaSAgICAgICAgICBXZXN0IDAuNTE1DQojPiAyICAgICAgICAgIElvd2EgTm9ydGggQ2VudHJhbCAwLjY4OQ0KIz4gMyBOZXcgSGFtcHNoaXJlICAgICBOb3J0aGVhc3QgMC4zODANCiM+IDQgIE5vcnRoIERha290YSBOb3J0aCBDZW50cmFsIDAuNTk1DQojPiA1ICAgICAgIFZlcm1vbnQgICAgIE5vcnRoZWFzdCAwLjMyMA0KYGBgDQoNClRoaXMgbGluZSBvZiBjb2RlIGlzIGVxdWl2YWxlbnQgdG8gdGhlIHR3byBsaW5lcyBvZiBjb2RlIGFib3ZlLiBXaGF0IGlzIGdvaW5nIG9uIGhlcmU/DQoNCkluIGdlbmVyYWwsIHRoZSBwaXBlIHNlbmRzIHRoZSByZXN1bHQgb2YgdGhlIGxlZnQgc2lkZSBvZiB0aGUgcGlwZSB0byBiZSB0aGUgZmlyc3QgYXJndW1lbnQgb2YgdGhlIGZ1bmN0aW9uIG9uIHRoZSByaWdodCBzaWRlIG9mIHRoZSBwaXBlLiBIZXJlIGlzIGEgdmVyeSBzaW1wbGUgZXhhbXBsZToNCg0KYGBge3J9DQoxNiAlPiUgc3FydCgpDQojPiBbMV0gNA0KYGBgDQoNCldlIGNhbiBjb250aW51ZSB0byBwaXBlIHZhbHVlcyBhbG9uZzoNCg0KYGBge3J9DQoxNiAlPiUgc3FydCgpICU+JSBsb2cyKCkNCiM+IFsxXSAyDQpgYGANCg0KVGhlIGFib3ZlIHN0YXRlbWVudCBpcyBlcXVpdmFsZW50IHRvIGBsb2cyKHNxcnQoMTYpKWAuDQoNClJlbWVtYmVyIHRoYXQgdGhlIHBpcGUgc2VuZHMgdmFsdWVzIHRvIHRoZSBmaXJzdCBhcmd1bWVudCwgc28gd2UgY2FuIGRlZmluZSBvdGhlciBhcmd1bWVudHMgYXMgaWYgdGhlIGZpcnN0IGFyZ3VtZW50IGlzIGFscmVhZHkgZGVmaW5lZDoNCg0KYGBge3J9DQoxNiAlPiUgc3FydCgpICU+JSBsb2coYmFzZSA9IDIpDQojPiBbMV0gMg0KYGBgDQoNClRoZXJlZm9yZSwgd2hlbiB1c2luZyB0aGUgcGlwZSB3aXRoIGRhdGEgZnJhbWVzIGFuZCAqKmRwbHlyKiosIHdlIG5vIGxvbmdlciBuZWVkIHRvIHNwZWNpZnkgdGhlIHJlcXVpcmVkIGZpcnN0IGFyZ3VtZW50IHNpbmNlIHRoZSAqKmRwbHlyKiogZnVuY3Rpb25zIHdlIGhhdmUgZGVzY3JpYmVkIGFsbCB0YWtlIHRoZSBkYXRhIGFzIHRoZSBmaXJzdCBhcmd1bWVudC4gSW4gdGhlIGNvZGUgd2Ugd3JvdGU6DQoNCmBgYHtyfQ0KbXVyZGVycyAlPiUgc2VsZWN0KHN0YXRlLCByZWdpb24sIHJhdGUpICU+JSBmaWx0ZXIocmF0ZSA8PSAwLjcxKQ0KYGBgDQoNCmBtdXJkZXJzYCBpcyB0aGUgZmlyc3QgYXJndW1lbnQgb2YgdGhlIGBzZWxlY3RgIGZ1bmN0aW9uLCBhbmQgdGhlIG5ldyBkYXRhIGZyYW1lIChmb3JtZXJseSBgbmV3X3RhYmxlYCkgaXMgdGhlIGZpcnN0IGFyZ3VtZW50IG9mIHRoZSBgZmlsdGVyYCBmdW5jdGlvbi4NCg0KTm90ZSB0aGF0IHRoZSBwaXBlIHdvcmtzIHdlbGwgd2l0aCBmdW5jdGlvbnMgd2hlcmUgdGhlIGZpcnN0IGFyZ3VtZW50IGlzIHRoZSBpbnB1dCBkYXRhLiBGdW5jdGlvbnMgaW4gKip0aWR5dmVyc2UqKiBwYWNrYWdlcyBsaWtlICoqZHBseXIqKiBoYXZlIHRoaXMgZm9ybWF0IGFuZCBjYW4gYmUgdXNlZCBlYXNpbHkgd2l0aCB0aGUgcGlwZS4NCg0KIyMgNS42IEV4ZXJjaXNlcw0KDQoxLiBUaGUgcGlwZSBgJT4lYCBjYW4gYmUgdXNlZCB0byBwZXJmb3JtIG9wZXJhdGlvbnMgc2VxdWVudGlhbGx5IHdpdGhvdXQgaGF2aW5nIHRvIGRlZmluZSBpbnRlcm1lZGlhdGUgb2JqZWN0cy4gU3RhcnQgYnkgcmVkZWZpbmluZyBtdXJkZXIgdG8gaW5jbHVkZSByYXRlIGFuZCByYW5rLg0KDQpgYGB7cn0NCm11cmRlcnMgPC0gbXV0YXRlKG11cmRlcnMsIHJhdGUgPSAgdG90YWwgLyBwb3B1bGF0aW9uICogMTAwMDAwLCByYW5rID0gcmFuaygtcmF0ZSkpDQpgYGANCg0KSW4gdGhlIHNvbHV0aW9uIHRvIHRoZSBwcmV2aW91cyBleGVyY2lzZSwgd2UgZGlkIHRoZSBmb2xsb3dpbmc6DQoNCmBgYHtyfQ0KbXlfc3RhdGVzIDwtIGZpbHRlcihtdXJkZXJzLCByZWdpb24gJWluJSBjKCJOb3J0aGVhc3QiLCAiV2VzdCIpICYgcmF0ZSA8IDEpDQoNCnNlbGVjdChteV9zdGF0ZXMsIHN0YXRlLCByYXRlLCByYW5rKQ0KYGBgDQoNClRoZSBwaXBlIGAlPiVgIHBlcm1pdHMgdXMgdG8gcGVyZm9ybSBib3RoIG9wZXJhdGlvbnMgc2VxdWVudGlhbGx5IHdpdGhvdXQgaGF2aW5nIHRvIGRlZmluZSBhbiBpbnRlcm1lZGlhdGUgdmFyaWFibGUgYG15X3N0YXRlc2AuIFdlIHRoZXJlZm9yZSBjb3VsZCBoYXZlIG11dGF0ZWQgYW5kIHNlbGVjdGVkIGluIHRoZSBzYW1lIGxpbmUgbGlrZSB0aGlzOg0KDQpgYGB7cn0NCm11dGF0ZShtdXJkZXJzLCByYXRlID0gIHRvdGFsIC8gcG9wdWxhdGlvbiAqIDEwMDAwMCwgcmFuayA9IHJhbmsoLXJhdGUpKSAlPiUNCiAgc2VsZWN0KHN0YXRlLCByYXRlLCByYW5rKQ0KYGBgDQoNCk5vdGljZSB0aGF0IGBzZWxlY3RgIG5vIGxvbmdlciBoYXMgYSBkYXRhIGZyYW1lIGFzIHRoZSBmaXJzdCBhcmd1bWVudC4gVGhlIGZpcnN0IGFyZ3VtZW50IGlzIGFzc3VtZWQgdG8gYmUgdGhlIHJlc3VsdCBvZiB0aGUgb3BlcmF0aW9uIGNvbmR1Y3RlZCByaWdodCBiZWZvcmUgdGhlIGAlPiVgLg0KDQpSZXBlYXQgdGhlIHByZXZpb3VzIGV4ZXJjaXNlLCBidXQgbm93IGluc3RlYWQgb2YgY3JlYXRpbmcgYSBuZXcgb2JqZWN0LCBzaG93IHRoZSByZXN1bHQgYW5kIG9ubHkgaW5jbHVkZSB0aGUgc3RhdGUsIHJhdGUsIGFuZCByYW5rIGNvbHVtbnMuIFVzZSBhIHBpcGUgYCU+JWAgdG8gZG8gdGhpcyBpbiBqdXN0IG9uZSBsaW5lLg0KDQo+IGBtdXRhdGVgIGRhdGEgZnJhbWXsnYQg7LKr67KI7Ke4IGFyZ3VtZW5066GcIOqwgOyguOyYpOqzoCwgbmFtZSDqs7wg67OA7IiY7J2YIOqwkuydhCDrkZDrsojsp7ggYXJndW1lbnTroZwg67Cb64qU64ukLg0KDQpteSBhbnN3ZXI6DQpgYGB7cn0NCiMgdG8gY2xlYXIgYWxsIHRoZSBtdXRhdGVkIGRhdGEsIEkgYXBwbHllZCB0aGUgY29kZSBiZWxvdzoNCiMgZGF0YSgnbXVyZGVycycpDQoNCm11dGF0ZShtdXJkZXJzLCByYXRlID0gdG90YWwgLyBwb3B1bGF0aW9uICogMTBeNSwgcmFuayA9IHJhbmsoLXJhdGUpKSAlPiUNCiAgc2VsZWN0KHN0YXRlLCByYXRlLCByYW5rKQ0KYGBgDQoNCjIuIFJlc2V0IGBtdXJkZXJzYCB0byB0aGUgb3JpZ2luYWwgdGFibGUgYnkgdXNpbmcgYGRhdGEobXVyZGVycylgLiBVc2UgYSBwaXBlIHRvIGNyZWF0ZSBhIG5ldyBkYXRhIGZyYW1lIGNhbGxlZCBgbXlfc3RhdGVzYCB0aGF0IGNvbnNpZGVycyBvbmx5IHN0YXRlcyBpbiB0aGUgTm9ydGhlYXN0IG9yIFdlc3Qgd2hpY2ggaGF2ZSBhIG11cmRlciByYXRlIGxvd2VyIHRoYW4gMSwgYW5kIGNvbnRhaW5zIG9ubHkgdGhlIHN0YXRlLCByYXRlIGFuZCByYW5rIGNvbHVtbnMuIFRoZSBwaXBlIHNob3VsZCBhbHNvIGhhdmUgZm91ciBjb21wb25lbnRzIHNlcGFyYXRlZCBieSB0aHJlZSBgJT4lYC4gVGhlIGNvZGUgc2hvdWxkIGxvb2sgc29tZXRoaW5nIGxpa2UgdGhpczoNCg0KYGBge3J9DQpteV9zdGF0ZXMgPC0gbXVyZGVycyAlPiUNCiAgbXV0YXRlIFNPTUVUSElORyAlPiUgDQogIGZpbHRlciBTT01FVEhJTkcgJT4lIA0KICBzZWxlY3QgU09NRVRISU5HDQpgYGANCg0KbXkgYW5zd2VyOg0KYGBge3J9DQpteV9zdGF0ZSA8LSBtdXJkZXJzICU+JQ0KICBtdXRhdGUocmF0ZSA9IHRvdGFsIC8gcG9wdWxhdGlvbiAqIDEwXjUsIHJhbmsgPSByYW5rKC1yYXRlKSkgJT4lDQogIGZpbHRlcihyYXRlIDwgMSAmIHJlZ2lvbiAlaW4lIGMoIk5vcnRoZXN0IiwgIldlc3QiKSkgJT4lDQogIHNlbGVjdChzdGF0ZSkNCg0KbXlfc3RhdGUNCmBgYA0KDQpEb25lLg0K</div>
 
 
 
