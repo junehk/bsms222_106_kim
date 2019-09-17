@@ -74,7 +74,7 @@ To see how the same information can be provided in different formats, consider t
 
 This tidy dataset provides fertility rates for two countries across the years. This is a tidy dataset because each row presents one observation with the three variables being county, year and fertility rate. However, this dataset originally came in another format and was reshaped for the **dslabs** package. Originally, the data was in the following format:
 
-```
+```{r}
 #>       country 1960 1961 1962 1963 1964 1965
 #> 1     Germany 2.41 2.44 2.47 2.49 2.49 2.48
 #> 2 South Korea 6.16 5.99 5.79 5.57 5.36 5.16
@@ -115,6 +115,7 @@ C. `DNase`
 D. `Formaldehyde`  
 E. `Orange`  
 F. `UCBAdmissions`  
+
 ```{r}
 head(BJsales)
 head(EuStockMarkets)
@@ -123,6 +124,7 @@ head(Formaldehyde)
 head(Orange)
 head(UCBAdmissions)
 ```
+
 answer: C,D,E, 
 
 ## 5.3 Manipulating data frames
