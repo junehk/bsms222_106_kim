@@ -258,7 +258,8 @@ d4 %>%
 
 d4 %>%
   group_by(gene_type) %>%
-  count()
+  count() %>%
+  arrange(desc(n))
 
 d4 %>%
   group_by(source) %>%
@@ -272,7 +273,8 @@ d4 %>%
 ```{r}
 d4 %>%
   group_by(transcript_support_level, gene_type) %>%
-  count()
+  count() %>%
+  arrange(transcript_support_level, n)
 ```
 
 마지막으로 이것의 source에 대해서 까지 추가로 고려하면 :
@@ -280,7 +282,8 @@ d4 %>%
 ```{r}
 d4 %>%
   group_by(source, transcript_support_level, gene_type) %>%
-  count()
+  count() %>%
+  arrange(source,transcript_support_level, gene_type, n)
 ```
 
 이러한 결과가 나오는데, 의미는 분석을 해봐야 알 것 같다.
