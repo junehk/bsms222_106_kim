@@ -416,7 +416,7 @@ my_states <- murders %>%
 ```
 
 my answer:
-```{r}
+```c
 my_state <- murders %>%
   mutate(rate = total / population * 10^5, rank = rank(-rate)) %>%
   filter(rate < 1 & region %in% c("Northest", "West")) %>%

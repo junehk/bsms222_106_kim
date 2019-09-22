@@ -216,6 +216,13 @@ Then, I would remove the characters from the string so we can have only numerics
 gsub('[^0-9]', '', 'p.R102X')
 ```
 
+> gsub('[^A-Z]', '', 'p.R102X')
+> [1] "RX"
+> gsub('[0-9]', '', 'p.R102X')
+> [1] 
+> gsub('[A-Z]', '', 'p.R102X')
+> [1]
+
 In the dataset, we have many rows for protein positions. One way we might try is to set up `for-loop` to process each row. 
 
 ```{r}
@@ -275,5 +282,5 @@ If you checked the recurrent mutations, you might want to find a locus where two
 ```
 
 ### 3.4. Sketch a plot for visualising your analysis
-
+w
 Please submit your hand-drawing for the plot you would like to create. 
