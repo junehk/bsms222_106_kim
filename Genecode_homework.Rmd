@@ -1,0 +1,287 @@
+---
+title: "Genecode_homework"
+output: html_notebook
+---
+
+# 1 Data preparation
+```{r, message = FALSE}
+library(tidyverse)
+library(readr)
+
+# wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_31/gencode.v31.basic.annotation.gtf.gz
+
+# Assign column names according to the GENCODE instruction.
+cols = c('chrom', 'source', 'feature_type', 'start', 'end', 'score', 'strand', 'phase', 'info')
+
+d = read_delim('gencode.v31.basic.annotation.gtf', 
+               delim='\t', skip = 5, 
+               progress = F,
+               col_names = cols)
+```
+
+# 2 Check the homework
+
+```
+1. transcript만 찾은 후에, 거기서 transcript_support_level이 각각 몇개씩 나오는지 세어봅니다. transcript_support_level 정보는 여기에 있어요. https://www.gencodegenes.org/pages/data_format.html 이렇게 하면, transcript_support_level이 1,2,3,4,5, NA 별로 몇개씩 나온는지 셀수 있습니다.
+2-1. 첫질문에서 얻은 숫자를, gene biotype에 따라 나눠봅시다. 각각 이 그룹이 몇개씩 등장하는지 봅니다.
+2-2. 첫질문에서 얻은 숫자를, HAVANA와 ENSEMBL에 따라 나워봅시다. 각각 이 그룹이 몇개씩 등장하는지 봅니다.
+```
+
+# 3 Sorting out `transcript_support_level`
+
+
+```{r}
+# transcript_support_level 만 확인하기 위해 select 함수를 이용
+d_info <- select(d, info)
+# intersect('transcript_support_level', d_info)
+
+```
+`intersect`함수도 큰 데이터에 사용하면 느리다.
+
+[R을 활용한 데이터과학](https://sulgik.github.io/r4ds/data-import.html)에서 훌륭한 참고자료가 있었다.
+
+## 3.1 `separate`
+
+`separate()` 는 구분 문자가 나타나는 곳마다 쪼개서 하나의 열을 여러 열로 분리한다.
+
+```
+gene_id "ENSG00000223972.5"; gene_type "transcribed_unprocessed_pseudogene"; gene_name "DDX11L1"; level 2; hgnc_id "HGNC:37102"; havana_gene "OTTHUMG00000000961.2";
+```
+
+데이터 안에 든 것의 대표가 이것이다.
+이것을 `;`를 기준으로 나눠보자.
+
+[Genecodegenes](https://www.gencodegenes.org/pages/data_format.html)에서 제공한 Key-value들은 9개이다.
+
+'gene_id', 'transcript_id', 'gene_type', 'gene_status', 'gene_name', 'transcript_type', 'transcript_status', 'transcript_name', 'exon_number', 'exon_id', 'level'
+
+
+```{r}
+# d1 = filter(d, feature_type == 'gene')
+d1 = d[d$feature_type == 'gene', ]
+write.table(d1, 'table.gene_genecode.20190918.txt', sep='\t', quote=F, row.names = F, col.names = T)
+```
+
+
+
+
+
+
+```{r}
+separate(d1, info , into = c('gene_id', 'transcript_id', 'gene_type', 'gene_status', 'gene_name', 'transcript_type', 'transcript_status', 'transcript_name', 'exon_number', 'exon_id', 'level'), sep = ';')
+```
+
+이것도 제대로 적용은 안된다.
+
+```{r}
+extract(d1, info, into ="transcript_support_level", "('transcript_type' - ';')") %>%
+  select('transcript_support_level') %>%
+  is.na() %>%
+  sum()
+```
+
+이것도 망했고
+
+```{r}
+d_t1 <- d[1:200,]
+grep("transcript_support_level", d_t1)
+```
+
+
+## 3.2 `parse_character()`
+`parse_character()`를 이용하여 이를 쉽게 해보자. 실패
+
+```{r}
+charToRaw('transcript_support_level')
+x1 <- 'transcript_support_level'
+parse_character(x1, locale = locale(encoding = "ASCII"))
+guess_encoding(charToRaw(x1))
+```
+
+## 3.3 `gather`
+[[tidyverse] tidyr 패키지 사용법 (split, reshape, combine)](https://gomguard.tistory.com/229) 에서 `gather`의 이용방법이 있는데, 활용해보자.
+
+`gather(data = test_table, key = "year", value = "cases", `1999`, `2000` )`
+
+그만 알아보자. 모르겠다.
+
+# 4 Tibble 이용 `map_df`
+
+## 4.1 테스트
+```{r}
+check_fn <- function(x){
+  grep("transcript_support_level", x) %>%
+    data_frame()
+}
+
+as.tibble(d_t1) %>%
+map_df(check_fn) %>%
+  pull()
+```
+
+이녀석들이 `transcript_support_level` 이라는 문자열을 가지고 있다.
+
+## 4.2 실전
+
+이제 전체 데이터 프레임에 적용해보자.
+
+```{r}
+check_fn <- function(x){
+  grep("transcript_support_level", x) %>%
+    data_frame()
+}
+
+ind <- as.tibble(d) %>%
+map_df(check_fn) %>%
+  pull()
+```
+
+> 이건 계산이 빨랐다. 10초 가량?
+
+```{r}
+#transcript_support_level 문자열을 지닌 row만 따로 추출함.
+d_tsl <- d[ind, ]
+```
+
+`d_tsl`의 행 갯수는 다음과 같다.
+
+```{r}
+nrow(d_tsl)
+```
+
+
+# 5 교수님 해결법 사용
+
+`strsplit` 함수를 이용하자
+
+```{r}
+a = 'chr1   HAVANA  transcript  11869   14409   .   +   .   gene_id "ENSG00000223972.5"; transcript_id "ENST00000456328.2"; gene_type "transcribed_unprocessed_pseudogene"; gene_name "DDX11L1"; transcript_type "lncRNA"; transcript_name "DDX11L1-202"; level 2; transcript_support_level "1"; hgnc_id "HGNC:37102"; tag "basic"; havana_gene "OTTHUMG00000000961.2"; havana_transcript "OTTHUMT00000362751.1";'
+
+strsplit(a, 'transcript_support_level\\s+"')
+```
+
+```{r}
+strsplit(a, 'transcript_support_level\\s+"')[[1]][2]
+```
+
+```{r}
+b = strsplit(a, 'transcript_support_level\\s+"')[[1]][2]
+strsplit(b, '\\"')
+```
+
+앞의 것이 이해가 안되지만 따라해보면 :
+
+```{r}
+head(do.call(rbind.data.frame, strsplit(a, 'transcript_support_level\\s+"'))[[2]])
+
+
+# First filter transcripts and create a data frame.
+d2 <- d %>% filter(feature_type == 'transcript')
+
+# Now apply the functions. 
+d2$transcript_support_level <- as.character(do.call(rbind.data.frame, 
+                                                    strsplit(d2$info, 'transcript_support_level\\s+"'))[[2]])
+
+d2$transcript_support_level <- as.character(do.call(rbind.data.frame, 
+                                                    strsplit( d2$transcript_support_level, '\\"'))[[1]])
+```
+
+```{r}
+head(d2$transcript_support_level)
+```
+
+문제가 발생하는게 : 
+```{r}
+d2[10, "transcript_support_level"]
+```
+gene_id 라는 값이 나온다. 이는 info 항목을 보면 알 수 있지만, info에 transcript_support_level 택스트가 존재하지 않는다.
+
+따라서 `filter`를 한 번 더 해주자.
+
+```{r}
+class(d2$transcript_support_level)
+str(d2$transcript_support_level)
+d2_s <- select(d2, transcript_support_level)
+```
+
+```{r}
+d2_s[10, ] %>%
+  pull()
+d3 <- filter(d2, transcript_support_level != "gene_id ")
+```
+
+이제 데이터를 정리해보자
+
+```{r}
+d3 %>%
+  group_by(transcript_support_level)
+  
+```
+
+그리고 gene_type도 나누어보자. 예시를 들어 생각해보자.
+
+```{r}
+a = 'chr1   HAVANA  transcript  11869   14409   .   +   .   gene_id "ENSG00000223972.5"; transcript_id "ENST00000456328.2"; gene_type "transcribed_unprocessed_pseudogene"; gene_name "DDX11L1"; transcript_type "lncRNA"; transcript_name "DDX11L1-202"; level 2; transcript_support_level "1"; hgnc_id "HGNC:37102"; tag "basic"; havana_gene "OTTHUMG00000000961.2"; havana_transcript "OTTHUMT00000362751.1";'
+
+b = strsplit(a, 'gene_type\\s+')[[1]][2]
+strsplit(b, '\\"')[[1]][2]
+```
+
+이것을 이용해서 새로 나누어보자.
+
+```{r}
+d3$gene_type <- as.character(do.call(rbind.data.frame, 
+                                     strsplit(d3$info, 'gene_type\\s+'))[[2]])
+
+d3$gene_type <- as.character(do.call(rbind.data.frame, 
+                                                    strsplit( d3$gene_type, '\\"'))[[2]])
+```
+
+이 표는 저장해두자.
+
+```{r}
+d4 <- select(d3, c("chrom", 'source', 'feature_type', 'start', 'end', 'score', 'strand', 'phase', 'transcript_support_level', 'gene_type'))
+
+write.table(d4, 'tsl.gene_genecode.20190922.txt', sep='\t', quote=F, row.names = F, col.names = T)
+```
+
+# 6 데이터 가공
+
+`d4`를 이용해서 data를 가공할 것이다.
+
+우선 transcript_support_level 의 1,2,3,4,5,NA 갯수를 확인하자
+
+```{r}
+d4 %>%
+  group_by(transcript_support_level) %>%
+  count()
+
+d4 %>%
+  group_by(gene_type) %>%
+  count()
+
+d4 %>%
+  group_by(source) %>%
+  count()
+```
+
+다음과 같은 결과를 얻을 수 있다.
+
+한편, gene biotype에 대해서도 나누어보고 싶다면, `gene_type` column을 이용하자.
+
+```{r}
+d4 %>%
+  group_by(transcript_support_level, gene_type) %>%
+  count()
+```
+
+마지막으로 이것의 source에 대해서 까지 추가로 고려하면 :
+
+```{r}
+d4 %>%
+  group_by(source, transcript_support_level, gene_type) %>%
+  count()
+```
+
+이러한 결과가 나오는데, 의미는 분석을 해봐야 알 것 같다.
+
