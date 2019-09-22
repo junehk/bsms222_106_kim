@@ -173,8 +173,10 @@ strsplit(b, '\\"')
 
 ```{r}
 head(do.call(rbind.data.frame, strsplit(a, 'transcript_support_level\\s+"'))[[2]])
+```
 
-
+이걸로 저장하자.
+```{r}
 # First filter transcripts and create a data frame.
 d2 <- d %>% filter(feature_type == 'transcript')
 
@@ -284,7 +286,23 @@ d4 %>%
   group_by(source, transcript_support_level, gene_type) %>%
   count() %>%
   arrange(source,transcript_support_level, gene_type, n)
+
 ```
 
 이러한 결과가 나오는데, 의미는 분석을 해봐야 알 것 같다.
+
+
+
+# 7 Data 불러오기
+
+```{r}
+d4 = read.table('tsl.gene_genecode.20190922.txt', sep="\t", header = T)
+```
+
+```{r}
+str(d4)
+```
+> string.as.factor = FALSE를 안해서 그런지, column들이 factor 랑 integer로 data를 읽었다.
+
+
 
