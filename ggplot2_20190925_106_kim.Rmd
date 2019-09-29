@@ -1041,13 +1041,13 @@ murders %>% ggplot(aes(population, total)) +
 
 12. Now suppose we want to use color to represent the different regions. In this case which of the following is most appropriate:
 
-A. Adding a column called `color` to `murders` with the color we want to use.
+  - A. Adding a column called `color` to `murders` with the color we want to use.
 
-B. Because each label needs a different color we map the colors through the color argument of `aes` .
+  - B. Because each label needs a different color we map the colors through the color argument of `aes` .
 
-C. Use the color argument in 1ggplot1.
+  - C. Use the color argument in 1ggplot1.
 
-D. Because we want all colors to be blue, we do not need to map colors, just use the color argument in 1geom_label1.
+  - D. Because we want all colors to be blue, we do not need to map colors, just use the color argument in 1geom_label1.
 
 answer : B
 
@@ -1076,8 +1076,7 @@ To change the y-axis to a log scale we learned about the `scale_x_log10()` funct
 
 answer:
 ```{r}
-p +
-  scale_x_log10() +
+p +  scale_x_log10() +
   scale_y_log10()
 ```
 
