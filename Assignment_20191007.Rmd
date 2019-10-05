@@ -1,0 +1,72 @@
+---
+title: "Assignment 20191007"
+output: html_notebook
+---
+
+# Download Rdata for the BrainSpan DFC samples
+wget https://www.dropbox.com/s/u3ii9x4wpnzazm5/data_brainspan_DFC.20190928.Rdata
+
+# After download, please load data by `load('data_brainspan_DFC.20190928.Rdata')`.
+
+
+
+# Download DD2GP with pLI scores
+wget https://www.dropbox.com/s/pqihpzy24yafr7c/DDG2P_24_9_2019.with_pLI.txt
+
+# HPO 
+wget https://www.dropbox.com/s/svc4rfhx2z2dopk/table.hpo_obo_20190924.txt
+
+```{r}
+ddg2p <- read_delim('DDG2P_24_9_2019.with_pLI.txt', delim = '\t')
+```
+
+```{r}
+dd2gp_hpo <- read_delim('table.hpo_obo_20190924.txt',delim='\t')
+
+
+```
+
+```{r}
+ddg2p_face <- ddg2p %>% filter(grepl("Face", ddg2p$`organ specificity list`))
+```
+
+```{r}
+PMC_FACE <- ddg2p_face %>%
+  group_by(`mutation consequence`) %>%
+  summarise(mean = mean(pLI)) %>%
+  mutate(source = 'face')
+
+PMC_ALL <- ddg2p %>%
+  group_by(`mutation consequence`) %>%
+  summarise(mean = mean(pLI)) %>%
+  mutate(source = 'all')
+
+pLI_mean_comparison <-rbind(PMC_ALL, PMC_FACE)
+
+pLI_mean_comparison %>%
+  ggplot(aes(mean, `mutation consequence`, color = source)) +
+  geom_point(alpha = 0.5)
+```
+
+```{r}
+ddg2p_face %>%
+  ggplot(aes(`mutation consequence`, pLI)) +
+  geom_boxplot() +
+  geom_jitter(alpha=0.1) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+```{r}
+ddg2p_face %>%
+  ggplot(aes( `allelic requirement`, `mutation consequence`)) +
+  geom_jitter(width=0.2, height = 0.2, alpha = 0.1) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+```{r}
+ddg2p_face %>%
+  ggplot(aes(`allelic requirement`,pLI)) +
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(width=0.2, height = 0.2, alpha = 0.1) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
