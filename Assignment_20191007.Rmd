@@ -17,56 +17,100 @@ wget https://www.dropbox.com/s/pqihpzy24yafr7c/DDG2P_24_9_2019.with_pLI.txt
 wget https://www.dropbox.com/s/svc4rfhx2z2dopk/table.hpo_obo_20190924.txt
 
 ```{r}
-ddg2p <- read_delim('DDG2P_24_9_2019.with_pLI.txt', delim = '\t')
+ddg2p <- read_delim('DDG2P_24_9_2019.with_pLI.txt', delim = '\t', progress = show_progress())
 ```
 
 ```{r}
-dd2gp_hpo <- read_delim('table.hpo_obo_20190924.txt',delim='\t')
-
-
+ddg2p_hpo <- read_delim('table.hpo_obo_20190924.txt',delim='\t')
 ```
+
+```{r}
+#  [1] "gene symbol"                  "gene_mim"                     "disease name"                 "disease mim"                  "DDD category"                
+#  [6] "allelic requirement"          "mutation consequence"         "phenotypes"                   "organ specificity list"       "pmids"                       
+# [11] "panel"                        "prev symbols"                 "hgnc id"                      "gene disease pair entry date" "pLI"                         
+# [16] "pRec"                         "pNull"                        "OMIM"       
+```
+
 
 ```{r}
 ddg2p_face <- ddg2p %>% filter(grepl("Face", ddg2p$`organ specificity list`))
-```
+col1 <- ddg2p_face %>% select(`gene mim`) %>%
+  mutate_if(is.character, list(~na_if(., "No gene mim")))
 
-```{r}
-PMC_FACE <- ddg2p_face %>%
-  group_by(`mutation consequence`) %>%
-  summarise(mean = mean(pLI)) %>%
-  mutate(source = 'face')
+col1 <- col1$`gene mim` %>% as.numeric()
+class(col1)
 
-PMC_ALL <- ddg2p %>%
-  group_by(`mutation consequence`) %>%
-  summarise(mean = mean(pLI)) %>%
-  mutate(source = 'all')
+names(ddg2p_face)[2] <-paste('gene_mim') 
+names(ddg2p_face)[6] <-paste('allelic_requirement')
+names(ddg2p_face)[7] <-paste("mutation_consequence")
 
-pLI_mean_comparison <-rbind(PMC_ALL, PMC_FACE)
+ddg2p_face <- mutate(ddg2p_face, gene_mim = col1)
 
-pLI_mean_comparison %>%
-  ggplot(aes(mean, `mutation consequence`, color = source)) +
-  geom_point(alpha = 0.5)
-```
-
-```{r}
-ddg2p_face %>%
-  ggplot(aes(`mutation consequence`, pLI)) +
-  geom_boxplot() +
-  geom_jitter(alpha=0.1) +
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+ddg2p_face <- ddg2p_face %>%
+    mutate(OMIM = case_when(
+    gene_mim>=100000 & gene_mim <300000 ~ "Autosomal",
+    gene_mim>=300000 & gene_mim <400000 ~ "X-linked",
+    gene_mim>=400000 & gene_mim <500000 ~ "Y-linked",
+    gene_mim>=500000 & gene_mim <600000 ~ "Mitochondrial",
+    gene_mim>=600000 ~ "Autosomal",
+    TRUE ~ "others"))
+table(ddg2p_face$OMIM)
 ```
 
 ```{r}
 ddg2p_face %>%
-  ggplot(aes( `allelic requirement`, `mutation consequence`)) +
-  geom_jitter(width=0.2, height = 0.2, alpha = 0.1) +
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+  ggplot(aes(OMIM, allelic_requirement)) +
+  geom_jitter(width = 0.2, height = 0.2, alpha = 0.2)
 ```
 
 ```{r}
-ddg2p_face %>%
-  ggplot(aes(`allelic requirement`,pLI)) +
-  geom_boxplot(outlier.shape = NA) +
-  geom_jitter(width=0.2, height = 0.2, alpha = 0.1) +
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+plot1 <- ddg2p_face %>%
+  ggplot(aes(allelic_requirement, mutation_consequence, color = OMIM)) +
+  geom_jitter(width = 0.2, height = 0.2, alpha = 0.2) +
+  theme(axis.text.x = element_text(angle = 30)) +
+  labs(x= 'Allelic Requirment', y ='Mutation Consequence', title ='Factors of Facial Developmental disorders')
+
+ggsave('plot.DDG2P.genetic_face_disorder.png', plot1)
+plot1
 ```
+
+```{r}
+ddg2p <- as.tibble(ddg2p)
+col1 <- ddg2p%>% select(gene_mim) %>%
+  mutate_if(is.character, list(~na_if(., "No gene mim")))
+
+names(ddg2p)[2] <-paste('gene_mim') 
+names(ddg2p)[6] <-paste('allelic_requirement')
+names(ddg2p)[7] <-paste("mutation_consequence")
+
+ddg2p <- mutate(ddg2p, gene_mim = as.numeric(gene_mim))
+
+ddg2p <- ddg2p %>%
+    mutate(OMIM = case_when(
+    gene_mim>=100000 & gene_mim <300000 ~ "Autosomal",
+    gene_mim>=300000 & gene_mim <400000 ~ "X-linked",
+    gene_mim>=400000 & gene_mim <500000 ~ "Y-linked",
+    gene_mim>=500000 & gene_mim <600000 ~ "Mitochondrial",
+    gene_mim>=600000 ~ "Autosomal",
+    TRUE ~ "others"))
+table(ddg2p$OMIM)
+```
+
+```{r}
+# saving phenotype
+phenotypes <- as.tibble(ddg2p_face$phenotypes)
+
+library(splitstackshape)
+phenotypes <- cSplit(phenotypes, "value", sep=";", type.convert = FALSE)
+
+```
+
+```{r}
+phenotypes <- as.factor(phenotypes)
+```
+
+
+
+
+
+
