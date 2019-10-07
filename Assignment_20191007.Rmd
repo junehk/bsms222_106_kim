@@ -2,49 +2,61 @@
 title: "Assignment 20191007"
 output: html_notebook
 ---
-
-# Download Rdata for the BrainSpan DFC samples
-wget https://www.dropbox.com/s/u3ii9x4wpnzazm5/data_brainspan_DFC.20190928.Rdata
-
-# After download, please load data by `load('data_brainspan_DFC.20190928.Rdata')`.
-
-
-
+# 1. Data installation
+```{r}
 # Download DD2GP with pLI scores
-wget https://www.dropbox.com/s/pqihpzy24yafr7c/DDG2P_24_9_2019.with_pLI.txt
+#wget https://www.dropbox.com/s/pqihpzy24yafr7c/DDG2P_24_9_2019.with_pLI.txt
 
 # HPO 
-wget https://www.dropbox.com/s/svc4rfhx2z2dopk/table.hpo_obo_20190924.txt
+#wget https://www.dropbox.com/s/svc4rfhx2z2dopk/table.hpo_obo_20190924.txt
 
+
+library(tidyverse)
+library(ggplot2)
+```
+
+## 1.1 Loading Dataset
 ```{r}
 ddg2p <- read_delim('DDG2P_24_9_2019.with_pLI.txt', delim = '\t', progress = show_progress())
+names(ddg2p)[2] <-paste('gene_mim') 
+names(ddg2p)[6] <-paste('allelic_requirement')
+names(ddg2p)[7] <-paste("mutation_consequence")
 ```
 
 ```{r}
 ddg2p_hpo <- read_delim('table.hpo_obo_20190924.txt',delim='\t')
 ```
 
+## 1.2 DATA 간략하게 살펴보기
+
 ```{r}
-#  [1] "gene symbol"                  "gene_mim"                     "disease name"                 "disease mim"                  "DDD category"                
-#  [6] "allelic requirement"          "mutation consequence"         "phenotypes"                   "organ specificity list"       "pmids"                       
-# [11] "panel"                        "prev symbols"                 "hgnc id"                      "gene disease pair entry date" "pLI"                         
-# [16] "pRec"                         "pNull"                        "OMIM"       
+# names(ddg2p)
+#  [1] "gene symbol"                  "gene_mim"                     "disease name"                 "disease mim"                 
+#  [5] "DDD category"                 "allelic_requirement"          "mutation_consequence"         "phenotypes"                  
+#  [9] "organ specificity list"       "pmids"                        "panel"                        "prev symbols"                
+# [13] "hgnc id"                      "gene disease pair entry date" "pLI"                          "pRec"                        
+# [17] "pNull" 
+
+# str(ddg2p)
+# head(ddg2p)
 ```
 
+# 2 얼굴 부분만 추출.
+
+유전적 질환 중, 다운 증후군 등, 얼굴의 표현형에 유전적 질환이 나타는 경우가 있다. 얼굴에만 나타나는 질환이 어떠한 것들이 있는지 뽑아보자.
 
 ```{r}
 ddg2p_face <- ddg2p %>% filter(grepl("Face", ddg2p$`organ specificity list`))
-col1 <- ddg2p_face %>% select(`gene mim`) %>%
+col1 <- ddg2p_face %>% select(gene_mim) %>%
   mutate_if(is.character, list(~na_if(., "No gene mim")))
 
-col1 <- col1$`gene mim` %>% as.numeric()
+col1 <- col1$gene_mim %>% as.numeric()
 class(col1)
 
-names(ddg2p_face)[2] <-paste('gene_mim') 
-names(ddg2p_face)[6] <-paste('allelic_requirement')
-names(ddg2p_face)[7] <-paste("mutation_consequence")
 
 ddg2p_face <- mutate(ddg2p_face, gene_mim = col1)
+
+# gene_mim 항목에서, OMIM 을 기준으로, 어디에 있는 유전자인지를 확인한다.
 
 ddg2p_face <- ddg2p_face %>%
     mutate(OMIM = case_when(
@@ -56,6 +68,8 @@ ddg2p_face <- ddg2p_face %>%
     TRUE ~ "others"))
 table(ddg2p_face$OMIM)
 ```
+
+# 2.1 Simply check the dataset
 
 ```{r}
 ddg2p_face %>%
@@ -72,11 +86,30 @@ plot1 <- ddg2p_face %>%
 
 ggsave('plot.DDG2P.genetic_face_disorder.png', plot1)
 plot1
+
+plot2 <- ddg2p %>%
+  ggplot(aes(allelic_requirement, mutation_consequence, color = OMIM)) +
+  geom_jitter(width = 0.2, height = 0.2, alpha = 0.1) +
+  theme(axis.text.x = element_text(angle = 30)) +
+  labs(x= 'Allelic Requirment', y ='Mutation Consequence', title ='Factors of Every Developmental disorders')
+```
+
+`\n` 입력하면
+
+cis-regulatory or promotor mutation
+->
+cis-regulatory
+promotor mutation 이렇게 2줄로 나눌 수 있다.
+
+**modify xy ggplot** googling 하자.
+```{r}
+scale_x_discrete
+scale_x_continuos
 ```
 
 ```{r}
 ddg2p <- as.tibble(ddg2p)
-col1 <- ddg2p%>% select(gene_mim) %>%
+col1 <- ddg2p%>% select('gene mim') %>%
   mutate_if(is.character, list(~na_if(., "No gene mim")))
 
 names(ddg2p)[2] <-paste('gene_mim') 
@@ -95,6 +128,90 @@ ddg2p <- ddg2p %>%
     TRUE ~ "others"))
 table(ddg2p$OMIM)
 ```
+```{r}
+# plot1 + plot2 같은 pdf에 넣기
+
+library(cowplot)
+p3 <- plot_grid(plot1, plot2, ncol =1)
+ggsave('plot.ddg2p.developmental_disorder_comparison.20191007.pdf',p3)
+```
+
+```{r}
+# bind_rows(d_luad %>% 
+#             mutate(type='luad') %>%
+#             select(type, shortLetterCode, tumor_stage), 
+#           d_lusc %>% 
+#             mutate(type='lusc') %>%
+#             select(type, shortLetterCode, tumor_stage)) %>%
+#   count(shortLetterCode, type) %>% 
+#   complete(type, shortLetterCode, fill = list(n = 0)) %>% # Q1: What is this?
+#   ggplot(., aes(shortLetterCode, n, fill=shortLetterCode)) + 
+#   geom_bar(stat="identity", position=position_dodge()) + 
+#   facet_wrap(~type, scales = 'free_x', ncol=5) # Q2: What is this?
+
+
+ddg2p <- read_delim('DDG2P_24_9_2019.with_pLI.txt', delim = '\t', progress = show_progress())
+names(ddg2p)[2] <-paste('gene_mim') 
+names(ddg2p)[6] <-paste('allelic_requirement')
+names(ddg2p)[7] <-paste("mutation_consequence")
+
+ddg2p <- ddg2p %>%
+  mutate(facial_disorder =
+           if_else(grepl("Face", ddg2p$`organ specificity list`),
+                   "facial",
+                   "non_facial")) %>%
+  mutate(facial_disorder = as.factor(facial_disorder))
+
+
+col2 <- ddg2p %>% select(gene_mim) %>%
+  mutate_if(is.character, list(~na_if(., "No gene mim"))) %>% pull()
+
+ddg2p <- ddg2p %>% mutate(gene_mim = col2)
+
+ddg2p <- ddg2p %>% mutate(gene_mim = as.numeric(gene_mim))
+
+ddg2p <- ddg2p %>%
+    mutate(OMIM = case_when(
+    gene_mim>=100000 & gene_mim <300000 ~ "Autosomal",
+    gene_mim>=300000 & gene_mim <400000 ~ "X-linked",
+    gene_mim>=400000 & gene_mim <500000 ~ "Y-linked",
+    gene_mim>=500000 & gene_mim <600000 ~ "Mitochondrial",
+    gene_mim>=600000 ~ "Autosomal",
+    TRUE ~ "others"))
+
+
+ddg2p <- ddg2p %>% mutate(OMIM = as.factor(OMIM))
+ddg2p <- ddg2p %>% mutate(facial_disorder = as.factor(facial_disorder))
+```
+
+```{r}
+
+# plot1 <- ddg2p_face %>%
+#   ggplot(aes(allelic_requirement, mutation_consequence, color = OMIM)) +
+#   geom_jitter(width = 0.2, height = 0.2, alpha = 0.2) +
+#   theme(axis.text.x = element_text(angle = 30)) +
+#   labs(x= 'Allelic Requirment', y ='Mutation Consequence', title ='Factors of Facial Developmental disorders')
+
+# plot2 <- ddg2p %>%
+#   ggplot(aes(allelic_requirement, mutation_consequence, color = OMIM)) +
+#   geom_jitter(width = 0.2, height = 0.2, alpha = 0.1) +
+#   theme(axis.text.x = element_text(angle = 30)) +
+#   labs(x= 'Allelic Requirment', y ='Mutation Consequence', title ='Factors of Every Developmental disorders')
+
+plot4 <- ddg2p %>%
+  filter(mutation_consequence != 'NA' & mutation_consequence != 'uncertain') %>%
+  ggplot(aes(allelic_requirement, mutation_consequence, color = OMIM)) +
+  geom_jitter(width = 0.2, height = 0.2, alpha = 0.2) +
+  labs(x= 'Allelic Requirment', y ='Mutation Consequence', title ='Factors of Developmental disorders') +
+  facet_grid(~facial_disorder) +
+  theme_minimal_grid() +
+  theme(axis.text.x = element_text(angle = 60, size =7), axis.text = element_text(size = 7))
+
+plot4
+
+ggsave('plot.ddg2p.factors_of_developmental_disorders.20191007.pdf', plot4, width = 10)
+```
+
 
 ```{r}
 # saving phenotype
@@ -108,7 +225,6 @@ phenotypes <- cSplit(phenotypes, "value", sep=";", type.convert = FALSE)
 ```{r}
 phenotypes <- as.factor(phenotypes)
 ```
-
 
 
 
