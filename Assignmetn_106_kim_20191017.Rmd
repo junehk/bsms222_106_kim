@@ -28,7 +28,7 @@ names(ddg2p)[7] <-paste("mutation_consequence")
 ddg2p_hpo <- read_delim('table.hpo_obo_20190924.txt',delim='\t')
 ```
 
-어느 염색체에 속한 유전자인지 알기 위해 Wikipedia의 [Online Mendelian Inheritance in Man](https://en.wikipedia.org/wiki/Online_Mendelian_Inheritance_in_Man) 문서를 참고하였다.
+어느 염색체에 있는 유전자인지도 중요한 지표이다. 어떤 염색체에 속한 유전자인지 알기 위해 Wikipedia의 [Online Mendelian Inheritance in Man](https://en.wikipedia.org/wiki/Online_Mendelian_Inheritance_in_Man) 문서를 참고하였다.
 
 ```{r}
 col1 <- ddg2p %>% select(gene_mim) %>%
@@ -46,10 +46,13 @@ ddg2p <- ddg2p %>%
     gene_mim>=500000 & gene_mim <600000 ~ "Mitochondrial",
     gene_mim>=600000 ~ "Autosomal",
     TRUE ~ "others"))
+
+ddg2p <- ddg2p %>% mutate(OMIM = as.factor(OMIM))
+
 table(ddg2p$OMIM)
 ```
 
-추가로, 얼굴에 대한 표현형을 가지고 있는 유전자만을 따로 표시한다.
+또한, 얼굴에 대한 표현형을 가지고 있는 유전자만을 따로 표시한다.
 
 ```{r}
 ddg2p <- ddg2p %>%
@@ -59,7 +62,6 @@ ddg2p <- ddg2p %>%
                    "non_facial")) %>%
   mutate(facial_disorder = as.factor(facial_disorder))
 
-ddg2p <- ddg2p %>% mutate(OMIM = as.factor(OMIM))
 ddg2p <- ddg2p %>% mutate(facial_disorder = as.factor(facial_disorder))
 ddg2p <- ddg2p %>% mutate(allelic_requirement = as.factor(allelic_requirement))
 ddg2p <- ddg2p %>% mutate(mutation_consequence = as.factor(mutation_consequence))
@@ -198,6 +200,91 @@ bind_rows(ddg2p %>%
 흥미롭게도, monoallelic과 biallelic requirement 의 비율에서 차이가 보였다.
 이들을 따로 뽑아 더욱 면밀히 관찰해보자.
 
-## 2.3 Mono- or Biallelic Requirement 분석
+## 2.3 OMIM 에 따른 분석
 
+앞의 **1.1** 에서 나누었던 OMIM 을 살펴보자.
+
+```{r}
+table(ddg2p_face$OMIM)
+
+filter(ddg2p_face, OMIM == "others") %>%
+  select('gene symbol', gene_mim, allelic_requirement, mutation_consequence)
+
+```
+
+Gene MIM 값이 없어서 어느 염색체의 유전자인지 알기 힘든 `HIST1H4C`를 제외하면, 상염색체와 X염색체에 유전자가 관련되어 있음을 알 수 있다.
+
+
+```{r}
+ ddg2p_face %>%
+  filter(OMIM != "others") %>%
+  filter(mutation_consequence != "NA") %>%
+  count(mutation_consequence, OMIM) %>%
+  mutate(ratio = n/sum(n)) %>%
+  ggplot(aes(mutation_consequence, ratio, fill = OMIM)) +
+  geom_bar(stat="identity", position = position_dodge()) +
+  theme_bw() +
+  coord_flip() +
+  geom_text(aes(x = mutation_consequence, y = ratio, label = round(n, 2))) +
+  labs(x = "Mutation Consequence", y = "counts", title = "Mutation Consequence VS OMIM at Facial Genetic Disorder")
+```
+
+X linked genetic disorder 가 loss of function, gaun of function, all missense/in frame 에 나타남을 볼 수 있었다. 
+
+## 2.4 Mono- or Biallelic Requirement 분석
+
+
+**2.2** 에서 **Allelic Requirement**에서  monoallelic, biallelic genetic disordr 가 유의미한 차이를 갖는 것을 보았다. 이 두 항목에 대해 OMIM 을 살펴보기로 하자.
+
+```{r}
+ddg2p_face %>% 
+  filter(allelic_requirement == 'monoallelic'| allelic_requirement == 'biallelic') %>% select(OMIM) %>% table
+ddg2p_face %>% 
+  filter(OMIM == "others" | OMIM == "X-linked") %>%
+  filter(allelic_requirement == 'monoallelic'| allelic_requirement == 'biallelic') %>%
+  select('gene symbol', OMIM, gene_mim, allelic_requirement, mutation_consequence)
+```
+
+1개의 X-linked 와 gene mim 값이 없는 2개의 case를 제외하고 전부 상염색체에 존재하는 유전인자이다. 따라서, 이 유전인자들이 어떠한지 다시 분석하겠다.
+
+facial data에서,**Allelic Requirement** 가 `monoallelic`과 `biallelic` 인 row 만 추출하고, 상염색체에 존재하는 유전자들에 대해서 **Mutation Consequence** 가 어떻게 다른지 살펴보겠다.
+
+
+```{r}
+ddg2p_face %>% filter(allelic_requirement == 'monoallelic'| allelic_requirement == 'biallelic') %>%
+  filter(OMIM == "Autosomal") %>%
+  filter(mutation_consequence != "NA") %>%
+  group_by(allelic_requirement) %>%
+  count(mutation_consequence, OMIM) %>%
+  mutate(ratio = n/sum(n)) %>%
+  ggplot(aes(mutation_consequence, ratio, fill = mutation_consequence)) +
+  geom_bar(stat="identity", position = position_dodge()) +
+  theme_bw() +
+  theme(legend.title = element_blank(), legend.position = "none") +
+  coord_flip() +
+  geom_text(aes(x = mutation_consequence, y = ratio, label = round(ratio, 2))) +
+  labs(x = "Mutation Consequence", y = "Count") +
+  facet_grid(. ~ allelic_requirement)
+```
+
+전체 유전자 데이터에서도 상염색체에 존재하는 유전자를 분석하겠다.
+
+```{r}
+ddg2p %>% filter(allelic_requirement == 'monoallelic'| allelic_requirement == 'biallelic') %>%
+  filter(OMIM == "Autosomal") %>%
+  filter(mutation_consequence != "NA") %>%
+  group_by(allelic_requirement) %>%
+  count(mutation_consequence, OMIM) %>%
+  mutate(ratio = n/sum(n)) %>%
+  ggplot(aes(mutation_consequence, ratio, fill = mutation_consequence)) +
+  geom_bar(stat="identity", position = position_dodge()) +
+  theme_bw() +
+  theme(legend.title = element_blank(), legend.position = "none") +
+  coord_flip() +
+  geom_text(aes(x = mutation_consequence, y = ratio, label = round(ratio, 2))) +
+  labs(x = "Mutation Consequence", y = "Count") +
+  facet_grid(. ~ allelic_requirement)
+```
+
+상염색체 상에 존재하는 유전자에 대해 분석한 결과, Facial 쪽만 나타내는 특징은 없는 것으로 판단된다.
 
