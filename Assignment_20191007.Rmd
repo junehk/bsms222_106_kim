@@ -103,13 +103,13 @@ promotor mutation 이렇게 2줄로 나눌 수 있다.
 
 **modify xy ggplot** googling 하자.
 ```{r}
-scale_x_discrete
-scale_x_continuos
+# scale_x_discrete
+# scale_x_continuos
 ```
 
 ```{r}
 ddg2p <- as.tibble(ddg2p)
-col1 <- ddg2p%>% select('gene mim') %>%
+col1 <- ddg2p%>% select(gene_mim) %>%
   mutate_if(is.character, list(~na_if(., "No gene mim")))
 
 names(ddg2p)[2] <-paste('gene_mim') 
@@ -222,11 +222,7 @@ phenotypes <- cSplit(phenotypes, "value", sep=";", type.convert = FALSE)
 
 ```
 
-```{r}
-phenotypes <- as.factor(phenotypes)
-```
-
-
+`phenotypes` 는 wide to long format 검색해서 바꿔주자.
 
 
 
