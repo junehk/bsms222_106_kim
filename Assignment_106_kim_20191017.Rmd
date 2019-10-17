@@ -6,7 +6,7 @@ output: html_notebook
 
 # 1. Abstract
 
-유전병 인자는 인체에 다양한 부위에 영향을 준다. **The Development Disorder Genotype - Phenotype Database (DDG2P)**의 Organ specificit list를 확인하면, 하나의 유전자가 하나 이상의 장기에 발달 장애를 일으키는 것을 확인할 수 있다. **DDG2P**에서 얼굴에 특이적으로 발달 장애를 유발하는 유전자 목록을 추출하여 이들이 갖는 특징을 확인했다. Allelic requirement 항목을 얼굴과 전체에 대해 비교했을 때, monoallelic, biallelic requirement이 차지하는 비율이 얼굴은 0.838, 전체는 0.897 으로, 대다수를 차지해 비슷한 경향이 나타났다. 하지만, 얼굴의 monoallelic requirement의 비율은 0.577, biallelic requirement 의 비율은 0.262이었고, 전체 monoallelic requirement의 비율은 0.363, biallelic requirement의 비율은 0.534 으로, 둘의 구성비에 차이가 있음을 확인했다.
+유전병 인자는 인체에 다양한 부위에 영향을 준다. **The Development Disorder Genotype - Phenotype Database (DDG2P)**에서 얼굴에 특이적으로 발달 장애를 유발하는 유전자 목록을 추출하여 이들이 갖는 특징을 확인했다. Allelic requirement 항목을 얼굴과 전체에 대해 비교했을 때, monoallelic, biallelic requirement이 차지하는 비율이 얼굴은 0.838, 전체는 0.897 으로, 대다수를 차지해 비슷한 경향이 나타났다. 하지만, 얼굴의 monoallelic requirement의 비율은 0.577, biallelic requirement 의 비율은 0.262이었고, 전체 monoallelic requirement의 비율은 0.363, biallelic requirement의 비율은 0.534 으로, 둘의 구성비에 차이가 있음을 확인했다.
 
 ```{r echo=FALSE, results='hide',message=FALSE}
 # 데이터준비
