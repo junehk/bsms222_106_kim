@@ -235,3 +235,6 @@ dc %>%
 얼굴과, 얼굴을 포함한 전체 유전자 데이터에서 monoallelic, biallelic requirement 가 주요 인자임을 확인할 수 있었다.
 
 Face - monoallelic requirement 가 Whole - monoallelic requirement에 비해 21.36%p 만큼 높고, Face - biallelic requirement 가 Whole - biallelic requirement 에 비해 27.24%p 만큼 낮다는 점을 확인할 수 있었다. 따라서, 얼굴 발달 장애는 monoallelic requirement 가 가장 많은 요인이고, 전반적인 발달 장애는 biallelic requirement 가 가장 많은 요인이 됨을 알 수 있다.
+
+# 4. 참고자료
+[Deciphering Developmental Disorders - Overview](https://decipher.sanger.ac.uk/ddd#overview)
