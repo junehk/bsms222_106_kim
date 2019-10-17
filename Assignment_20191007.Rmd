@@ -226,3 +226,356 @@ phenotypes <- cSplit(phenotypes, "value", sep=";", type.convert = FALSE)
 
 
 
+
+
+
+
+# 1. 얼굴의 유전병 분석
+
+유전병 인자는 인체의 다양한 부위에 영향을 준다. DDG2P 데이터에서 `organ specificity list` 를 보면 하나의 유전인자가 하나 이상의 부위에 영향을 줌을 알 수 있다. 유전자들 중에 얼굴의 표현형에 영향을 주는 인자가 무엇인지 알아보고, 이들이 어떤 특성을 가지는지 분석하겠다.
+
+## 1.1 데이터 준비
+
+```{r}
+# Download DD2GP with pLI scores
+#wget https://www.dropbox.com/s/pqihpzy24yafr7c/DDG2P_24_9_2019.with_pLI.txt
+
+# HPO 
+#wget https://www.dropbox.com/s/svc4rfhx2z2dopk/table.hpo_obo_20190924.txt
+
+
+library(tidyverse)
+library(ggplot2)
+library(ggthemes)
+
+ddg2p <- read_delim('DDG2P_24_9_2019.with_pLI.txt', delim = '\t', progress = F)
+names(ddg2p)[2] <-paste('gene_mim') 
+names(ddg2p)[6] <-paste('allelic_requirement')
+names(ddg2p)[7] <-paste("mutation_consequence")
+
+ddg2p_hpo <- read_delim('table.hpo_obo_20190924.txt',delim='\t')
+```
+
+어느 염색체에 있는 유전자인지도 중요한 지표이다. 어떤 염색체에 속한 유전자인지 알기 위해 Wikipedia의 [Online Mendelian Inheritance in Man](https://en.wikipedia.org/wiki/Online_Mendelian_Inheritance_in_Man) 문서를 참고하였다.
+
+```{r}
+col1 <- ddg2p %>% select(gene_mim) %>%
+  mutate_if(is.character, list(~na_if(., "No gene mim")))
+
+col1 <- col1$gene_mim %>% as.numeric()
+
+ddg2p <- mutate(ddg2p, gene_mim = col1)
+
+ddg2p <- ddg2p %>%
+      mutate(OMIM = case_when(
+    gene_mim>=100000 & gene_mim <300000 ~ "Autosomal",
+    gene_mim>=300000 & gene_mim <400000 ~ "X-linked",
+    gene_mim>=400000 & gene_mim <500000 ~ "Y-linked",
+    gene_mim>=500000 & gene_mim <600000 ~ "Mitochondrial",
+    gene_mim>=600000 ~ "Autosomal",
+    TRUE ~ "others"))
+
+ddg2p <- ddg2p %>% mutate(OMIM = as.factor(OMIM))
+
+table(ddg2p$OMIM)
+```
+
+또한, 얼굴에 대한 표현형을 가지고 있는 유전자만을 따로 표시한다.
+
+```{r}
+ddg2p <- ddg2p %>%
+  mutate(facial_disorder =
+           if_else(grepl("Face", ddg2p$`organ specificity list`),
+                   "facial",
+                   "non_facial")) %>%
+  mutate(facial_disorder = as.factor(facial_disorder))
+
+ddg2p <- ddg2p %>% mutate(facial_disorder = as.factor(facial_disorder))
+ddg2p <- ddg2p %>% mutate(allelic_requirement = as.factor(allelic_requirement))
+ddg2p <- ddg2p %>% mutate(mutation_consequence = as.factor(mutation_consequence))
+```
+
+# 2. 데이터 관찰
+
+## 2.1 `muation_consequence` 관찰
+
+전체 게놈의 `mutation_consequence`를 보도록 하자.
+
+```{r}
+# 그래프 그리기 전 기초 작업
+
+levels(ddg2p$mutation_consequence) <- gsub("5_prime or 3_prime UTR mutation", "5' or 3' UTR mutation",levels(ddg2p$mutation_consequence))
+
+levels(ddg2p$mutation_consequence) <- gsub("cis-regulatory or promotor mutation", "cis-regulatory or \n promotor mutation",levels(ddg2p$mutation_consequence))
+
+levels(ddg2p$mutation_consequence) <- gsub("part of contiguous gene duplication", "part of contiguous \n gene duplication",levels(ddg2p$mutation_consequence))
+
+# 그래프에 넣을 정확한 값 입력
+
+n_mc<- ddg2p %>%
+  count(mutation_consequence)
+
+# 그래프 그려 확인
+ddg2p %>% 
+  count(mutation_consequence) %>%
+  ggplot(aes(mutation_consequence, n, fill = mutation_consequence)) +
+  geom_bar(stat="identity", position = position_dodge(width = 2)) +
+  theme_bw() +
+  coord_flip() +
+  theme(legend.title = element_blank(), legend.position = "none") +
+  xlab("Mutation Consequence") +
+  ylab("Counts") +
+  geom_text(aes(x = mutation_consequence, y=n_mc$n, label = round(n_mc$n, 2)))
+```
+
+`NA` 가 25개가 있다. 이후 살펴볼 그래프에서 `NA`는 제외하고 살펴보겠다.
+
+바로 이어 얼굴에 대해서도 살펴보자.
+
+```{r}
+# 그래프에 넣을 정확한 값 입력
+
+n_mc<- ddg2p %>%
+  count(mutation_consequence) %>%
+  filter(mutation_consequence != "NA") %>%
+  mutate(ratio = n/sum(n))
+
+n_f_mc <- ddg2p %>% 
+  filter(facial_disorder == "facial") %>%
+  count(mutation_consequence) %>%
+  filter(mutation_consequence != "NA") %>%
+  mutate(ratio = n/sum(n)) 
+
+# 그래프 그려 확인
+ddg2p %>% 
+  filter(facial_disorder == "facial", mutation_consequence != "NA") %>%
+  count(mutation_consequence) %>%
+  ggplot(aes(mutation_consequence, n, fill = mutation_consequence)) +
+  geom_bar(stat="identity", position = position_dodge(width = 2)) +
+  theme_bw() +
+  coord_flip() +
+  theme(legend.title = element_blank(), legend.position = "none") +
+  labs(x = "Mutation Consequence", y ="Counts", title = "Mutation Consequences for Facial Disorder") +
+  geom_text(aes(x = mutation_consequence, y = n_f_mc$n, label = round(n_f_mc$n, 2)))
+```
+
+Facial Disorder 와 Non Facial Disorder 의 차이를 비교하겠다.
+
+```{r}
+# 우선 얼굴 유전 질환 데이터들만 추출한다.
+ddg2p_face <- ddg2p %>%
+  filter(facial_disorder == "facial")
+
+# 두 데이터를 비교하겠다.
+p1 <- bind_rows(ddg2p %>%
+            filter(.,mutation_consequence != is.na(mutation_consequence)) %>%
+            mutate(type='Whole') %>%
+            count(mutation_consequence, type) %>%
+            mutate(ratio = n/sum(n)) %>%
+            select(type, mutation_consequence, n, ratio),
+          ddg2p_face %>%
+            filter(.,mutation_consequence != is.na(mutation_consequence)) %>%
+            mutate(type='Facial') %>%
+            count(mutation_consequence, type) %>%
+            mutate(ratio = n/sum(n)) %>%
+            select(type, mutation_consequence, n, ratio)) %>%
+  complete(type, mutation_consequence, fill = list(n=0)) %>%
+  complete(type, mutation_consequence, fill = list(ratio=0)) %>%
+  ggplot(aes(mutation_consequence, ratio, fill = mutation_consequence)) +
+  geom_bar(stat="identity", position = position_dodge(width = 2)) +
+  theme_bw() +
+  coord_flip() +
+  theme(legend.title = element_blank(), legend.position = "none") +
+  geom_text(aes(x = mutation_consequence, y = ratio, label = round(ratio, 2))) +
+  facet_wrap(. ~ type) +
+  labs(x = "Mutation Consequence", y = "Ratio", title ="Comparison between Whole and Facial Mutation Consequences")
+
+p1
+
+ggsave("plot.ddg2p.comparison_whole_facial_mutation_consequence.20191015.png", p1)
+```
+
+얼굴 관련 유전인자를 추출 했으나 유의미한 차이를 발견하기 어렵다.
+
+## 2.2 `allelic_requirement` 관찰
+
+위와 비슷한 방식으로 allelic requirement 를 살펴보자.
+
+```{r}
+# 비교 데이터 생성.
+d <- bind_rows(ddg2p %>%
+            mutate(type='Whole') %>%
+            filter(.,allelic_requirement != is.na(allelic_requirement)) %>%
+            count(allelic_requirement, type) %>%
+            mutate(ratio = n/sum(n)) %>%
+            select(type, allelic_requirement, n, ratio),
+          ddg2p_face %>%
+            mutate(type='Facial') %>%
+            filter(.,allelic_requirement != is.na(allelic_requirement)) %>%
+            count(allelic_requirement, type) %>%
+            mutate(ratio = n/sum(n)) %>%
+            select(type, allelic_requirement, n, ratio)) %>%
+  complete(type, allelic_requirement, fill = list(ratio = 0)) %>%
+  complete(type, allelic_requirement, fill = list(n=0))
+
+ind <- c(10, 9, 5, 8, 4, 3, 6, 2, 1, 7)
+
+d$allelic_requirement <- factor(d$allelic_requirement, levels = d$allelic_requirement[ind])
+
+d %>% ggplot(aes(allelic_requirement, ratio, fill = allelic_requirement)) +
+  geom_bar(stat="identity", position = position_dodge(width = 2)) +
+  coord_flip() +
+  geom_text(aes(x = allelic_requirement, y = ratio/1.5 + 0.05, label = round(ratio, 3))) +
+  geom_text(aes(x = allelic_requirement, y = 0.68, label = n)) +
+  geom_text(aes(x = allelic_requirement, y = 0.68, label ='(        )' )) +
+  geom_text(aes(x = allelic_requirement, y = 0.73, label ='' ), color = "blue") +
+  facet_wrap(. ~ type) +
+  labs(x = "Allelic Requirement", 
+      y = "Ratio, (Counts)", 
+      title ="Comparison between Whole and Facial Allelic Requirement",
+      caption = "Data source: The Development Disorder Genotype - Phenotype Database") +
+  theme_bw() +
+  theme(legend.title = element_blank(), legend.position = "none",
+        plot.title = element_text(hjust = 0),
+        plot.caption = element_text(hjust = 0))
+
+# p2
+# ggsave("plot.ddg2p.comparison_whole_facial_allelic_requirement.20191015.png", p2)
+```
+
+흥미롭게도, monoallelic과 biallelic requirement 의 비율에서 차이가 보였다.
+이들을 따로 뽑아 더욱 면밀히 관찰해보자.
+
+```{r}
+df <- d[1:10,] %>% mutate(face_ratio = ratio) %>% select(allelic_requirement, face_ratio)
+dw <- d[11:20,] %>% mutate(whole_ratio = ratio) %>% select(whole_ratio)
+dc <- cbind(df, dw) %>% mutate(ratio_comparison = face_ratio - whole_ratio)
+dc %>%
+  ggplot(aes(allelic_requirement,ratio_comparison, fill = allelic_requirement)) +
+  geom_bar(stat='identity') +
+  theme_bw() +
+  coord_flip() +
+  geom_text(aes(x = allelic_requirement,y = ratio_comparison/1.3, label = round(ratio_comparison,5)))+
+  labs(y = "Ratio Comparison (Absolute Difference in Value)", 
+      x = "Allelic Requirement",
+      title = "Ratio Comparison: Facial - Whole",
+      caption = "Data source: The Development Disorder Genotype - Phenotype Database") +
+  theme(legend.title = element_blank(), legend.position = "none",
+        plot.title = element_text(hjust = 0),
+        plot.caption = element_text(hjust = 0))
+```
+
+
+## 2.3 OMIM 에 따른 분석
+
+앞의 **1.1** 에서 나누었던 OMIM 을 살펴보자.
+
+```{r}
+table(ddg2p_face$OMIM)
+
+filter(ddg2p_face, OMIM == "others") %>%
+  select('gene symbol', gene_mim, allelic_requirement, mutation_consequence)
+
+```
+
+Gene MIM 값이 없어서 어느 염색체의 유전자인지 알기 힘든 `HIST1H4C`를 제외하면, 상염색체와 X염색체에 유전자가 관련되어 있음을 알 수 있다.
+
+
+```{r}
+ ddg2p_face %>%
+  filter(OMIM != "others") %>%
+  filter(mutation_consequence != "NA") %>%
+  count(mutation_consequence, OMIM) %>%
+  mutate(ratio = n/sum(n)) %>%
+  ggplot(aes(mutation_consequence, ratio, fill = OMIM)) +
+  geom_bar(stat="identity", position = position_dodge()) +
+  theme_bw() +
+  coord_flip() +
+  geom_text(aes(x = mutation_consequence, y = ratio, label = round(n, 2))) +
+  labs(x = "Mutation Consequence", y = "counts", title = "Mutation Consequence VS OMIM at Facial Genetic Disorder")
+```
+
+X linked genetic disorder 가 loss of function, gaun of function, all missense/in frame 에 나타남을 볼 수 있었다. 
+
+## 2.4 Mono- or Biallelic Requirement 분석
+
+
+**2.2** 에서 **Allelic Requirement**에서  monoallelic, biallelic genetic disordr 가 유의미한 차이를 갖는 것을 보았다. 이 두 항목에 대해 OMIM 을 살펴보기로 하자.
+
+```{r}
+ddg2p_face %>% 
+  filter(allelic_requirement == 'monoallelic'| allelic_requirement == 'biallelic') %>% select(OMIM) %>% table
+ddg2p_face %>% 
+  filter(OMIM == "others" | OMIM == "X-linked") %>%
+  filter(allelic_requirement == 'monoallelic'| allelic_requirement == 'biallelic') %>%
+  select('gene symbol', OMIM, gene_mim, allelic_requirement, mutation_consequence)
+```
+
+1개의 X-linked 와 gene mim 값이 없는 2개의 case를 제외하고 전부 상염색체에 존재하는 유전인자이다. 따라서, 이 유전인자들이 어떠한지 다시 분석하겠다.
+
+facial data에서,**Allelic Requirement** 가 `monoallelic`과 `biallelic` 인 row 만 추출하고, 상염색체에 존재하는 유전자들에 대해서 **Mutation Consequence** 가 어떻게 다른지 살펴보겠다.
+
+
+```{r}
+ddg2p_face %>% filter(allelic_requirement == 'monoallelic'| allelic_requirement == 'biallelic' & allelic_requirement !=is.na(allelic_requirement)) %>%
+  filter(OMIM == "Autosomal") %>%
+  filter(mutation_consequence != "NA") %>%
+  group_by(allelic_requirement) %>%
+  count(mutation_consequence, OMIM) %>%
+  mutate(ratio = n/sum(n)) %>%
+  ggplot(aes(mutation_consequence, ratio, fill = mutation_consequence)) +
+  geom_bar(stat="identity", position = position_dodge()) +
+  theme_bw() +
+  theme(legend.title = element_blank(), legend.position = "none") +
+  coord_flip() +
+  geom_text(aes(x = mutation_consequence, y = ratio, label = round(ratio, 5))) +
+  labs(x = "Mutation Consequence", y = "Count") +
+  facet_grid(. ~ allelic_requirement)
+```
+
+전체 유전자 데이터에서도 상염색체에 존재하는 유전자를 분석하겠다.
+
+```{r}
+ddg2p %>% filter(allelic_requirement == 'monoallelic'| allelic_requirement == 'biallelic') %>%
+  filter(OMIM == "Autosomal") %>%
+  filter(mutation_consequence != "NA") %>%
+  group_by(allelic_requirement) %>%
+  count(mutation_consequence, OMIM) %>%
+  mutate(ratio = n/sum(n)) %>%
+  ggplot(aes(mutation_consequence, ratio, fill = mutation_consequence)) +
+  geom_bar(stat="identity", position = position_dodge()) +
+  theme_bw() +
+  theme(legend.title = element_blank(), legend.position = "none") +
+  coord_flip() +
+  geom_text(aes(x = mutation_consequence, y = ratio, label = round(ratio, 5))) +
+  labs(x = "Mutation Consequence", y = "Count") +
+  facet_grid(. ~ allelic_requirement)
+```
+
+상염색체 상에 존재하는 유전자에 대해 분석한 결과, Facial 쪽만 나타내는 특징은 없는 것으로 판단된다.
+
+
+
+
+
+
+
+
+```{r}
+ddg2p %>%
+  filter(mutation_consequence != 'NA' & mutation_consequence != 'uncertain') %>%
+  group_by(facial_disorder, OMIM) %>%
+  count(mutation_consequence, allelic_requirement) 
+
+ddg2p %>%
+  filter(mutation_consequence != 'NA' & mutation_consequence != 'uncertain') %>%
+  group_by(facial_disorder, OMIM) %>%
+  count(mutation_consequence, allelic_requirement) %>%
+  ggplot(aes(allelic_requirement, mutation_consequence, color = OMIM)) +
+  geom_jitter(width = 0.2, height = 0.2, alpha = 0.2) +
+  labs(x= 'Allelic Requirment', y ='Mutation Consequence', title ='Factors of Developmental disorders') +
+  facet_grid(~facial_disorder) +
+  theme(axis.text.x = element_text(angle = 60, size =7), axis.text = element_text(size = 7))
+  geom_text(aes(x = allelic_requirement, y = mutation_consequence, label = round(n, 2)))
+```
+

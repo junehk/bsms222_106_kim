@@ -1,0 +1,237 @@
+---
+title: "Assignment 106 kim 20191017"
+subtitle: "DDG2P: Comparison between Whole and Facial Allelic Requirement"
+output: html_notebook
+---
+
+# 1. Abstract
+
+유전병 인자는 인체에 다양한 부위에 영향을 준다. **The Development Disorder Genotype - Phenotype Database (DDG2P)**의 Organ specificit list를 확인하면, 하나의 유전자가 하나 이상의 장기에 발달 장애를 일으키는 것을 확인할 수 있다. **DDG2P**에서 얼굴에 특이적으로 발달 장애를 유발하는 유전자 목록을 추출하여 이들이 갖는 특징을 확인했다. Allelic requirement 항목을 얼굴과 전체에 대해 비교했을 때, monoallelic, biallelic requirement이 차지하는 비율이 얼굴은 0.838, 전체는 0.897 으로, 대다수를 차지해 비슷한 경향이 나타났다. 하지만, 얼굴의 monoallelic requirement의 비율은 0.577, biallelic requirement 의 비율은 0.262이었고, 전체 monoallelic requirement의 비율은 0.363, biallelic requirement의 비율은 0.534 으로, 둘의 구성비에 차이가 있음을 확인했다.
+
+```{r echo=FALSE, results='hide',message=FALSE}
+# 데이터준비
+library(tidyverse)
+library(ggplot2)
+library(ggthemes)
+
+ddg2p <- read_delim('DDG2P_24_9_2019.with_pLI.txt', delim = '\t', progress = F)
+names(ddg2p)[2] <-paste('gene_mim') 
+names(ddg2p)[6] <-paste('allelic_requirement')
+names(ddg2p)[7] <-paste("mutation_consequence")
+
+# 데이터 준비2
+ddg2p <- ddg2p %>%
+  mutate(facial_disorder =
+           if_else(grepl("Face", ddg2p$`organ specificity list`),
+                   "facial",
+                   "non_facial")) %>%
+  mutate(facial_disorder = as.factor(facial_disorder))
+
+ddg2p <- ddg2p %>% mutate(facial_disorder = as.factor(facial_disorder))
+ddg2p <- ddg2p %>% mutate(allelic_requirement = as.factor(allelic_requirement))
+ddg2p <- ddg2p %>% mutate(mutation_consequence = as.factor(mutation_consequence))
+
+# 얼굴데이터 준비
+ddg2p_face <- ddg2p %>%
+  filter(facial_disorder == "facial")
+
+# 그래프
+d <- bind_rows(ddg2p %>%
+            mutate(type='Whole Gene') %>%
+            filter(.,allelic_requirement != is.na(allelic_requirement)) %>%
+            count(allelic_requirement, type) %>%
+            mutate(ratio = n/sum(n)) %>%
+            select(type, allelic_requirement, n, ratio),
+          ddg2p_face %>%
+            mutate(type='Facial Gene') %>%
+            filter(.,allelic_requirement != is.na(allelic_requirement)) %>%
+            count(allelic_requirement, type) %>%
+            mutate(ratio = n/sum(n)) %>%
+            select(type, allelic_requirement, n, ratio)) %>%
+  complete(type, allelic_requirement, fill = list(ratio = 0)) %>%
+  complete(type, allelic_requirement, fill = list(n=0))
+
+ind <- c(10, 9, 5, 8, 4, 3, 6, 2, 1, 7)
+
+d$allelic_requirement <- factor(d$allelic_requirement, levels = d$allelic_requirement[ind])
+
+d %>% ggplot(aes(allelic_requirement, ratio, fill = allelic_requirement)) +
+  geom_bar(stat="identity", position = position_dodge(width = 2)) +
+  coord_flip() +
+  geom_text(aes(x = allelic_requirement, y = ratio/1.5 + 0.05, label = round(ratio, 3))) +
+  geom_text(aes(x = allelic_requirement, y = 0.68, label = n)) +
+  geom_text(aes(x = allelic_requirement, y = 0.68, label ='(        )' )) +
+  geom_text(aes(x = allelic_requirement, y = 0.73, label ='' ), color = "blue") +
+  facet_wrap(. ~ type) +
+  labs(x = "Allelic Requirement", 
+      y = "Ratio, (Counts)", 
+      title ="Comparison between Whole and Facial Allelic Requirement",
+      caption = "Data source: The Development Disorder Genotype - Phenotype Database") +
+  theme_bw() +
+  theme(legend.title = element_blank(), legend.position = "none",
+        plot.title = element_text(hjust = 0),
+        plot.caption = element_text(hjust = 0))
+```
+
+# 2. Method
+
+먼저 **DDG2P** 데이터를 다운 받은 후, 데이터를 불러온다.
+```{r results='hide',message=FALSE}
+# Download DD2GP with pLI scores
+#wget https://www.dropbox.com/s/pqihpzy24yafr7c/DDG2P_24_9_2019.with_pLI.txt
+
+
+library(tidyverse)
+library(ggplot2)
+library(ggthemes)
+
+ddg2p <- read_delim('DDG2P_24_9_2019.with_pLI.txt', delim = '\t')
+names(ddg2p)[2] <-paste('gene_mim') 
+names(ddg2p)[6] <-paste('allelic_requirement')
+names(ddg2p)[7] <-paste("mutation_consequence")
+```
+
+
+
+`organ specificity list`에서 `face` 값을 갖는 row만 따로 표시한다.
+```{r}
+ddg2p <- ddg2p %>%
+  mutate(facial_disorder =
+           if_else(grepl("Face", ddg2p$`organ specificity list`),
+                   "facial",
+                   "non_facial")) %>%
+  mutate(facial_disorder = as.factor(facial_disorder))
+```
+
+데이터 조사에 사용할 column을 factor로 변환한다.
+```{r}
+ddg2p <- ddg2p %>% mutate(facial_disorder = as.factor(facial_disorder))
+ddg2p <- ddg2p %>% mutate(allelic_requirement = as.factor(allelic_requirement))
+ddg2p <- ddg2p %>% mutate(mutation_consequence = as.factor(mutation_consequence))
+```
+
+# 3 데이터 분석 및 결과
+
+## 3.1 Mutation consequence
+
+
+먼저, `mutation consequence`를 살펴보기 위해 사전 조작작업을 한다. 그 후, `face`값을 가지고 있는 row를 추출하여 `ddg2p_face`에 저장한다.
+```{r}
+levels(ddg2p$mutation_consequence) <- gsub("5_prime or 3_prime UTR mutation", "5' or 3' UTR mutation",levels(ddg2p$mutation_consequence))
+
+levels(ddg2p$mutation_consequence) <- gsub("cis-regulatory or promotor mutation", "cis-regulatory or \n promotor mutation",levels(ddg2p$mutation_consequence))
+
+levels(ddg2p$mutation_consequence) <- gsub("part of contiguous gene duplication", "part of contiguous \n gene duplication",levels(ddg2p$mutation_consequence))
+
+ddg2p_face <- ddg2p %>%
+  filter(facial_disorder == "facial")
+```
+
+얼굴과, 전체 유전자에 대해서 mutation consequence 를 비교한 그래프는 다음과 같다.
+
+```{r}
+d1 <- bind_rows(ddg2p %>%
+            filter(.,mutation_consequence != is.na(mutation_consequence)) %>%
+            mutate(type='Whole Gene') %>%
+            count(mutation_consequence, type) %>%
+            mutate(ratio = n/sum(n)) %>%
+            select(type, mutation_consequence, n, ratio),
+          ddg2p_face %>%
+            filter(.,mutation_consequence != is.na(mutation_consequence)) %>%
+            mutate(type='Facial Gene') %>%
+            count(mutation_consequence, type) %>%
+            mutate(ratio = n/sum(n)) %>%
+            select(type, mutation_consequence, n, ratio))
+
+ind1 <- c(10, 9, 1,4,7,2,6,5,3,8)
+
+d1$mutation_consequence <- factor(d1$mutation_consequence, levels = d1$mutation_consequence[ind1])
+
+d1 %>%
+  complete(type, mutation_consequence, fill = list(n=0)) %>%
+  complete(type, mutation_consequence, fill = list(ratio=0)) %>%
+  ggplot(aes(mutation_consequence, ratio, fill = mutation_consequence)) +
+  geom_bar(stat="identity", position = position_dodge(width = 2)) +
+  coord_flip() +
+  geom_text(aes(x = mutation_consequence, y = ratio/1.5 + 0.05, label = round(ratio, 3))) +
+  geom_text(aes(x = mutation_consequence, y = 0.75, label = n)) +
+  geom_text(aes(x = mutation_consequence, y = 0.75, label ='(        )' )) +
+  geom_text(aes(x = mutation_consequence, y = 0.8, label ='' ), color = "blue") +
+  facet_wrap(. ~ type) +
+  labs(x = "Mutation Consequence", 
+       y = "Ratio, (Counts)", 
+       title ="Comparison between Whole and Facial Mutation Consequences",
+       caption = "Data source: The Development Disorder Genotype - Phenotype Database") +
+  theme_bw() +
+  theme(legend.title = element_blank(), legend.position = "none",
+        plot.title = element_text(hjust = 0),
+        plot.caption = element_text(hjust = 0))
+```
+`mutation consequence`항목에서, Facial gene mutation consequence와 whole gene mutation consequence 의 구성 비율은 비슷한 경향을 보인다.
+
+## 3.2 Allelic requirement 비교
+
+`allelic requirement`항목에서 얼굴과 전체 유전자에 차이가 있는지 확인한다.
+```{r}
+d <- bind_rows(ddg2p %>%
+            mutate(type='Whole Gene') %>%
+            filter(.,allelic_requirement != is.na(allelic_requirement)) %>%
+            count(allelic_requirement, type) %>%
+            mutate(ratio = n/sum(n)) %>%
+            select(type, allelic_requirement, n, ratio),
+          ddg2p_face %>%
+            mutate(type='Facial Gene') %>%
+            filter(.,allelic_requirement != is.na(allelic_requirement)) %>%
+            count(allelic_requirement, type) %>%
+            mutate(ratio = n/sum(n)) %>%
+            select(type, allelic_requirement, n, ratio)) %>%
+  complete(type, allelic_requirement, fill = list(ratio = 0)) %>%
+  complete(type, allelic_requirement, fill = list(n=0))
+
+ind <- c(10, 9, 5, 8, 4, 3, 6, 2, 1, 7)
+
+d$allelic_requirement <- factor(d$allelic_requirement, levels = d$allelic_requirement[ind])
+
+d %>% ggplot(aes(allelic_requirement, ratio, fill = allelic_requirement)) +
+  geom_bar(stat="identity", position = position_dodge(width = 2)) +
+  coord_flip() +
+  geom_text(aes(x = allelic_requirement, y = ratio/1.5 + 0.05, label = round(ratio, 3))) +
+  geom_text(aes(x = allelic_requirement, y = 0.68, label = n)) +
+  geom_text(aes(x = allelic_requirement, y = 0.68, label ='(        )' )) +
+  geom_text(aes(x = allelic_requirement, y = 0.73, label ='' ), color = "blue") +
+  facet_wrap(. ~ type) +
+  labs(x = "Allelic Requirement", 
+      y = "Ratio, (Counts)", 
+      title ="Comparison between Whole and Facial Allelic Requirement",
+      caption = "Data source: The Development Disorder Genotype - Phenotype Database") +
+  theme_bw() +
+  theme(legend.title = element_blank(), legend.position = "none",
+        plot.title = element_text(hjust = 0),
+        plot.caption = element_text(hjust = 0))
+```
+
+흥미롭게도, monoallelic과 biallelic requirement 의 비율에서 차이가 보였다.
+
+이들 비율의 차이에 대해 알아보기 위해, Facial, whole allelic requirement 의 ratio의 차를 구했다.
+```{r}
+df <- d[1:10,] %>% mutate(face_ratio = ratio) %>% select(allelic_requirement, face_ratio)
+dw <- d[11:20,] %>% mutate(whole_ratio = ratio) %>% select(whole_ratio)
+dc <- cbind(df, dw) %>% mutate(ratio_comparison = face_ratio - whole_ratio)
+dc %>%
+  ggplot(aes(allelic_requirement,ratio_comparison, fill = allelic_requirement)) +
+  geom_bar(stat='identity') +
+  theme_bw() +
+  coord_flip() +
+  geom_text(aes(x = allelic_requirement,y = ratio_comparison/1.3, label = round(ratio_comparison,4)))+
+  labs(y = "Ratio Comparison (Difference in Value)", 
+      x = "Allelic Requirement",
+      title = "Ratio Comparison: Facial - Whole",
+      caption = "Data source: The Development Disorder Genotype - Phenotype Database") +
+  theme(legend.title = element_blank(), legend.position = "none",
+        plot.title = element_text(hjust = 0),
+        plot.caption = element_text(hjust = 0))
+```
+
+얼굴과, 얼굴을 포함한 전체 유전자 데이터에서 monoallelic, biallelic requirement 가 주요 인자임을 확인할 수 있었다.
+
+Face - monoallelic requirement 가 Whole - monoallelic requirement에 비해 21.36%p 만큼 높고, Face - biallelic requirement 가 Whole - biallelic requirement 에 비해 27.24%p 만큼 낮다는 점을 확인할 수 있었다. 따라서, 얼굴 발달 장애는 monoallelic requirement 가 가장 많은 요인이고, 전반적인 발달 장애는 biallelic requirement 가 가장 많은 요인이 됨을 알 수 있다.
