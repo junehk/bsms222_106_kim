@@ -41,7 +41,7 @@ Computers provide a way to actually perform the simple random experiment describ
 
 An example is the `sample` function in R. We demonstrate its use in the code below. First, we use the function `rep` to generate the urn:
 
-```{r eval= false}
+```{r}
 beads <- rep(c("red", "blue"), times = c(2,3))
 beads
 #> [1] "red"  "red"  "blue" "blue" "blue"
@@ -49,7 +49,7 @@ beads
 
 and then use `sample` to pick a bead at random:
 
-```{r eval= false}
+```{r}
 sample(beads, 1)
 #> [1] "blue"
 ```
@@ -67,7 +67,7 @@ events <- replicate(B, sample(beads, 1))
 
 We can now see if our definition actually is in agreement with this Monte Carlo simulation approximation. We can use table to see the distribution:
 
-```{r eval=false}
+```{r}
 tab <- table(events)
 tab
 #> events
@@ -77,7 +77,7 @@ tab
 
 and `prop.table` gives us the proportions:
 
-```{r eval=false}
+```{r}
 prop.table(tab)
 #> events
 #>  blue   red 
@@ -110,7 +110,7 @@ In the exercises, we may ask you to set the seed to assure that the results you 
 ### 13.2.2 With and without replacement
 The function `sample` has an argument that permits us to pick more than one element from the urn. However, by default, this selection occurs *without replacement*: after a bead is selected, it is not put back in the bag. Notice what happens when we ask to randomly select five beads:
 
-```{r eval=false}
+```{r}
 sample(beads, 5)
 #> [1] "red"  "blue" "blue" "blue" "red"
 sample(beads, 5)
@@ -121,7 +121,7 @@ sample(beads, 5)
 
 This results in rearrangements that always have three blue and two red beads. If we ask that six beads be selected, we get an error:
 
-```{r eval=false}
+```{r eval=F}
 sample(beads, 6)
 ```
 
@@ -129,7 +129,7 @@ sample(beads, 6)
 
 However, the `sample` function can be used directly, without the use of `replicate`, to repeat the same experiment of picking 1 out of the 5 beads, continually, under the same conditions. To do this, we sample with *replacement*: return the bead back to the urn after selecting it. We can tell `sample` to do this by changing the `replace` argument, which defaults to `FALSE`, to `replace = TRUE`:
 
-```{r eval=false}
+```{r}
 events <- sample(beads, B, replace = TRUE)
 prop.table(table(events))
 #> events
@@ -154,7 +154,7 @@ x <- sample(beads, 5)
 
 If you have to guess the color of the first bead, you will predict blue since blue has a 60% chance. But if I show you the result of the last four outcomes:
 
-```{r eval=false}
+```{r}
 x[2:5]
 #> [1] "blue" "blue" "blue" "red"
 ```
@@ -223,7 +223,7 @@ For more complicated cases, the computations are not as straightforward. For ins
 
 First, let’s construct a deck of cards. For this, we will use the `expand.grid` and `paste` functions. We use paste to create strings by joining smaller strings. To do this, we take the number and suit of a card and create the card name like this:
 
-```{r eval= false}
+```{r}
 number <- "Three"
 suit <- "Hearts"
 paste(number, suit)
@@ -232,14 +232,14 @@ paste(number, suit)
 
 `paste` also works on pairs of vectors performing the operation element-wise:
 
-```{r eval=false}
+```{r}
 paste(letters[1:5], as.character(1:5))
 #> [1] "a 1" "b 2" "c 3" "d 4" "e 5"
 ```
 
 The function `expand.grid` gives us all the combinations of entries of two vectors. For example, if you have blue and black pants and white, grey, and plaid shirts, all your combinations are:
 
-```{r eval=false}
+```{r}
 expand.grid(pants = c("blue", "black"), shirt = c("white", "grey", "plaid"))
 #>   pants shirt
 #> 1  blue white
@@ -252,7 +252,7 @@ expand.grid(pants = c("blue", "black"), shirt = c("white", "grey", "plaid"))
 
 Here is how we generate a deck of cards:
 
-```{r eval=false}
+```{r}
 suits <- c("Diamonds", "Clubs", "Hearts", "Spades")
 numbers <- c("Ace", "Deuce", "Three", "Four", "Five", "Six", "Seven", 
              "Eight", "Nine", "Ten", "Jack", "Queen", "King")
@@ -272,7 +272,7 @@ Now, how about the conditional probability of the second card being a King given
 
 To do this, we can use the `permutations` function from the **gtools** package. For any list of size `n`, this function computes all the different combinations we can get when we select `r` items. Here are all the ways we can choose two numbers from a list consisting of `1,2,3`:
 
-```{r eval=false}
+```{r}
 library(gtools)
 permutations(3, 2)
 #>      [,1] [,2]
@@ -288,7 +288,7 @@ Notice that the order matters here: 3,1 is different than 1,3. Also, note that (
 
 Optionally, we can add a vector. If you want to see five random seven digit phone numbers out of all possible phone numbers (without repeats), you can type:
 
-```{r eval= false}
+```{r}
 all_phone_numbers <- permutations(10, 7, v = 0:9)
 n <- nrow(all_phone_numbers)
 index <- sample(n, 5)
@@ -312,7 +312,7 @@ Instead of using the numbers 1 through 10, the default, it uses what we provided
 
 To compute all possible ways we can choose two cards when the order matters, we type:
 
-```{r eval=false}
+```{r}
 hands <- permutations(52, 2, v = deck)
 # 52개 중에서 2개를 순서있게 뽑아라, 소스는 deck 이다.
 ```
@@ -326,7 +326,7 @@ second_card <- hands[,2]
 
 Now the cases for which the first hand was a King can be computed like this:
 
-```{r eval=false}
+```{r}
 kings <- paste("King", suits)
 sum(first_card %in% kings)
 #> [1] 204
@@ -334,14 +334,14 @@ sum(first_card %in% kings)
 
 To get the conditional probability, we compute what fraction of these have a King in the second card:
 
-```{r eval=false}
+```{r}
 sum(first_card%in%kings & second_card%in%kings) / sum(first_card%in%kings)
 #> [1] 0.0588
 ```
 
 which is exactly 3/51, as we had already deduced. Notice that the code above is equivalent to:
 
-```{r eval=false}
+```{r}
 mean(first_card%in%kings & second_card%in%kings) / mean(first_card%in%kings)
 #> [1] 0.0588
 ```
@@ -352,7 +352,7 @@ $${\rm {Pr(A~and~B)}\over {Pr(A)}}$$
 
 How about if the order doesn’t matter? For example, in Blackjack if you get an Ace and a face card in the first draw, it is called a *Natural 21* and you win automatically. If we wanted to compute the probability of this happening, we would enumerate the *combinations*, not the permutations, since the order does not matter.
 
-```{r eval=false}
+```{r}
 combinations(3,2)
 #>      [,1] [,2]
 #> [1,]    1    2
@@ -366,7 +366,7 @@ In the second line, the outcome does not include (2,1) because (1,2) already was
 
 So to compute the probability of a *Natural 21* in Blackjack, we can do this:
 
-```{r eval=false}
+```{r}
 aces <- paste("Ace", suits)
 
 facecard <- c("King", "Queen", "Jack", "Ten")
@@ -380,7 +380,7 @@ mean(hands[,1] %in% aces & hands[,2] %in% facecard)
 
 In the last line, we assume the Ace comes first. This is only because we know the way combination enumerates possibilities and it will list this case first. But to be safe, we could have written this and produced the same answer:
 
-```{r eval=false}
+```{r}
 mean((hands[,1] %in% aces & hands[,2] %in% facecard) |
        (hands[,2] %in% aces & hands[,1] %in% facecard))
 #> [1] 0.0483
@@ -389,7 +389,7 @@ mean((hands[,1] %in% aces & hands[,2] %in% facecard) |
 ### 13.6.1 Monte Carlo example
 Instead of using combinations to deduce the exact probability of a Natural 21, we can use a Monte Carlo to estimate this probability. In this case, we draw two cards over and over and keep track of how many 21s we get. We can use the function sample to draw two cards without replacements:
 
-```{r eval=false}
+```{r}
 hand <- sample(deck, 2)
 hand
 #> [1] "Queen Clubs"  "Seven Spades"
@@ -397,7 +397,7 @@ hand
 
 And then check if one card is an Ace and the other a face card or a 10. Going forward, we include 10 when we say face card. Now we need to check both possibilities:
 
-```{r eval=false}
+```{r}
 (hands[1] %in% aces & hands[2] %in% facecard) | 
   (hands[2] %in% aces & hands[1] %in% facecard)
 #> [1] FALSE
@@ -407,7 +407,7 @@ If we repeat this 10,000 times, we get a very good approximation of the probabil
 
 Let’s start by writing a function that draws a hand and returns TRUE if we get a 21. The function does not need any arguments because it uses objects defined in the global environment.
 
-```{r eval=false}
+```{r}
 blackjack <- function(){
    hand <- sample(deck, 2)
   (hand[1] %in% aces & hand[2] %in% facecard) | 
@@ -417,14 +417,14 @@ blackjack <- function(){
 
 Here we do have to check both possibilities: Ace first or Ace second because we are not using the `combinations` function. The function returns `TRUE` if we get a 21 and `FALSE` otherwise:
 
-```{r eval=false}
+```{r}
 blackjack()
 #> [1] FALSE
 ```
 
 Now we can play this game, say, 10,000 times:
 
-```{r eval=false}
+```{r}
 B <- 10000
 results <- replicate(B, blackjack())
 mean(results)
@@ -477,7 +477,7 @@ bdays <- sample(1:365, n, replace = TRUE)
 
 To check if in this particular set of 50 people we have at least two with the same birthday, we can use the function `duplicated`, which returns `TRUE` whenever an element of a vector is a duplicate. Here is an example:
 
-```{r eval=false}
+```{r}
 duplicated(c(1,2,3,1,4,3,5))
 #> [1] FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE
 ```
@@ -493,7 +493,7 @@ In this case, we see that it did happen. At least two people had the same birthd
 
 To estimate the probability of a shared birthday in the group, we repeat this experiment by sampling sets of 50 birthdays over and over:
 
-```{r eval=false}
+```{r}
 B <- 10000
 same_birthday <- function(n){
   bdays <- sample(1:365, n, replace=TRUE)
@@ -618,7 +618,7 @@ answer: B
 
 9. Create a Monte Carlo simulation to confirm your answer to the previous problem. Use `B <- 10000` simulations. Hint: use the following code to generate the results of the first four games:
 
-```{r eval=false}
+```{r}
 celtic_wins <- sample(c(0,1), 4, replace = TRUE, prob = c(0.6, 0.4))
 ```
 
@@ -630,7 +630,7 @@ The Celtics must win one of these 4 games.
 
 12. Two teams, $A$ and $B$, are playing a seven game series. Team $A$ is better than team $B$ and has a $p>0.5$ chance of winning each game. Given a value $p$, the probability of winning the series for the underdog team $B$ can be computed with the following function based on a Monte Carlo simulation:
 
-```{r eval=false}
+```{r}
 prob_win <- function(p){
   B <- 10000
   result <- replicate(B, {
@@ -645,7 +645,7 @@ Use the function `sapply` to compute the probability, call it `Pr`, of winning f
 
 13. Repeat the exercise above, but now keep the probability fixed at `p <- 0.75` and compute the probability for different series lengths: best of 1 game, 3 games, 5 games,… Specifically, `N <- seq(1, 25, 2)`. Hint: use this function:
 
-```{r eval=false}
+```{r}
 prob_win <- function(N, p=0.75){
   B <- 10000
   result <- replicate(B, {
