@@ -693,6 +693,12 @@ prob_win <- function(p){
 
 Use the function `sapply` to compute the probability, call it `Pr`, of winning for `p <- seq(0.5, 0.95, 0.025)`. Then plot the result.
 
+```{r}
+p <- seq(0.5, 0.95, 0.025)
+prob <- sapply(p, prob_win)
+qplot(p,prob)
+```
+
 13. Repeat the exercise above, but now keep the probability fixed at `p <- 0.75` and compute the probability for different series lengths: best of 1 game, 3 games, 5 games,… Specifically, `N <- seq(1, 25, 2)`. Hint: use this function:
 
 ```{r}
@@ -706,4 +712,10 @@ prob_win <- function(N, p=0.75){
 }
 ```
 
+
+```{r}
+N <- seq(1, 25, 2)
+prob <- sapply(N, prob_win)
+qplot(N,prob)
+```
 end.
