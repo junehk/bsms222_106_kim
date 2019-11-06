@@ -967,7 +967,8 @@ b. `pnorm((a - m)/s)`
 c. `pnorm((a - m)/s, m, s)`  
 d. `pnorm(a)`  
 
-> 정답은 C일것같다.
+> 정답은 B이다.  
+> (a-m)/s 하면 이미  표준정규분포가 되어있기 때문에, 평균은 0, 표준편차가 1이 된다. 그래서 C가 아니다. 
 
 7. Imagine the distribution of male adults is approximately normal with an expected value of 69 and a standard deviation of 3. How tall is the male in the 99th percentile? Hint: use `qnorm`.
 
