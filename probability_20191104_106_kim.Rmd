@@ -787,290 +787,211 @@ With continuous distributions, the probability of a singular value is not even d
 
 In cases like height, in which the data is rounded, the normal approximation is particularly useful if we deal with intervals that include exactly one round number. For example, the normal distribution is useful for approximating the proportion of students reporting values in intervals like the following three:
 
+```{r}
 mean(x <= 68.5) - mean(x <= 67.5)
 #> [1] 0.115
 mean(x <= 69.5) - mean(x <= 68.5)
 #> [1] 0.119
 mean(x <= 70.5) - mean(x <= 69.5)
 #> [1] 0.122
+```
+
 Note how close we get with the normal approximation:
 
+```{r}
 pnorm(68.5, m, s) - pnorm(67.5, m, s) 
 #> [1] 0.103
 pnorm(69.5, m, s) - pnorm(68.5, m, s) 
 #> [1] 0.11
 pnorm(70.5, m, s) - pnorm(69.5, m, s) 
 #> [1] 0.108
+```
+
 However, the approximation is not as useful for other intervals. For instance, notice how the approximation breaks down when we try to estimate:
 
+```{r}
 mean(x <= 70.9) - mean(x<=70.1)
 #> [1] 0.0222
+```
+
 with
 
+```{r}
 pnorm(70.9, m, s) - pnorm(70.1, m, s)
 #> [1] 0.0836
-In general, we call this situation discretization. Although the true height distribution is continuous, the reported heights tend to be more common at discrete values, in this case, due to rounding. As long as we are aware of how to deal with this reality, the normal approximation can still be a very useful tool.
+```
 
-13.11.2 The probability density
-For categorical distributions, we can define the probability of a category. For example, a roll of a die, let’s call it  
-X
- , can be 1,2,3,4,5 or 6. The probability of 4 is defined as:
+In general, we call this situation *discretization*. Although the true height distribution is continuous, the reported heights tend to be more common at discrete values, in this case, due to rounding. As long as we are aware of how to deal with this reality, the normal approximation can still be a very useful tool.
 
-Pr
-(
-X
-=
-4
-)
-=
-1
-/
-6
- 
+### 13.11.2 The probability density
+For categorical distributions, we can define the probability of a category. For example, a roll of a die, let’s call it $X$, can be 1,2,3,4,5 or 6. The probability of 4 is defined as:
+
+$$\rm Pr(X=4)=1/6$$
 
 The CDF can then easily be defined:
-F
-(
-4
-)
-=
-Pr
-(
-X
+
+$$F(4) = \rm Pr(X≤4)=Pr(X=4)+Pr(X=3)+Pr(X=2)+Pr(X=1)$$
+
+Although for continuous distributions the probability of a single value $\rm  Pr(\it X=x \rm )$is not defined, there is a theoretical definition that has a similar interpretation. The probability density at $x$ is defined as the function $f(a)$ such that:
+
 ≤
-4
-)
-=
-Pr
-(
-X
-=
-4
-)
-+
-Pr
-(
-X
-=
-3
-)
-+
-Pr
-(
-X
-=
-2
-)
-+
-Pr
-(
-X
-=
-1
-)
+$$F(a) = {\rm Pr}(X ≤a) = \int ^a _{-\infty } f(x)dx$$
  
 
-Although for continuous distributions the probability of a single value  
-Pr
-(
-X
-=
-x
-)
-  is not defined, there is a theoretical definition that has a similar interpretation. The probability density at  
-x
-  is defined as the function  
-f
-(
-a
-)
-  such that:
-
-F
-(
-a
-)
-=
-Pr
-(
-X
-≤
-a
-)
-=
-∫
-a
-−
-∞
-f
-(
-x
-)
-d
-x
- 
-
-For those that know calculus, remember that the integral is related to a sum: it is the sum of bars with widths approximating 0. If you don’t know calculus, you can think of  
-f
-(
-x
-)
-  as a curve for which the area under that curve up to the value  
-a
- , gives you the probability  
-Pr
-(
-X
-≤
-a
-)
- .
+For those that know calculus, remember that the integral is related to a sum: it is the sum of bars with widths approximating 0. If you don’t know calculus, you can think of $f(x)$ as a curve for which the area under that curve up to the value $a$, gives you the probability $Pr(X≤a)$.
 
 For example, to use the normal approximation to estimate the probability of someone being taller than 76 inches, we use:
 
+```{r}
 1 - pnorm(76, m, s)
 #> [1] 0.0321
+```
+
 which mathematically is the grey area below:
 
+[](https://rafalab.github.io/dsbook/book_files/figure-html/intergrals-1.png)
 
-
-The curve you see is the probability density for the normal distribution. In R, we get this using the function dnorm.
+The curve you see is the probability density for the normal distribution. In R, we get this using the function `dnorm`.
 
 Although it may not be immediately obvious why knowing about probability densities is useful, understanding this concept will be essential to those wanting to fit models to data for which predefined functions are not available.
 
-13.12 Monte Carlo simulations for continuous variables
-R provides functions to generate normally distributed outcomes. Specifically, the rnorm function takes three arguments: size, average (defaults to 0), and standard deviation (defaults to 1) and produces random numbers. Here is an example of how we could generate data that looks like our reported heights:
+## 13.12 Monte Carlo simulations for continuous variables
+R provides functions to generate normally distributed outcomes. Specifically, the `rnorm` function takes three arguments: size, average (defaults to 0), and standard deviation (defaults to 1) and produces random numbers. Here is an example of how we could generate data that looks like our reported heights:
 
+```{r}
 n <- length(x)
 m <- mean(x)
 s <- sd(x)
 simulated_heights <- rnorm(n, m, s)
+```
+
 Not surprisingly, the distribution looks normal:
 
-
+[](https://rafalab.github.io/dsbook/book_files/figure-html/simulated-heights-1.png)
 
 This is one of the most useful functions in R as it will permit us to generate data that mimics natural events and answers questions related to what could happen by chance by running Monte Carlo simulations.
 
 If, for example, we pick 800 males at random, what is the distribution of the tallest person? How rare is a seven footer in a group of 800 males? The following Monte Carlo simulation helps us answer that question:
 
+```{r}
 B <- 10000
 tallest <- replicate(B, {
   simulated_data <- rnorm(800, m, s)
   max(simulated_data)
 })
+```
+
 Having a seven footer is quite rare:
 
+```{r}
 mean(tallest >= 7*12)
 #> [1] 0.0184
+```
+
 Here is the resulting distribution:
 
-
+[](https://rafalab.github.io/dsbook/book_files/figure-html/simulated-tallest-height-1.png)
 
 Note that it does not look normal.
 
-13.13 Continuous distributions
-We introduced the normal distribution in Section 8.8 and used it as an example above. The normal distribution is not the only useful theoretical distribution. Other continuous distributions that we may encounter are the student-t, Chi-square, exponential, gamma, beta, and beta-binomial. R provides functions to compute the density, the quantiles, the cumulative distribution functions and to generate Monte Carlo simulations. R uses a convention that lets us remember the names, namely using the letters d, q, p, and r in front of a shorthand for the distribution. We have already seen the functions dnorm, pnorm, and rnorm for the normal distribution. The functions qnorm gives us the quantiles. We can therefore draw a distribution like this:
+## 13.13 Continuous distributions
+We introduced the normal distribution in Section 8.8 and used it as an example above. The normal distribution is not the only useful theoretical distribution. Other continuous distributions that we may encounter are the student-t, Chi-square, exponential, gamma, beta, and beta-binomial. R provides functions to compute the density, the quantiles, the cumulative distribution functions and to generate Monte Carlo simulations. R uses a convention that lets us remember the names, namely using the letters `d`, `q`, `p`, and `r` in front of a shorthand for the distribution. We have already seen the functions `dnorm`, `pnorm`, and `rnorm` for the normal distribution. The functions `qnorm` gives us the quantiles. We can therefore draw a distribution like this:
 
+```{r}
 x <- seq(-4, 4, length.out = 100)
 qplot(x, f, geom = "line", data = data.frame(x, f = dnorm(x)))
-For the student-t, described later in Section 16.10, the shorthand t is used so the functions are dt for the density, qt for the quantiles, pt for the cumulative distribution function, and rt for Monte Carlo simulation.
+```
+For the student-t, described later in Section 16.10, the shorthand `t` is used so the functions are `dt` for the density, `qt` for the quantiles, `pt` for the cumulative distribution function, and `rt` for Monte Carlo simulation.
 
-13.14 Exercises
+## 13.14 Exercises
 1. Assume the distribution of female heights is approximated by a normal distribution with a mean of 64 inches and a standard deviation of 3 inches. If we pick a female at random, what is the probability that she is 5 feet or shorter?
+
+```{r}
+m <- 64
+s <- 3
+pnorm(60, m, s)
+```
 
 2. Assume the distribution of female heights is approximated by a normal distribution with a mean of 64 inches and a standard deviation of 3 inches. If we pick a female at random, what is the probability that she is 6 feet or taller?
 
+```{r}
+m <- 64
+s <- 3
+1- pnorm(72, m, s)
+```
+
 3. Assume the distribution of female heights is approximated by a normal distribution with a mean of 64 inches and a standard deviation of 3 inches. If we pick a female at random, what is the probability that she is between 61 and 67 inches?
+
+```{r}
+m <- 64
+s <- 3
+pnorm(67, m, s) - pnorm(61, m, s)
+```
 
 4. Repeat the exercise above, but convert everything to centimeters. That is, multiply every height, including the standard deviation, by 2.54. What is the answer now?
 
+```{r}
+m <- 64 * 2.54
+s <- 3 * 2.54
+
+pnorm(60*2.54, m, s)
+
+1- pnorm(72*2.54, m, s)
+
+pnorm(67*2.54, m, s) - pnorm(61*2.54, m, s)
+```
+
 5. Notice that the answer to the question does not change when you change units. This makes sense since the answer to the question should not be affected by what units we use. In fact, if you look closely, you notice that 61 and 64 are both 1 SD away from the average. Compute the probability that a randomly picked, normally distributed random variable is within 1 SD from the average.
 
-6. To see the math that explains why the answers to questions 3, 4, and 5 are the same, suppose we have a random variable with average  
-m
-  and standard error  
-s
- . Suppose we ask the probability of  
-X
-  being smaller or equal to  
-a
- . Remember that, by definition,  
-a
-  is  
-(
-a
-−
-m
-)
-/
-s
-  standard deviations  
-s
-  away from the average  
-m
- . The probability is:
+```{r}
+pnorm(m+s, m, s) - pnorm(m-s, m, s)
+```
 
-Pr
-(
-X
-≤
-a
-)
+6. To see the math that explains why the answers to questions 3, 4, and 5 are the same, suppose we have a random variable with average $m$ and standard error $s$. Suppose we ask the probability of $X$ being smaller or equal to $a$. Remember that, by definition, $a$ is $(a−m)/s$ standard deviations $s$ away from the average $m$. The probability is:
+$${\rm Pr}(X≤a)$$
+
+Now we subtract $μ$ to both sides and then divide both sides by $σ$:
+
+$${\rm Pr} \left( {{X−m}\over{s}}≤{{a−m}\over{s}} \right)$$
  
 
-Now we subtract  
-μ
-  to both sides and then divide both sides by  
-σ
- :
+The quantity on the left is a standard normal random variable. It has an average of 0 and a standard error of 1. We will call it $Z$:
 
-Pr
-(
-X
-−
-m
-s
-≤
-a
-−
-m
-s
-)
+$${\rm Pr} \left( Z≤{{a−m}\over{s}} \right)$$
  
 
-The quantity on the left is a standard normal random variable. It has an average of 0 and a standard error of 1. We will call it  
-Z
- :
+So, no matter the units, the probability of $X≤a$ is the same as the probability of a standard normal variable being less than $(a−m)/s$. If `mu` is the average and `sigma` the standard error, which of the following R code would give us the right answer in every situation:
 
-Pr
-(
-Z
-≤
-a
-−
-m
-s
-)
- 
+a. `mean(X<=a)`  
+b. `pnorm((a - m)/s)`  
+c. `pnorm((a - m)/s, m, s)`  
+d. `pnorm(a)`  
 
-So, no matter the units, the probability of  
-X
-≤
-a
-  is the same as the probability of a standard normal variable being less than  
-(
-a
-−
-m
-)
-/
-s
- . If mu is the average and sigma the standard error, which of the following R code would give us the right answer in every situation:
+> 정답은 C일것같다.
 
-mean(X<=a)
-pnorm((a - m)/s)
-pnorm((a - m)/s, m, s)
-pnorm(a)
-7. Imagine the distribution of male adults is approximately normal with an expected value of 69 and a standard deviation of 3. How tall is the male in the 99th percentile? Hint: use qnorm.
+7. Imagine the distribution of male adults is approximately normal with an expected value of 69 and a standard deviation of 3. How tall is the male in the 99th percentile? Hint: use `qnorm`.
+
+```{r}
+qnorm(0.99, 69, 3)
+```
 
 8. The distribution of IQ scores is approximately normally distributed. The average is 100 and the standard deviation is 15. Suppose you want to know the distribution of the highest IQ across all graduating classes if 10,000 people are born each in your school district. Run a Monte Carlo simulation with B=1000 generating 10,000 IQ scores and keeping the highest. Make a histogram.
+
+```{r}
+B <- 1000
+m <- 100
+s <- 15
+highest_iq <- replicate(B, {
+  simulated_data <- rnorm(10000, m, s)
+  max(simulated_data)
+})
+
+d_iq <- data.frame(highest_iq)
+
+d_iq %>%
+  ggplot(aes(highest_iq)) +
+  geom_histogram(fill= "blue", col="black") +
+  labs(x="Highest IQ", y="Counts")
+```
+
+end.
