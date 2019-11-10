@@ -1758,22 +1758,18 @@ summary {
 <p>Random variables are numeric outcomes resulting from random processes. We can easily generate random variables using some of the simple examples we have shown. For example, define <code>X</code> to be 1 if a bead is blue and red otherwise:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYmVhZHMgPC0gcmVwKCBjKFwicmVkXCIsIFwiYmx1ZVwiKSwgdGltZXMgPSBjKDIsMykpXG5YIDwtIGlmZWxzZShzYW1wbGUoYmVhZHMsIDEpID09IFwiYmx1ZVwiLCAxLCAwKVxuYGBgIn0= -->
-<pre class="r"><code>beads &lt;- rep( c(&quot;red&quot;, &quot;blue&quot;), times = c(2,3))
-X &lt;- ifelse(sample(beads, 1) == &quot;blue&quot;, 1, 0)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuYmVhZHMgPC0gcmVwKCBjKFxccmVkXFwsIFxcYmx1ZVxcKSwgdGltZXMgPSBjKDIsMykpXG5YIDwtIGlmZWxzZShzYW1wbGUoYmVhZHMsIDEpID09IFxcYmx1ZVxcLCAxLCAwKVxuYGBgXG5gYGAifQ== -->
+<p><code>r</code>r beads &lt;- rep( c(, ), times = c(2,3)) X &lt;- ifelse(sample(beads, 1) == , 1, 0)</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Here <code>X</code> is a random variable: every time we select a new bead the outcome changes randomly. See below:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaWZlbHNlKHNhbXBsZShiZWFkcywgMSkgPT0gXCJibHVlXCIsIDEsIDApXG4jPiBbMV0gMVxuaWZlbHNlKHNhbXBsZShiZWFkcywgMSkgPT0gXCJibHVlXCIsIDEsIDApXG4jPiBbMV0gMFxuaWZlbHNlKHNhbXBsZShiZWFkcywgMSkgPT0gXCJibHVlXCIsIDEsIDApXG4jPiBbMV0gMFxuYGBgIn0= -->
-<pre class="r"><code>ifelse(sample(beads, 1) == &quot;blue&quot;, 1, 0)
-#&gt; [1] 1
-ifelse(sample(beads, 1) == &quot;blue&quot;, 1, 0)
-#&gt; [1] 0
-ifelse(sample(beads, 1) == &quot;blue&quot;, 1, 0)
-#&gt; [1] 0</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuaWZlbHNlKHNhbXBsZShiZWFkcywgMSkgPT0gXFxibHVlXFwsIDEsIDApXG4jPiBbMV0gMVxuaWZlbHNlKHNhbXBsZShiZWFkcywgMSkgPT0gXFxibHVlXFwsIDEsIDApXG4jPiBbMV0gMFxuaWZlbHNlKHNhbXBsZShiZWFkcywgMSkgPT0gXFxibHVlXFwsIDEsIDApXG4jPiBbMV0gMFxuYGBgXG5gYGAifQ== -->
+<p><code>r</code>r ifelse(sample(beads, 1) == , 1, 0) #&gt; [1] 1 ifelse(sample(beads, 1) == , 1, 0) #&gt; [1] 0 ifelse(sample(beads, 1) == , 1, 0) #&gt; [1] 0</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1786,38 +1782,36 @@ ifelse(sample(beads, 1) == &quot;blue&quot;, 1, 0)
 <p>We are going to define a random variable <span class="math inline">\(S\)</span> that will represent the casino’s total winnings. Let’s start by constructing the urn. A roulette wheel has 18 red pockets, 18 black pockets and 2 green ones. So playing a color in one game of roulette is equivalent to drawing from this urn:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29sb3IgPC0gcmVwKGMoXCJCbGFja1wiLCBcIlJlZFwiLCBcIkdyZWVuXCIpLCBjKDE4LCAxOCwgMikpXG5gYGAifQ== -->
-<pre class="r"><code>color &lt;- rep(c(&quot;Black&quot;, &quot;Red&quot;, &quot;Green&quot;), c(18, 18, 2))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuY29sb3IgPC0gcmVwKGMoXFxCbGFja1xcLCBcXFJlZFxcLCBcXEdyZWVuXFwpLCBjKDE4LCAxOCwgMikpXG5gYGBcbmBgYCJ9 -->
+<p><code>r</code>r color &lt;- rep(c(, , ), c(18, 18, 2))</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>The 1,000 outcomes from 1,000 people playing are independent draws from this urn. If red comes up, the gambler wins and the casino loses a dollar, so we draw a -$1. Otherwise, the casino wins a dollar and we draw a $1. To construct our random variable <span class="math inline">\(S\)</span>, we can use this code:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubiA8LSAxMDAwXG5YIDwtIHNhbXBsZShpZmVsc2UoY29sb3IgPT0gXCJSZWRcIiwgLTEsIDEpLCAgbiwgcmVwbGFjZSA9IFRSVUUpXG5YWzE6MTBdXG4jPiAgWzFdIC0xICAxICAxIC0xIC0xIC0xICAxICAxICAxICAxXG5gYGAifQ== -->
-<pre class="r"><code>n &lt;- 1000
-X &lt;- sample(ifelse(color == &quot;Red&quot;, -1, 1),  n, replace = TRUE)
-X[1:10]
-#&gt;  [1] -1  1  1 -1 -1 -1  1  1  1  1</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubiA8LSAxMDAwXG5YIDwtIHNhbXBsZShpZmVsc2UoY29sb3IgPT0gXFxSZWRcXCwgLTEsIDEpLCAgbiwgcmVwbGFjZSA9IFRSVUUpXG5YWzE6MTBdXG4jPiAgWzFdIC0xICAxICAxIC0xIC0xIC0xICAxICAxICAxICAxXG5gYGBcbmBgYCJ9 -->
+<p><code>r</code>r n &lt;- 1000 X &lt;- sample(ifelse(color == , -1, 1), n, replace = TRUE) X[1:10] #&gt; [1] -1 1 1 -1 -1 -1 1 1 1 1</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Because we know the proportions of 1s and -1s, we can generate the draws with one line of code, without defining color:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuWCA8LSBzYW1wbGUoYygtMSwxKSwgbiwgcmVwbGFjZSA9IFRSVUUsIHByb2I9Yyg5LzE5LCAxMC8xOSkpXG5gYGAifQ== -->
-<pre class="r"><code>X &lt;- sample(c(-1,1), n, replace = TRUE, prob=c(9/19, 10/19))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuWCA8LSBzYW1wbGUoYygtMSwxKSwgbiwgcmVwbGFjZSA9IFRSVUUsIHByb2I9Yyg5LzE5LCAxMC8xOSkpXG5gYGBcbmBgYCJ9 -->
+<p><code>r</code>r X &lt;- sample(c(-1,1), n, replace = TRUE, prob=c(9/19, 10/19))</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>We call this a sampling model since we are modeling the random behavior of roulette with the sampling of draws from an urn. The total winnings <span class="math inline">\(S\)</span>is simply the sum of these 1,000 independent draws:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuWCA8LSBzYW1wbGUoYygtMSwxKSwgbiwgcmVwbGFjZSA9IFRSVUUsIHByb2I9Yyg5LzE5LCAxMC8xOSkpXG5TIDwtIHN1bShYKVxuU1xuIz4gWzFdIDIyXG5gYGAifQ== -->
-<pre class="r"><code>X &lt;- sample(c(-1,1), n, replace = TRUE, prob=c(9/19, 10/19))
-S &lt;- sum(X)
-S
-#&gt; [1] 22</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuWCA8LSBzYW1wbGUoYygtMSwxKSwgbiwgcmVwbGFjZSA9IFRSVUUsIHByb2I9Yyg5LzE5LCAxMC8xOSkpXG5TIDwtIHN1bShYKVxuU1xuIz4gWzFdIDIyXG5gYGBcbmBgYCJ9 -->
+<p><code>r</code>r X &lt;- sample(c(-1,1), n, replace = TRUE, prob=c(9/19, 10/19)) S &lt;- sum(X) S #&gt; [1] 22</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1831,31 +1825,27 @@ S is a random variable. The probability distribution of a random variable tells 
 <p>We can estimate the distribution function for the random variable <span class="math inline">\(S\)</span> by using a Monte Carlo simulation to generate many realizations of the random variable. With this code, we run the experiment of having 1,000 people play roulette, over and over, specifically <span class="math inline">\(B=10,000\)</span> times:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubiA8LSAxMDAwXG5CIDwtIDEwMDAwXG5yb3VsZXR0ZV93aW5uaW5ncyA8LSBmdW5jdGlvbihuKXtcbiAgWCA8LSBzYW1wbGUoYygtMSwxKSwgbiwgcmVwbGFjZSA9IFRSVUUsIHByb2I9Yyg5LzE5LCAxMC8xOSkpXG4gIHN1bShYKVxufVxuUyA8LSByZXBsaWNhdGUoQiwgcm91bGV0dGVfd2lubmluZ3MobikpXG5gYGAifQ== -->
-<pre class="r"><code>n &lt;- 1000
-B &lt;- 10000
-roulette_winnings &lt;- function(n){
-  X &lt;- sample(c(-1,1), n, replace = TRUE, prob=c(9/19, 10/19))
-  sum(X)
-}
-S &lt;- replicate(B, roulette_winnings(n))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubiA8LSAxMDAwXG5CIDwtIDEwMDAwXG5yb3VsZXR0ZV93aW5uaW5ncyA8LSBmdW5jdGlvbihuKXtcbiAgWCA8LSBzYW1wbGUoYygtMSwxKSwgbiwgcmVwbGFjZSA9IFRSVUUsIHByb2I9Yyg5LzE5LCAxMC8xOSkpXG4gIHN1bShYKVxufVxuUyA8LSByZXBsaWNhdGUoQiwgcm91bGV0dGVfd2lubmluZ3MobikpXG5gYGBcbmBgYCJ9 -->
+<p><code>r</code>r n &lt;- 1000 B &lt;- 10000 roulette_winnings &lt;- function(n){ X &lt;- sample(c(-1,1), n, replace = TRUE, prob=c(9/19, 10/19)) sum(X) } S &lt;- replicate(B, roulette_winnings(n))</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Now we can ask the following: in our simulations, how often did we get sums less than or equal to <code>a</code>?</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVhbihTIDw9IGEpXG5gYGAifQ== -->
-<pre class="r"><code>mean(S &lt;= a)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubWVhbihTIDw9IGEpXG5gYGBcbmBgYCJ9 -->
+<p><code>r</code>r mean(S &lt;= a)</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>This will be a very good approximation of <span class="math inline">\(F(a)\)</span> and we can easily answer the casino’s question: how likely is it that we will lose money? We can see it is quite low:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVhbihTPDApXG4jPiBbMV0gMC4wNDU2XG5gYGAifQ== -->
-<pre class="r"><code>mean(S&lt;0)
-#&gt; [1] 0.0456</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubWVhbihTPDApXG4jPiBbMV0gMC4wNDU2XG5gYGBcbmBgYCJ9 -->
+<p><code>r</code>r mean(S&lt;0) #&gt; [1] 0.0456</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1869,19 +1859,18 @@ S &lt;- replicate(B, roulette_winnings(n))</code></pre>
 <p>and we can use the pbinom to compute <span class="math display">\[Pr(S≤0)\]</span></p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubiA8LSAxMDAwXG5wYmlub20obi8yLCBzaXplID0gbiwgcHJvYiA9IDEwLzE5KVxuIz4gWzFdIDAuMDUxMVxuYGBgIn0= -->
-<pre class="r"><code>n &lt;- 1000
-pbinom(n/2, size = n, prob = 10/19)
-#&gt; [1] 0.0511</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubiA8LSAxMDAwXG5wYmlub20obi8yLCBzaXplID0gbiwgcHJvYiA9IDEwLzE5KVxuIz4gWzFdIDAuMDUxMVxuYGBgXG5gYGAifQ== -->
+<p><code>r</code>r n &lt;- 1000 pbinom(n/2, size = n, prob = 10/19) #&gt; [1] 0.0511</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Because this is a discrete probability function, to get <span class="math inline">\(Pr(S&lt;0)\)</span> rather than <span class="math inline">\(Pr(S≤0)\)</span>, we write:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGJpbm9tKG4vMi0xLCBzaXplID0gbiwgcHJvYiA9IDEwLzE5KVxuIz4gWzFdIDAuMDQ0OFxuYGBgIn0= -->
-<pre class="r"><code>pbinom(n/2-1, size = n, prob = 10/19)
-#&gt; [1] 0.0448</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucGJpbm9tKG4vMi0xLCBzaXplID0gbiwgcHJvYiA9IDEwLzE5KVxuIz4gWzFdIDAuMDQ0OFxuYGBgXG5gYGAifQ== -->
+<p><code>r</code>r pbinom(n/2-1, size = n, prob = 10/19) #&gt; [1] 0.0448</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -2260,7 +2249,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("20191111_random_variables_106_kim.Rmd");
+  window.initializeSourceEmbed("random_variables_20191111_106_kim.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>
