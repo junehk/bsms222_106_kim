@@ -13,95 +13,74 @@ In this chapter, we introduce random variables and their properties starting wit
 [^47]:https://en.wikipedia.org/w/index.php?title=Security_(finance)
 
 
-14.1 Random variables
-Random variables are numeric outcomes resulting from random processes. We can easily generate random variables using some of the simple examples we have shown. For example, define X to be 1 if a bead is blue and red otherwise:
+## 14.1 Random variables
+Random variables are numeric outcomes resulting from random processes. We can easily generate random variables using some of the simple examples we have shown. For example, define `X` to be 1 if a bead is blue and red otherwise:
 
+```{r}
 beads <- rep( c("red", "blue"), times = c(2,3))
 X <- ifelse(sample(beads, 1) == "blue", 1, 0)
-Here X is a random variable: every time we select a new bead the outcome changes randomly. See below:
+```
 
+Here `X` is a random variable: every time we select a new bead the outcome changes randomly. See below:
+
+```{r}
 ifelse(sample(beads, 1) == "blue", 1, 0)
 #> [1] 1
 ifelse(sample(beads, 1) == "blue", 1, 0)
 #> [1] 0
 ifelse(sample(beads, 1) == "blue", 1, 0)
 #> [1] 0
+```
+
 Sometimes it’s 1 and sometimes it’s 0.
 
-14.2 Sampling models
+## 14.2 Sampling models
 Many data generation procedures, those that produce the data we study, can be modeled quite well as draws from an urn. For instance, we can model the process of polling likely voters as drawing 0s (Republicans) and 1s (Democrats) from an urn containing the 0 and 1 code for all likely voters. In epidemiological studies, we often assume that the subjects in our study are a random sample from the population of interest. The data related to a specific outcome can be modeled as a random sample from an urn containing the outcome for the entire population of interest. Similarly, in experimental research, we often assume that the individual organisms we are studying, for example worms, flies, or mice, are a random sample from a larger population. Randomized experiments can also be modeled by draws from an urn given the way individuals are assigned into groups: when getting assigned, you draw your group at random. Sampling models are therefore ubiquitous in data science. Casino games offer a plethora of examples of real-world situations in which sampling models are used to answer specific questions. We will therefore start with such examples.
 
 Suppose a very small casino hires you to consult on whether they should set up roulette wheels. To keep the example simple, we will assume that 1,000 people will play and that the only game you can play on the roulette wheel is to bet on red or black. The casino wants you to predict how much money they will make or lose. They want a range of values and, in particular, they want to know what’s the chance of losing money. If this probability is too high, they will pass on installing roulette wheels.
 
-We are going to define a random variable  
-S
-  that will represent the casino’s total winnings. Let’s start by constructing the urn. A roulette wheel has 18 red pockets, 18 black pockets and 2 green ones. So playing a color in one game of roulette is equivalent to drawing from this urn:
+We are going to define a random variable $S$ that will represent the casino’s total winnings. Let’s start by constructing the urn. A roulette wheel has 18 red pockets, 18 black pockets and 2 green ones. So playing a color in one game of roulette is equivalent to drawing from this urn:
 
+```{r}
 color <- rep(c("Black", "Red", "Green"), c(18, 18, 2))
-The 1,000 outcomes from 1,000 people playing are independent draws from this urn. If red comes up, the gambler wins and the casino loses a dollar, so we draw a -$1. Otherwise, the casino wins a dollar and we draw a $1. To construct our random variable  
-S
- , we can use this code:
+```
 
+The 1,000 outcomes from 1,000 people playing are independent draws from this urn. If red comes up, the gambler wins and the casino loses a dollar, so we draw a -\$1. Otherwise, the casino wins a dollar and we draw a \$1. To construct our random variable $S$, we can use this code:
+
+```{r}
 n <- 1000
 X <- sample(ifelse(color == "Red", -1, 1),  n, replace = TRUE)
 X[1:10]
 #>  [1] -1  1  1 -1 -1 -1  1  1  1  1
+```
+
 Because we know the proportions of 1s and -1s, we can generate the draws with one line of code, without defining color:
 
+```{r}
 X <- sample(c(-1,1), n, replace = TRUE, prob=c(9/19, 10/19))
-We call this a sampling model since we are modeling the random behavior of roulette with the sampling of draws from an urn. The total winnings  
-S
-  is simply the sum of these 1,000 independent draws:
+```
 
+We call this a sampling model since we are modeling the random behavior of roulette with the sampling of draws from an urn. The total winnings $S$is simply the sum of these 1,000 independent draws:
+
+```{r}
 X <- sample(c(-1,1), n, replace = TRUE, prob=c(9/19, 10/19))
 S <- sum(X)
 S
 #> [1] 22
-14.3 The probability distribution of a random variable
+```
+
+## 14.3 The probability distribution of a random variable
 If you run the code above, you see that  
 S
   changes every time. This is, of course, because  
 S
-  is a random variable. The probability distribution of a random variable tells us the probability of the observed value falling at any given interval. So, for example, if we want to know the probability that we lose money, we are asking the probability that  
-S
-  is in the interval  
-S
-<
-0
- .
+  is a random variable. The probability distribution of a random variable tells us the probability of the observed value falling at any given interval. So, for example, if we want to know the probability that we lose money, we are asking the probability that $S$ is in the interval $S<0$.
 
-Note that if we can define a cumulative distribution function  
-F
-(
-a
-)
-=
-Pr
-(
-S
-≤
-a
-)
- , then we will be able to answer any question related to the probability of events defined by our random variable  
-S
- , including the event  
-S
-<
-0
- . We call this  
-F
-  the random variable’s distribution function.
+Note that if we can define a cumulative distribution function $F(a)=Pr(S≤a)$, then we will be able to answer any question related to the probability of events defined by our random variable $S$, including the event $S<0$. We call this $F$ the random variable’s distribution function.
 
-We can estimate the distribution function for the random variable  
-S
-  by using a Monte Carlo simulation to generate many realizations of the random variable. With this code, we run the experiment of having 1,000 people play roulette, over and over, specifically  
-B
-=
-10
-,
-000
-  times:
+We can estimate the distribution function for the random variable $S$ by using a Monte Carlo simulation to generate many realizations of the random variable. With this code, we run the experiment of having 1,000 people play roulette, over and over, specifically $B=10,000$ times:
 
+```{r}
 n <- 1000
 B <- 10000
 roulette_winnings <- function(n){
@@ -109,131 +88,55 @@ roulette_winnings <- function(n){
   sum(X)
 }
 S <- replicate(B, roulette_winnings(n))
-Now we can ask the following: in our simulations, how often did we get sums less than or equal to a?
+```
 
+Now we can ask the following: in our simulations, how often did we get sums less than or equal to `a`?
+
+```{r}
 mean(S <= a)
-This will be a very good approximation of  
-F
-(
-a
-)
-  and we can easily answer the casino’s question: how likely is it that we will lose money? We can see it is quite low:
+```
+This will be a very good approximation of $F(a)$ and we can easily answer the casino’s question: how likely is it that we will lose money? We can see it is quite low:
 
+```{r}
 mean(S<0)
 #> [1] 0.0456
-We can visualize the distribution of  
-S
-  by creating a histogram showing the probability  
-F
-(
-b
-)
-−
-F
-(
-a
-)
-  for several intervals  
-(
-a
-,
-b
-]
- :
+```
+We can visualize the distribution of $S$ by creating a histogram showing the probability $F(b)−F(a)$ for several intervals $(a,b]$:
 
+[](https://rafalab.github.io/dsbook/book_files/figure-html/normal-approximates-distribution-1.png)
 
+We see that the distribution appears to be approximately normal. A qq-plot will confirm that the normal approximation is close to a perfect approximation for this distribution. If, in fact, the distribution is normal, then all we need to define the distribution is the average and the standard deviation. Because we have the original values from which the distribution is created, we can easily compute these with `mean(S)` and `sd(S)`. The blue curve you see added to the histogram above is a normal density with this average and standard deviation.
 
-We see that the distribution appears to be approximately normal. A qq-plot will confirm that the normal approximation is close to a perfect approximation for this distribution. If, in fact, the distribution is normal, then all we need to define the distribution is the average and the standard deviation. Because we have the original values from which the distribution is created, we can easily compute these with mean(S) and sd(S). The blue curve you see added to the histogram above is a normal density with this average and standard deviation.
+This average and this standard deviation have special names. They are referred to as the expected value and standard error of the random variable $S$. We will say more about these in the next section.
 
-This average and this standard deviation have special names. They are referred to as the expected value and standard error of the random variable  
-S
- . We will say more about these in the next section.
+Statistical theory provides a way to derive the distribution of random variables defined as independent random draws from an urn. Specifically, in our example above, we can show that $(S+n)/2$ follows a binomial distribution. We therefore do not need to run for Monte Carlo simulations to know the probability distribution of $S$. We did this for illustrative purposes.
 
-Statistical theory provides a way to derive the distribution of random variables defined as independent random draws from an urn. Specifically, in our example above, we can show that  
-(
-S
-+
-n
-)
-/
-2
-  follows a binomial distribution. We therefore do not need to run for Monte Carlo simulations to know the probability distribution of  
-S
- . We did this for illustrative purposes.
+We can use the function dbinom and pbinom to compute the probabilities exactly. For example, to compute $Pr(S<0)$ we note that:
 
-We can use the function dbinom and pbinom to compute the probabilities exactly. For example, to compute  
-Pr
-(
-S
-<
-0
-)
-  we note that:
-
-Pr
-(
-S
-<
-0
-)
-=
-Pr
-(
-(
-S
-+
-n
-)
-/
-2
-<
-(
-0
-+
-n
-)
-/
-2
-)
- 
+$$Pr(S<0)=Pr((S+n)/2<(0+n)/2)$$
 
 and we can use the pbinom to compute
-Pr
-(
-S
-≤
-0
-)
- 
+$$Pr(S≤0)$$
 
+```{r}
 n <- 1000
 pbinom(n/2, size = n, prob = 10/19)
 #> [1] 0.0511
-Because this is a discrete probability function, to get  
-Pr
-(
-S
-<
-0
-)
-  rather than  
-Pr
-(
-S
-≤
-0
-)
- , we write:
+```
+Because this is a discrete probability function, to get $Pr(S<0)$ rather than $Pr(S≤0)$, we write:
 
+```{r}
 pbinom(n/2-1, size = n, prob = 10/19)
 #> [1] 0.0448
+```
+
 For the details of the binomial distribution, you can consult any basic probability book or even Wikipedia[^48].
 
 [^48]:https://en.wikipedia.org/w/index.php?title=Binomial_distribution
 
 Here we do not cover these details. Instead, we will discuss an incredibly useful approximation provided by mathematical theory that applies generally to sums and averages of draws from any urn: the Central Limit Theorem (CLT).
 
-14.4 Distributions versus probability distributions
+## 14.4 Distributions versus probability distributions
 Before we continue, let’s make an important distinction and connection between the distribution of a list of numbers and a probability distribution. In the visualization chapter, we described how any list of numbers  
 x
 1
