@@ -330,11 +330,7 @@ There are several useful mathematical results that we used above and often emplo
 
 $$E[X_1+X_2+⋯+X_n]=E[X_1]+E[X_2]+⋯+E[Xn_]$$ 
 
-If the  
-X
-  are independent draws from the urn, then they all have the same expected value. Let’s call it  
-μ
-  and thus:
+If the $X$ are independent draws from the urn, then they all have the same expected value. Let’s call it $μ$ and thus:
 
 $$E[X_1+X_2+⋯+X_n]=nμ$$
 
