@@ -375,6 +375,7 @@ hist(errors)
   d. The errors range from -1 to 1.
   
   정답 : C
+  
 4. The error $\bar X - p$ is a random variable. In practice, the error is not observed because we do not know $p$. Here we observe it because we constructed the simulation. What is the average size of the error if we define the size by taking the absolute value $|\bar X - p |$?
 
   문제 이해가 안됨.
