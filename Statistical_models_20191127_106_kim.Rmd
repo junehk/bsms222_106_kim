@@ -1084,154 +1084,54 @@ Total w/o April|	330|	97|	.293
 Although both intervals included the final batting average, the Bayesian credible interval provided a much more precise prediction. In particular, it predicted that he would not be as good during the remainder of the season.
 
 ## 16.7 Exercises
-1. In 1999, in England, Sally Clark58 was found guilty of the murder of two of her sons. Both infants were found dead in the morning, one in 1996 and another in 1998. In both cases, she claimed the cause of death was sudden infant death syndrome (SIDS). No evidence of physical harm was found on the two infants so the main piece of evidence against her was the testimony of Professor Sir Roy Meadow, who testified that the chances of two infants dying of SIDS was 1 in 73 million. He arrived at this figure by finding that the rate of SIDS was 1 in 8,500 and then calculating that the chance of two SIDS cases was 8,500  
-×
-  8,500  
-≈
-  73 million. Which of the following do you agree with?
+1. In 1999, in England, Sally Clark[^58] was found guilty of the murder of two of her sons. Both infants were found dead in the morning, one in 1996 and another in 1998. In both cases, she claimed the cause of death was sudden infant death syndrome (SIDS). No evidence of physical harm was found on the two infants so the main piece of evidence against her was the testimony of Professor Sir Roy Meadow, who testified that the chances of two infants dying of SIDS was 1 in 73 million. He arrived at this figure by finding that the rate of SIDS was 1 in 8,500 and then calculating that the chance of two SIDS cases was 8,500 $×$ 8,500 $≈$ 73 million. Which of the following do you agree with?
 
-Sir Meadow assumed that the probability of the second son being affected by SIDS was independent of the first son being affected, thereby ignoring possible genetic causes. If genetics plays a role then:  
-Pr
-(
-second case of SIDS
-∣
-first case of SIDS
-)
-<
-P
-r
-(
-first case of SIDS
-)
- .
-Nothing. The multiplication rule always applies in this way:  
-Pr
-(
-A
- and 
-B
-)
-=
-Pr
-(
-A
-)
-Pr
-(
-B
-)
- 
-Sir Meadow is an expert and we should trust his calculations.
-Numbers don’t lie.
+[^58]:https://en.wikipedia.org/wiki/Sally_Clark
+
+  a. Sir Meadow assumed that the probability of the second son being affected by SIDS was independent of the first son being affected, thereby ignoring possible genetic causes. If genetics plays a role then:  
+  ${\rm Pr(second~case~of~SIDS~∣~first~case~ of~ SID})<{\rm Pr(first~case~of~SIDS)}$.
+  b. Nothing. The multiplication rule always applies in this way:  
+  ${\rm Pr}(A{\rm ~and~}B)={\rm Pr}(A){\rm Pr}(B)$  
+  c. Sir Meadow is an expert and we should trust his calculations.
+  d. Numbers don’t lie.
 2. Let’s assume that there is in fact a genetic component to SIDS and the probability of  
-Pr
-(
-second case of SIDS
-∣
-first case of SIDS
-)
-=
-1
-/
-100
- , is much higher than 1 in 8,500. What is the probability of both of her sons dying of SIDS?
+${\rm Pr(second~case~of~SIDS~∣~first~case~ of~ SID})<{\rm Pr(first~case~of~SIDS)}=1/100$, is much higher than 1 in 8,500. What is the probability of both of her sons dying of SIDS?
 
-3. Many press reports stated that the expert claimed the probability of Sally Clark being innocent as 1 in 73 million. Perhaps the jury and judge also interpreted the testimony this way. This probability can be written as the probability of a mother is a son-murdering psychopath given that two of her children are found dead with no evidence of physical harm. According to Bayes’ rule, what is this?
+3. Many press reports stated that the expert claimed the probability of Sally Clark being innocent as 1 in 73 million. Perhaps the jury and judge also interpreted the testimony this way. This probability can be written as the probability of *a mother is a son-murdering psychopath* given that *two of her children are found dead with no evidence of physical harm*. According to Bayes’ rule, what is this?
 
 4. Assume that the chance of a son-murdering psychopath finding a way to kill her children, without leaving evidence of physical harm, is:
 
-Pr
-(
-A
-∣
-B
-)
-=
-0.50
+$$ {\rm Pr}(A~∣~B)=0.50$$
  
 
-with A = two of her children are found dead with no evidence of physical harm and B = a mother is a son-murdering psychopath = 0.50. Assume that the rate of son-murdering psychopaths mothers is 1 in 1,000,000. According to Bayes’ theorem, what is the probability of  
-Pr
-(
-B
-∣
-A
-)
-  ?
+with A = two of her children are found dead with no evidence of physical harm and B = a mother is a son-murdering psychopath = 0.50. Assume that the rate of son-murdering psychopaths mothers is 1 in 1,000,000. According to Bayes’ theorem, what is the probability of${\rm Pr}(B~∣~A)$?
 
-5/. After Sally Clark was found guilty, the Royal Statistical Society issued a statement saying that there was “no statistical basis” for the expert’s claim. They expressed concern at the “misuse of statistics in the courts”. Eventually, Sally Clark was acquitted in June 2003. What did the expert miss?
+5. After Sally Clark was found guilty, the Royal Statistical Society issued a statement saying that there was “no statistical basis” for the expert’s claim. They expressed concern at the “misuse of statistics in the courts”. Eventually, Sally Clark was acquitted in June 2003. What did the expert miss?
 
-He made an arithmetic error.
-He made two mistakes. First, he misused the multiplication rule and did not take into account how rare it is for a mother to murder her children. After using Bayes’ rule, we found a probability closer to 0.5 than 1 in 73 million.
-He mixed up the numerator and denominator of Bayes’ rule.
-He did not use R.
+  a. He made an arithmetic error.
+  b. He made two mistakes. First, he misused the multiplication rule and did not take into account how rare it is for a mother to murder her children. After using Bayes’ rule, we found a probability closer to 0.5 than 1 in 73 million.
+  c. He mixed up the numerator and denominator of Bayes’ rule.
+  d. He did not use R.
 6. Florida is one of the most closely watched states in the U.S. election because it has many electoral votes, and the election is generally close, and Florida tends to be a swing state that can vote either way. Create the following table with the polls taken during the last two weeks:
 
+```{r}
 library(tidyverse)
 library(dslabs)
 data(polls_us_election_2016)
 polls <- polls_us_election_2016 %>% 
   filter(state == "Florida" & enddate >= "2016-11-04" ) %>% 
   mutate(spread = rawpoll_clinton/100 - rawpoll_trump/100)
-Take the average spread of these polls. The CLT tells us this average is approximately normal. Calculate an average and provide an estimate of the standard error. Save your results in an object called results.
+```
 
-7. Now assume a Bayesian model that sets the prior distribution for Florida’s election night spread  
-d
-  to be Normal with expected value  
-μ
-  and standard deviation  
-τ
- . What are the interpretations of  
-μ
-  and  
-τ
- ?
+Take the average spread of these polls. The CLT tells us this average is approximately normal. Calculate an average and provide an estimate of the standard error. Save your results in an object called `results`.
 
-μ
-  and  
-τ
-  are arbitrary numbers that let us make probability statements about  
-d
- .
-μ
-  and  
-τ
-  summarize what we would predict for Florida before seeing any polls. Based on past elections, we would set  
-μ
-  close to 0 because both Republicans and Democrats have won, and  
-τ
-  at about  
-0.02
- , because these elections tend to be close.
-μ
-  and  
-τ
-  summarize what we want to be true. We therefore set  
-μ
-  at  
-0.10
-  and  
-τ
-  at  
-0.01
- .
-The choice of prior has no effect on Bayesian analysis.
-8. The CLT tells us that our estimate of the spread  
-^
-d
-  has normal distribution with expected value  
-d
-  and standard deviation  
-σ
-  calculated in problem 6. Use the formulas we showed for the posterior distribution to calculate the expected value of the posterior distribution if we set  
-μ
-=
-0
-  and  
-τ
-=
-0.01
- .
+7. Now assume a Bayesian model that sets the prior distribution for Florida’s election night spread $d$ to be Normal with expected value $μ$ and standard deviation $τ$. What are the interpretations of $μ$ and $τ$?
+
+  a. $μ$ and $τ$ are arbitrary numbers that let us make probability statements about $d$.
+  b. $μ$ and $τ$ summarize what we would predict for Florida before seeing any polls. Based on past elections, we would set $μ$ close to 0 because both Republicans and Democrats have won, and $τ$ at about $0.02$, because these elections tend to be close.
+  c. $μ$ and $τ$ summarize what we want to be true. We therefore set $μ$ at $0.10$ and $τ$ at $0.01$.
+  d. The choice of prior has no effect on Bayesian analysis.
+8. The CLT tells us that our estimate of the spread $\hat d$ has normal distribution with expected value $d$ and standard deviation $σ$ calculated in problem 6. Use the formulas we showed for the posterior distribution to calculate the expected value of the posterior distribution if we set $μ=0$ and $τ=0.01$.
 
 9. Now compute the standard deviation of the posterior distribution.
 
@@ -1239,7 +1139,7 @@ d
 
 11. According to this analysis, what was the probability that Trump wins Florida?
 
-12. Now use sapply function to change the prior variance from seq(0.05, 0.05, len = 100) and observe how the probability changes by making a plot.
+12. Now use `sapply` function to change the prior variance from `seq(0.05, 0.05, len = 100)` and observe how the probability changes by making a plot.
 
 ## 16.8 Case study: election forecasting
 In a previous section, we generated these data tables:
