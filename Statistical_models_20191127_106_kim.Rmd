@@ -1095,7 +1095,7 @@ Although both intervals included the final batting average, the Bayesian credibl
   c. Sir Meadow is an expert and we should trust his calculations.
   d. Numbers don’t lie.
   
-  answer : a
+  answer : 추가설명 필요. 이해가 안됨.
   
 2\. Let’s assume that there is in fact a genetic component to SIDS and the probability of  
 ${\rm Pr(second~case~of~SIDS~∣~first~case~ of~ SID})<{\rm Pr(first~case~of~SIDS)}=1/100$, is much higher than 1 in 8,500. What is the probability of both of her sons dying of SIDS?
@@ -1108,19 +1108,38 @@ pr_1 * pr_2
 
 3\. Many press reports stated that the expert claimed the probability of Sally Clark being innocent as 1 in 73 million. Perhaps the jury and judge also interpreted the testimony this way. This probability can be written as the probability of *a mother is a son-murdering psychopath* given that *two of her children are found dead with no evidence of physical harm*. According to Bayes’ rule, what is this?
 
+$$
+\rm {{
+Pr(children~with~no~evidence~of~physical~harm~|~mother~is~murderer) \times Pr(mother~is~murderer)
+}\over{
+Pr(children~with~no~evidence~of~physical~harm)
+}}
+$$
+
 4\. Assume that the chance of a son-murdering psychopath finding a way to kill her children, without leaving evidence of physical harm, is:
 
 $$ {\rm Pr}(A~∣~B)=0.50$$
  
 
-with A = two of her children are found dead with no evidence of physical harm and B = a mother is a son-murdering psychopath = 0.50. Assume that the rate of son-murdering psychopaths mothers is 1 in 1,000,000. According to Bayes’ theorem, what is the probability of${\rm Pr}(B~∣~A)$?
+with A = *two of her children are found dead with no evidence of physical harm* and B = *a mother is a son-murdering psychopath* = 0.50. Assume that the rate of son-murdering psychopaths mothers is 1 in 1,000,000. According to Bayes’ theorem, what is the probability of${\rm Pr}(B~∣~A)$?
 
+
+```{r}
+pr_b <- 1/1000000
+pr_a <- pr_1 * pr_2
+pr_ab <- 0.5
+pr_ba <- pr_ab*pr_b/pr_a
+pr_ba
+```
 5\. After Sally Clark was found guilty, the Royal Statistical Society issued a statement saying that there was “no statistical basis” for the expert’s claim. They expressed concern at the “misuse of statistics in the courts”. Eventually, Sally Clark was acquitted in June 2003. What did the expert miss?
 
   a. He made an arithmetic error.
   b. He made two mistakes. First, he misused the multiplication rule and did not take into account how rare it is for a mother to murder her children. After using Bayes’ rule, we found a probability closer to 0.5 than 1 in 73 million.
   c. He mixed up the numerator and denominator of Bayes’ rule.
   d. He did not use R.
+  
+  answer: b???
+  
 6\. Florida is one of the most closely watched states in the U.S. election because it has many electoral votes, and the election is generally close, and Florida tends to be a swing state that can vote either way. Create the following table with the polls taken during the last two weeks:
 
 ```{r}
@@ -1134,21 +1153,76 @@ polls <- polls_us_election_2016 %>%
 
 Take the average spread of these polls. The CLT tells us this average is approximately normal. Calculate an average and provide an estimate of the standard error. Save your results in an object called `results`.
 
+```{r}
+results <- polls %>%
+  summarize(avg = mean(spread), se = sd(spread)/sqrt(length(spread)))
+results
+```
+
+
 7\. Now assume a Bayesian model that sets the prior distribution for Florida’s election night spread $d$ to be Normal with expected value $μ$ and standard deviation $τ$. What are the interpretations of $μ$ and $τ$?
 
   a. $μ$ and $τ$ are arbitrary numbers that let us make probability statements about $d$.
   b. $μ$ and $τ$ summarize what we would predict for Florida before seeing any polls. Based on past elections, we would set $μ$ close to 0 because both Republicans and Democrats have won, and $τ$ at about $0.02$, because these elections tend to be close.
   c. $μ$ and $τ$ summarize what we want to be true. We therefore set $μ$ at $0.10$ and $τ$ at $0.01$.
   d. The choice of prior has no effect on Bayesian analysis.
+  
+  answer: b
+  
+  여러 선거에서의 평균 spread $μ$, 표준편차 $τ$ 이기 때문에, 자의적인 수는 아님.
+  
 8\. The CLT tells us that our estimate of the spread $\hat d$ has normal distribution with expected value $d$ and standard deviation $σ$ calculated in problem 6. Use the formulas we showed for the posterior distribution to calculate the expected value of the posterior distribution if we set $μ=0$ and $τ=0.01$.
+
+```{r}
+mu <- 0
+tau <- 0.01
+sigma <- results$se
+y <- results$avg
+B <- sigma^2/(sigma^2 + tau^2)
+
+B
+
+mu + (1-B) *(y - mu)
+```
+
 
 9\. Now compute the standard deviation of the posterior distribution.
 
+```{r}
+sqrt(1 / (1 / sigma^2 + 1 / tau^2))
+```
+
+
 10\. Using the fact that the posterior distribution is normal, create an interval that has a 95% probability of occurring centered at the posterior expected value. Note that we call these credible intervals.
+
+```{r}
+x <- B * mu + (1-B) * y
+sd <- sqrt(1 / (1 / sigma^2 + 1 / tau^2))
+ci <- x + c(-qnorm(0.975)*sd, qnorm(0.975)*sd)
+ci
+```
 
 11\. According to this analysis, what was the probability that Trump wins Florida?
 
-12\. Now use `sapply` function to change the prior variance from `seq(0.05, 0.05, len = 100)` and observe how the probability changes by making a plot.
+```{r}
+# pnorm : 누적분포함수
+pnorm(0, x, sd)
+```
+
+12\. Now use `sapply` function to change the prior variance from `seq(0.005, 0.05, len = 100)` and observe how the probability changes by making a plot.
+
+```{r}
+tau_var <- seq(0.005, 0.05, len = 100)
+f_x <- function(tau){
+  B <- sigma^2 / (sigma^2 + tau^2)
+  sd <- sqrt(1 / (1 / sigma^2 + 1 / tau^2))
+  x <- B * mu + (1-B) * y
+  pnorm(0, x, sd)
+}
+p <- sapply(tau_var, f_x)
+plot(tau_var, p)
+```
+> 이 그래프가 나타내는 의미가 무엇일까?
 
 ## 16.8 Case study: election forecasting
 In a previous section, we generated these data tables:
@@ -1223,6 +1297,8 @@ The posterior probability ${\rm Pr}(d>0~∣~\bar X)$ can be computed like this:
 1 - pnorm(0, posterior_mean, posterior_se)
 #> [1] 1
 ```
+
+> 이 부분 완전히 이해가 안간다. 설명 필요.  Pr(d>0 | bar X) 이것이 무엇을 나타내는 말인지 이해가 안감.
 
 This says we are 100% sure Clinton will win the popular vote, which seems too overconfident. Also, it is not in agreement with FiveThirtyEight’s 81.4%. What explains this difference?
 
