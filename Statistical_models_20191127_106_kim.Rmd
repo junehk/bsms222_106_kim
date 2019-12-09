@@ -1345,7 +1345,45 @@ X <- sapply(1:I, function(i){
 
 The simulated data does not really seem to capture the features of the actual data:
 
+
+```{r}
+f1 <- function(N){
+  I <- 5
+  J <- 6
+  sapply(1:I, function(i){
+    d + rnorm(J, 0, 2 * sqrt(p * (1 - p) / N))
+    }) %>%
+    as.data.frame() %>%
+    rename("A" = "V1", B = V2, C = V3, D=V4 , E=V5) %>%
+    gather(polster, spread) %>%
+    mutate("N"=N)
+}
+
+# out = list() # 빈 리스트를 만드는 것
+# out[[n]] = fx(n)
+# list 활용법을 알아두자
+
+m1 <- f1(20)
+m2 <- f1(2000)
+m3 <- f1(200000)
+
+m = rbind.data.frame(m1, m2, m3)
+
+M$spread %>% min()
+sum(M$spread < 0)
+
+m %>% ggplot(aes(x=polster, y = spread)) +
+  geom_point() +
+  facet_wrap(~N, ncol = 3) + 
+  coord_flip()
+```
+
+> **cowplot**이용하는 방법! `n=20` 짜리 ggplot 을 `p1` 으로 저장. `n=2000` 짜리 ggplot 을 `p2`, `n=200000` 짜리 plot 을 `p3`로 저장하자.  
+> **cowplot** 을 이용해서, `plot_grid(p1, p2, p3, ncol = 3)` 하면 정말 멋진 그림이 나올 것이다.
+
 [](https://rafalab.github.io/dsbook/book_files/figure-html/simulated-data-without-bias-1.png)
+
+> `gather` 에서 빼고 싶은 key 가 있으면, 명령어 `- V2` 이런식으로 하면 된다.
 
 The model above does not account for pollster-to-pollster variability. To fix this, we add a new term for the pollster effect. We will use $h_i$ to represent the house effect of the $i$-th pollster. The model is now augmented to:
 
