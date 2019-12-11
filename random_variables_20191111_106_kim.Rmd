@@ -401,22 +401,22 @@ x <- sample(c(1,-1), 1, prob = c(9/19, 10/19))
 
 ```{r}
 # Answer
-x <- sample(c(17,0),1,prob=c(1/20,19/20))
+x <- sample(c(17,-1),1,prob=c(1/20,19/20))
 x
 ```
 3. Compute the expected value of $X$.
 
 $$
 \begin{aligned}
-\rm E[X] &= 17 \times {1 \over 20} + 0 \times {19 \over 20} \\
-&= {17 \over 20} \\
-&= 0.85
+\rm E[X] &= 17 \times {1 \over 20} + (-1) \times {19 \over 20} \\
+&= {17+(-19) \over 20} \\
+&= -0.1
 \end{aligned}
 $$
 
 ```{r}
 B <- 10^6
-x <- sample(c(17,0),B,replace=TRUE,prob=c(1/20,19/20))
+x <- sample(c(17,-1),B,replace=TRUE,prob=c(1/20,19/20))
 mean(x)
 ```
 
@@ -427,18 +427,21 @@ $$
 \rm SE[X]
 &= \rm \sqrt{number~of~draws}~\times~{standard~deviation~of~the~numbers~in~the~urn} \\
 &= 1~\times~ \left (|b-a|\sqrt{p(1-p)} \right ) \\
-&= 1~\times~ \left( |17-0|~\times~\sqrt{{1\over 20} \times {19 \over 20}} \right) \\
-&= 1~\times~ \left( {17 {\sqrt {19}} \over 20} \right)\\
-&= 3.705...
+&= 1~\times~ \left( |17-(-1)|~\times~\sqrt{{1\over 20} \times {19 \over 20}} \right) \\
+&= 1~\times~ \left( {18 {\sqrt {19}} \over 20} \right)\\
+&= 3.923...
 \end{aligned}
 $$
+```{r}
+sd(x)
+```
 
 5. Now create a random variable $S$ that is the sum of your winnings after betting on green 1000 times. Hint: change the argument size and replace in your answer to question 2. Start your code by setting the seed to 1 with set.seed(1).
 
 ```{r}
 set.seed(1)
 n <- 1000
-s <- sample(c(17,0), n, replace=TRUE, prob=c(1/20,19/20)) %>% sum()
+s <- sum(sample(c(17,-1), n, replace=TRUE, prob=c(1/20,19/20)))
 ```
 
 6. What is the expected value of $S$?
@@ -450,27 +453,33 @@ mean(S)
 7. What is the standard error of $S$?
 
 ```{r}
-se <- sd(S)/sqrt(n)
-se
+sd(S)/sqrt(n)
 ```
 
 8. What is the probability that you end up winning money? Hint: use the CLT.
+
+```{r}
+# Set mu, se
+mu <- n*(17-19)/20
+se <- sqrt(n)*(17-(-1))*sqrt(19)/20
+pnorm(0,mu,se)
+```
+
+9. Create a Monte Carlo simulation that generates 1,000 outcomes of $S$. Compute the average and standard deviation of the resulting list to confirm the results of 6 and 7. Start your code by setting the seed to 1 with set.seed(1).
 
 ```{r}
 # Set winning cases
 n <- 1000
 B <- 10000
 roulette_winnings <- function(n){
-  X <- sample(c(17,0), n, replace=TRUE, prob=c(1/20,19/20))
+  X <- sample(c(17,-1), n, replace=TRUE, prob=c(1/20,19/20))
   sum(X)
 }
 S <- replicate(B, roulette_winnings(n))
 
-mean(S)
-sd(S)
+# probability for not loosing money
+mean(S>0)
 ```
-
-9. Create a Monte Carlo simulation that generates 1,000 outcomes of $S$. Compute the average and standard deviation of the resulting list to confirm the results of 6 and 7. Start your code by setting the seed to 1 with set.seed(1).
 
 10. Now check your answer to 8 using the Monte Carlo result.
 

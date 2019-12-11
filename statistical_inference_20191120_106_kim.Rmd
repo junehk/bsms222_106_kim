@@ -328,6 +328,37 @@ A histogram and qq-plot confirm that the normal approximation is accurate as wel
 
 [](https://rafalab.github.io/dsbook/book_files/figure-html/normal-approximation-for-polls-1.png)
 
+```{r}
+# 위의 histrogram qqplot 을 어떻게 만들까?
+
+B <- 10000
+N <- 1000
+x_hat <- replicate(B, {
+  x <- sample(c(0,1), size = N, replace = TRUE, prob = c(1-p, p))
+  mean(x)
+})
+
+# class(x_hat)
+# [1] "numeric # ggplot 쓰려면 data frame 또는 tibble 으로 만들어야지
+
+m <- mean(x_hat)
+sd <- sd(x_hat)
+
+p1 <- data.frame(x_hat) %>%
+  ggplot(aes(x_hat)) +
+  geom_histogram(color ="black", fill = "grey")
+
+# column이 x_hat 하나 뿐이기 떄문에, data.frame(x_hat = x_hat) 이렇게 안해도 된다.
+
+p2 <- data.frame(x_hat) %>%
+  ggplot(aes(sample =  x_hat)) +
+  geom_qq() +
+  geom_qq_line()
+
+cowplot::plot_grid(p1, p2)
+```
+
+
 Of course, in real life we would never be able to run such an experiment because we don’t know $p$. But we could run it for various values of $p$ and $N$ and see that the theory does indeed work well for most values. You can easily do this by re-running the code above after changing `p` and `N`.
 
 ### 15.4.2 The spread
@@ -538,6 +569,179 @@ The following plot shows the first 100 confidence intervals. In this case, we cr
 
 [](https://rafalab.github.io/dsbook/book_files/figure-html/confidence-interval-coverage-1.png)
 
+```{r}
+# 위의 그림을 그려보자
+library(dslabs)
+polls <- polls_us_election_2016 %>% 
+  group_by(pollster) %>%
+  filter(enddate == max(enddate) & state == "U.S.")  %>%
+  ungroup() %>%
+  mutate(x_hat = rawpoll_clinton / 100, 
+         se_hat = sqrt(x_hat * (1 - x_hat) / samplesize),
+         ci_low = x_hat - 1.96 * se_hat,
+         ci_high = x_hat + 1.96 * se_hat,
+         p = mean(x_hat),
+         inside = ifelse(p >= ci_low & p <= ci_high, TRUE, FALSE)) %>%
+  select(pollster, enddate, x_hat, se_hat, ci_low, ci_high, inside)
+
+# geom_error_barh 이용해보자.
+polls %>% ggplot(aes(x=x_hat, y = pollster)) +
+  geom_errorbarh(mapping=aes(xmin =ci_high, xmax = ci_low, color = inside)) +
+  geom_point(aes(x= x_hat, color = inside)) +
+  geom_vline(xintercept = mean(polls$x_hat))
+```
+
+```{r}
+# 몬테카를로로 해보자.
+p <- 0.45
+N <- 1000
+B <- 100
+inside <- replicate(B, {
+  x <- sample(c(0,1), size = N, replace = TRUE, prob = c(1-p, p))
+  x_hat <- mean(x)
+  se_hat <- sqrt(x_hat * (1 - x_hat) / N)
+  between(p, x_hat - 1.96 * se_hat, x_hat + 1.96 * se_hat)
+  return(c(x_hat, se_hat))
+})
+
+# class(inside)
+# [1] "matrix"
+# dim(inside)
+# [1] 2 10000     2행 10000열 -> ggplot에서 못쓴다. t() 함수로 바꿔줘야 한다.
+
+d <- t(inside) %>% 
+  as.data.frame %>%
+  rename(x_hat = V1, se_hat = V2) %>%
+  mutate(ci_low = x_hat - 1.96*se_hat, 
+         ci_high = x_hat + 1.96*se_hat, 
+         inside = ifelse(p <= ci_high & p >= ci_low , 
+                         "Yes", "No" ), 
+         n = seq(1, B, by=1))
+
+# nrow(d)
+# [1] d 행 갯수. 이것 이용하는 것도 방법
+
+d <- d %>% mutate(inside = as.factor(inside))
+
+d[1:100,] %>% 
+  ggplot(aes(x=x_hat, y = n)) +
+  geom_errorbarh(mapping=aes(xmin = ci_low, xmax = ci_high, color = inside)) +
+  geom_point(aes(x= x_hat, color = inside)) +
+  geom_vline(xintercept = mean(d$x_hat)) +
+  labs(y = "polls") +
+  theme_bw()
+
+# table(d$inside) B:10000개일때
+#   No  Yes 
+#  533 9467 
+```
+
+```{r}
+# dslab heights data에서, 몇 명을 샘플링을 하느냐에 따라 모집단의 SD 에 가까운지, 치우침에 가까운지, 몬테카를로를 이용해서 보여라
+# 주의점, male, female에 차이가 있을 수 있다. male only, female only, 합쳐서 3 개 해보자.
+# SD 의 사이즈에 따른 변화도 그래프로 그리기.
+
+library(dslabs)
+h <- dslabs::heights
+m <- mean(h$height)
+sd <- sd(h$height)
+
+# nrow(heights)
+# [1] 1050
+
+
+B <- 10000
+n <- 100
+
+# 남녀 합친 키 몬테카를로 모델
+
+monte_h <- replicate(B, {
+  x <- sample(h$height, size = n, replace = TRUE)
+  x_hat <- mean(x)
+  se_hat <- sd(x)/sqrt(n)
+  return(c(x_hat, se_hat))
+}) %>%
+  t() %>%
+  as.data.frame() %>%
+  rename(x_hat = V1, se_hat = V2) %>%
+  mutate(ci_low = x_hat - 1.96 * se_hat,
+         ci_high = x_hat + 1.96 * se_hat,
+         inside = ifelse(m >= ci_low & m <= ci_high, TRUE, FALSE),
+         n = seq(1, B))
+
+p1 <- monte_h[1:100,] %>% 
+  ggplot(aes(x=x_hat, y = n)) +
+  geom_errorbarh(mapping=aes(xmin = ci_low, xmax = ci_high, color = inside)) +
+  geom_point(aes(x= x_hat, color = inside)) +
+  geom_vline(xintercept = m) +
+  labs(y = "polls") +
+  theme_bw()
+
+# 남자 키 몬테카를로 모델
+
+h_m <- filter(h, sex == "Male")
+m_m <- mean(h_m$height)
+sd_m <- sd(h_m$height)
+
+# nrow(h_m)
+# [1] 812
+
+monte_h_m <- replicate(B, {
+  x <- sample(h_m$height, size = n, replace = TRUE)
+  x_hat <- mean(x)
+  se_hat <- sd(x)/sqrt(n)
+  return(c(x_hat, se_hat))
+}) %>%
+  t() %>%
+  as.data.frame() %>%
+  rename(x_hat = V1, se_hat = V2) %>%
+  mutate(ci_low = x_hat - 1.96 * se_hat,
+         ci_high = x_hat + 1.96 * se_hat,
+         inside = ifelse(m_m >= ci_low & m_m <= ci_high, TRUE, FALSE),
+         n = seq(1, B))
+
+p2 <- monte_h_m[1:100,] %>% 
+  ggplot(aes(x=x_hat, y = n)) +
+  geom_errorbarh(mapping=aes(xmin = ci_low, xmax = ci_high, color = inside)) +
+  geom_point(aes(x= x_hat, color = inside)) +
+  geom_vline(xintercept = m_m) +
+  labs(y = "polls") +
+  theme_bw()
+
+# 여자 키 몬테카를로 모델
+
+h_f <- filter(h, sex == "Female")
+m_f <- mean(h_f$height)
+sd_f <- sd(h_f$height)
+
+monte_h_f <- replicate(B, {
+  x <- sample(h_f$height, size = n, replace = TRUE)
+  x_hat <- mean(x)
+  se_hat <- sd(x)/sqrt(n)
+  return(c(x_hat, se_hat))
+}) %>%
+  t() %>%
+  as.data.frame() %>%
+  rename(x_hat = V1, se_hat = V2) %>%
+  mutate(ci_low = x_hat - 1.96 * se_hat,
+         ci_high = x_hat + 1.96 * se_hat,
+         inside = ifelse(m_f >= ci_low & m_f <= ci_high, TRUE, FALSE),
+         n = seq(1, B))
+
+p3 <- monte_h_f[1:100,] %>% 
+  ggplot(aes(x=x_hat, y = n)) +
+  geom_errorbarh(mapping=aes(xmin = ci_low, xmax = ci_high, color = inside)) +
+  geom_point(aes(x= x_hat, color = inside)) +
+  geom_vline(xintercept = m_f) +
+  labs(y = "polls") +
+  theme_bw()
+
+# 카우플롯으로 그림 합치기
+
+cowplot::plot_grid(p1,p2,p3)
+```
+
+
 ### 15.6.2 The correct language
 When using the theory we described above, it is important to remember that it is the intervals that are random, not $p$. In the plot above, we can see the random intervals moving around and $p$, represented with the vertical line, staying in the same place. The proportion of blue in the urn $p$ is not. So the 95% relates to the probability that this random interval falls on top of $p$. Saying the $p$ has a 95% chance of being between this and that is technically an incorrect statement because $p$ is not random.
 
@@ -612,32 +816,41 @@ polls <- polls_us_election_2016 %>%
 
 ```{r}
 N <- polls$samplesize[1]
-x_hat <- polls$rawpoll_clinton[1]/100
-polls$d_hat[1] + c(-1.96, 1.96) * 2 * sqrt(x_hat * (1 - x_hat) / N)
+d_hat <- polls$d_hat[1]
+se_d_hat <- sqrt(d_hat*(1-d_hat) / N)
+c(d_hat - 1.96*se_d_hat, d_hat + 1.96*se_d_hat)
 ```
 
 7. Now repeat exercise 3, but for the difference.
 
 ```{r}
-polls <- polls %>% mutate(x_hat = rawpoll_clinton/100)
-polls <- polls %>% mutate(se_hat = sqrt(x_hat*(1-x_hat) / samplesize))
-polls <- polls %>% mutate(d_lower = d_hat - 1.96*2*se_hat / samplesize)
-polls <- polls %>% mutate(d_upper = d_hat + 1.96*2*se_hat / samplesize)
+poll <- polls %>% 
+  mutate(d_hat = rawpoll_clinton / 100 - rawpoll_trump / 100) %>% 
+  mutate(se_hat = sqrt(abs(d_hat*(1-d_hat) / samplesize))) %>% 
+  mutate(lower = d_hat - 1.96*se_hat) %>% 
+  mutate(upper = d_hat + 1.96*se_hat)
 
-poll <- select(polls, "pollster", 'enddate', 'x_hat', 'd_hat', 'd_lower', 'd_upper')
+poll <- select(poll, "pollster", 'enddate', 'd_hat', 'lower', 'upper')
 
 d <- 0.021
-poll$d_hit <- ifelse(poll$d_upper > d & poll$d_lower < d, 1, 0)
+poll$hit <- ifelse(poll$upper > d & poll$lower < d, 1, 0)
 poll <- as_tibble(poll)
 ```
+
+> d 값이 음수가 나올 수 있어서, 절대값을 취했는데, 이것이 맞는지 모르겠다.
 
 8. Now repeat exercise 4, but for the difference.
 
 ```{r}
-sum(poll$d_hit)/length(poll$d_hit)
+sum(poll$hit)/length(poll$hit)
 ```
 
 9. Although the proportion of confidence intervals goes up substantially, it is still lower than 0.95. In the next chapter, we learn the reason for this. To motivate this, make a plot of the error, the difference between each poll’s estimate and the actual $d=0.021$. Stratify by pollster.
+
+```{r}
+poll %>% ggplot(aes())
+```
+
 
 10. Redo the plot that you made for exercise 9, but only for pollsters that took five or more polls.
 
