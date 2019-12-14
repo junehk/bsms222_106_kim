@@ -2,7 +2,219 @@
 title: "Assignment_106_kim_20191216"
 output: html_notebook
 ---
+# 0. 이전 과제에서 지적 받은 점
+```{r echo=FALSE, results='hide',message=FALSE}
+# 데이터준비
+library(tidyverse)
+library(ggplot2)
+library(ggthemes)
 
+ddg2p <- read_delim('DDG2P_24_9_2019.with_pLI.txt', delim = '\t', progress = F)
+names(ddg2p)[2] <-paste('gene_mim') 
+names(ddg2p)[6] <-paste('allelic_requirement')
+names(ddg2p)[7] <-paste("mutation_consequence")
+
+# 데이터 준비2
+ddg2p <- ddg2p %>%
+  mutate(facial_disorder =
+           if_else(grepl("Face", ddg2p$`organ specificity list`),
+                   "facial",
+                   "non_facial")) %>%
+  mutate(facial_disorder = as.factor(facial_disorder))
+
+ddg2p <- ddg2p %>% mutate(facial_disorder = as.factor(facial_disorder))
+ddg2p <- ddg2p %>% mutate(allelic_requirement = as.factor(allelic_requirement))
+ddg2p <- ddg2p %>% mutate(mutation_consequence = as.factor(mutation_consequence))
+
+# 얼굴데이터 준비
+ddg2p_face <- ddg2p %>%
+  filter(facial_disorder == "facial")
+
+# 그래프
+d <- bind_rows(ddg2p %>%
+            mutate(type='Whole Gene') %>%
+            filter(.,allelic_requirement != is.na(allelic_requirement)) %>%
+            count(allelic_requirement, type) %>%
+            mutate(ratio = n/sum(n)) %>%
+            select(type, allelic_requirement, n, ratio),
+          ddg2p_face %>%
+            mutate(type='Facial Gene') %>%
+            filter(.,allelic_requirement != is.na(allelic_requirement)) %>%
+            count(allelic_requirement, type) %>%
+            mutate(ratio = n/sum(n)) %>%
+            select(type, allelic_requirement, n, ratio)) %>%
+  complete(type, allelic_requirement, fill = list(ratio = 0)) %>%
+  complete(type, allelic_requirement, fill = list(n=0))
+
+ind <- c(10, 9, 5, 8, 4, 3, 6, 2, 1, 7)
+
+d$allelic_requirement <- factor(d$allelic_requirement, levels = d$allelic_requirement[ind])
+
+d %>% ggplot(aes(allelic_requirement, ratio, fill = allelic_requirement)) +
+  geom_bar(stat="identity", position = position_dodge(width = 2)) +
+  coord_flip() +
+  geom_text(aes(x = allelic_requirement, y = ratio/1.5 + 0.05, label = round(ratio, 3))) +
+  geom_text(aes(x = allelic_requirement, y = 0.68, label = n)) +
+  geom_text(aes(x = allelic_requirement, y = 0.68, label ='(        )' )) +
+  geom_text(aes(x = allelic_requirement, y = 0.73, label ='' ), color = "blue") +
+  facet_wrap(. ~ type) +
+  labs(x = "Allelic Requirement", 
+      y = "Ratio, (Counts)", 
+      title ="Comparison between Whole and Facial Allelic Requirement",
+      caption = "Data source: The Development Disorder Genotype - Phenotype Database") +
+  theme_bw() +
+  theme(legend.title = element_blank(), legend.position = "none",
+        plot.title = element_text(hjust = 0),
+        plot.caption = element_text(hjust = 0))
+
+df <- d[1:10,] %>% mutate(face_ratio = ratio) %>% select(allelic_requirement, face_ratio)
+dw <- d[11:20,] %>% mutate(whole_ratio = ratio) %>% select(whole_ratio)
+dc <- cbind(df, dw) %>% mutate(ratio_comparison = face_ratio - whole_ratio)
+dc %>%
+  ggplot(aes(allelic_requirement,ratio_comparison, fill = allelic_requirement)) +
+  geom_bar(stat='identity') +
+  theme_bw() +
+  coord_flip() +
+  geom_text(aes(x = allelic_requirement,y = ratio_comparison/1.3, label = round(ratio_comparison,4)))+
+  labs(y = "Ratio Comparison (Difference in Value)", 
+      x = "Allelic Requirement",
+      title = "Ratio Comparison: Facial - Whole",
+      caption = "Data source: The Development Disorder Genotype - Phenotype Database") +
+  theme(legend.title = element_blank(), legend.position = "none",
+        plot.title = element_text(hjust = 0),
+        plot.caption = element_text(hjust = 0))
+```
+
+1. Barplot 에서, 크기 순서로 배열할 것.
+2. Color blind 를 고려한 색 조합을 사용할 것.
+3. 항목 `Facial`, `Whole` 만을 보고, 이들이 나타내는 의미를 알 수 없기 때문에, 따로 그래프에 해당 설명을 추가할 것.
+4. 비율의 차를 나타낸 그래프**만**을 보았을 때, 실제 유전자 갯수에 대한 고려를 할 수 없다는 것.
+5. 비율의 차를 나타낸 그래프에서, 값의 차이가 거의 없는 그래프는 과감하게 삭제할 것.
+
+위의 조언을 수용한 그래프 수정안은 다음과 같습니다.
+
+1. 첫번째 그래프의 `Facial` 항목의 크기를 기준으로, 순서를 배열했습니다.
+2. Color blind 를 고려하여 `ggplot` 안에 `scale_fill_brewer(palette="Set1")` 코드를 삽입했습니다.
+3. 항목 `Facial`, `Whole` 만을 보고, 이들이 의미하는 바를 바로 알아볼 수 없기 때문에, `ggplot` - `labs` - `caption`에서 해당 내용에 대한 설명을 추가했습니다.
+4. 위의 그래프와 아래 그래프를 동시에 그려, 실제 유전자 갯수도 고려할 수 있게 했습니다.
+5. 값의 차이가 나타나지 않은 항목을 삭제하라는 조언은, 값의 차를 나타내는 숫자가 거의 중앙에 위치했기 때문에, 그 차이를 알 수 없다고 생각했습니다. 따라서 값의 차이를 보다 명확히 나타내기 위해 중앙에서부터 멀리 떨어지게 만들었습니다.
+
+
+위의 권고 사항들을 적용한 그래프는 아래와 같습니다.
+```{R echo=FALSE, results='hide',message=FALSE}
+library(tidyverse)
+
+ddg2p <- read_delim('DDG2P_24_9_2019.with_pLI.txt', delim = '\t', progress = F)
+
+names(ddg2p)[2] <-paste('gene_mim') 
+names(ddg2p)[6] <-paste('allelic_requirement')
+names(ddg2p)[7] <-paste("mutation_consequence")
+
+ddg2p <- ddg2p %>%
+  mutate(gene_mim = as.factor(gene_mim),
+         allelic_requirement = as.factor(allelic_requirement))
+
+
+ddg2p <- ddg2p %>%
+  mutate(facial_disorder = 
+           ifelse(grepl("Face", ddg2p$`organ specificity list`),
+                  "facial",
+                  "non_facial")) %>%
+  mutate(facial_disorder = as.factor(facial_disorder))
+
+ddg2p_face <- ddg2p %>%
+  filter(., facial_disorder == "facial")
+
+d <- bind_rows(ddg2p %>%
+                 mutate(type='whole') %>%
+                 filter(.,allelic_requirement != is.na(allelic_requirement)) %>%
+                 count(allelic_requirement, type) %>%
+                 mutate(ratio = n/sum(n)) %>%
+                 select(type, allelic_requirement, n, ratio),
+               ddg2p_face %>%
+                 mutate(type='facial') %>%
+                 filter(.,allelic_requirement != is.na(allelic_requirement)) %>%
+                 count(allelic_requirement, type) %>%
+                 mutate(ratio = n/sum(n)) %>%
+                 select(type, allelic_requirement, n, ratio)) %>%
+  complete(type, allelic_requirement, fill = list(ratio = 0)) %>%
+  complete(type, allelic_requirement, fill = list(n=0))
+
+d1 <- d %>% filter(type == 'whole')
+d2 <- d %>% filter(type == 'facial')
+
+d1 <- mutate(d1, larger = ifelse(d1$ratio > d2$ratio, FALSE, TRUE))
+d2 <- mutate(d2, larger = ifelse(d1$ratio > d2$ratio, FALSE, TRUE))
+
+d <- bind_rows(d1, d2)
+
+ind <- c(2, 3, 5, 8, 10, 6, 9, 4, 1, 7)
+d$allelic_requirement <- factor(d$allelic_requirement, levels = d$allelic_requirement[ind])
+
+type.labs <- c("Whole Gene Data", "Facial Gene Data", "Ratio Comparison")
+names(type.labs) <- c("whole", "facial", "ratio_comparison")
+
+
+df <- d2 %>% mutate(face_ratio = ratio) %>% select(allelic_requirement, face_ratio)
+dw <- d1 %>% mutate(whole_ratio = ratio) %>% select(whole_ratio)
+dc <- cbind(df, dw) %>% 
+  mutate(ratio_comparison = face_ratio - whole_ratio) %>%
+  mutate(allelic_requirement = factor(allelic_requirement, levels = allelic_requirement[ind])) %>%
+  mutate(is_positive = ifelse(ratio_comparison > 0, TRUE, FALSE)) %>%
+  mutate(type = "ratio_comparison") %>%
+  select(type, allelic_requirement, ratio_comparison, is_positive) %>%
+  as_tibble()
+
+
+library(ggplot2)
+library(ggthemes)
+
+p1 <- d %>% 
+  ggplot(aes(allelic_requirement, ratio, fill = larger)) +
+  geom_bar(stat="identity", position = position_dodge(width = 2)) +
+  scale_fill_brewer(palette="Set1") +
+  coord_flip() +
+  # (괄호)안에 실제 count 수 표시하기
+  geom_text(aes(x = allelic_requirement, y = ratio/1.7 + 0.1, label = round(ratio, 3))) +
+  geom_text(aes(x = allelic_requirement, y = 0.66, label = n)) +
+  geom_text(aes(x = allelic_requirement, y = 0.66, label ='(       )' )) +
+  geom_text(aes(x = allelic_requirement, y = 0.73, label ='' ), color = "blue") +
+  facet_wrap(. ~ type, labeller = labeller(type = type.labs)) +
+  labs(x = "Allelic Requirement", 
+       y = "Ratio, (Counts)", 
+       title ="Comparison between\nWhole and Facial Allelic Requirement",
+       caption = 'Facial Gene Data: Genes which have \n  Organ specificity at "Face" 
+      \nWhole Gene Data: Whole data set including \n  "Facial Gene Data"') +
+  theme_bw() +
+  theme(legend.title = element_blank(), legend.position = "none",
+        plot.title = element_text(hjust = 0),
+        plot.caption = element_text(hjust = 0))
+
+p2 <- dc %>%
+  ggplot(aes(allelic_requirement,ratio_comparison, fill = is_positive)) +
+  geom_bar(stat='identity') +
+  scale_fill_brewer(palette="Set1") +
+  theme_bw() +
+  coord_flip() +
+  geom_text(aes(x = allelic_requirement,
+                y = ifelse(is_positive>0, 0.09, -0.09) + ratio_comparison/3, 
+                label = round(ratio_comparison,4)))+
+  facet_wrap(. ~ type, labeller = labeller(type = type.labs)) +
+  labs(y = "Subracted value of ratio\n Facial - Whole", 
+       x = "Allelic Requirement",
+       title = "Ratio Subtraction:\nFacial - Whole",
+       caption = 'Blue: Ratio of "Facial Gene Data" \n    is LARGER 
+      \nRed: Ratio of "Whole Gene Data \n    is LARGER') +
+  theme(legend.title = element_blank(), legend.position = "none",
+        plot.title = element_text(hjust = 0),
+        plot.caption = element_text(hjust = 0),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
+
+library(cowplot)
+plot_grid(p1, p2, align = "h", rel_widths = c(2.6, 1))
+```
 # 1. Abstract
 
 유전병 인자는 인체에 다양한 부위에 영향을 준다. **The Development Disorder Genotype - Phenotype Database (DDG2P)**에서 얼굴에 특이적으로 발달 장애를 유발하는 유전자 목록을 추출하여 이들이 갖는 특징을 확인했다. Allelic requirement 항목을 얼굴과 전체에 대해 비교했을 때, monoallelic, biallelic requirement이 차지하는 비율이 얼굴은 0.838, 전체는 0.897 으로, 대다수를 차지해 비슷한 경향이 나타났다. 하지만, 얼굴의 monoallelic requirement의 비율은 0.577, biallelic requirement 의 비율은 0.262이었고, 전체 monoallelic requirement의 비율은 0.363, biallelic requirement의 비율은 0.534 으로, 둘의 구성비에 차이가 있음을 확인했다.
