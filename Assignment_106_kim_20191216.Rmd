@@ -282,20 +282,14 @@ d1 <- mutate(d1, larger = ifelse(d1$ratio > d2$ratio, FALSE, TRUE))
 d2 <- mutate(d2, larger = ifelse(d1$ratio > d2$ratio, FALSE, TRUE))
 
 d <- bind_rows(d1, d2)
+
+ind <- c(2, 3, 5, 8, 10, 6, 9, 4, 1, 7)
+d$allelic_requirement <- factor(d$allelic_requirement, levels = d$allelic_requirement[ind])
 ```
 
 # 3. 그래프 그리기
 
-### 3.1 Draw a Graph for Comparision 'facial' vs 'whole'
-```{R}
-ind <- c(2, 3, 5, 8, 10, 6, 9, 4, 1, 7)
-d$allelic_requirement <- factor(d$allelic_requirement, levels = d$allelic_requirement[ind])
-
-type.labs <- c("Whole Gene Data", "Facial Gene Data", "Ratio Comparison")
-names(type.labs) <- c("whole", "facial", "ratio_comparison")
-```
-
-### 3.2 Manupulate data frame for ratio subtraction
+### 3.1 Manupulate data frame for ratio subtraction
 ```{R}
 df <- d2 %>% mutate(face_ratio = ratio) %>% select(allelic_requirement, face_ratio)
 dw <- d1 %>% mutate(whole_ratio = ratio) %>% select(whole_ratio)
@@ -308,10 +302,13 @@ dc <- cbind(df, dw) %>%
   as_tibble()
 ```
 
-### 3.3 Allelic requirement 비교 그림
+### 3.2 Allelic requirement 비교 그림
 ```{r}
 library(ggplot2)
 library(ggthemes)
+
+type.labs <- c("Whole Gene Data", "Facial Gene Data", "Ratio Comparison")
+names(type.labs) <- c("whole", "facial", "ratio_comparison")
 
 p1 <- d %>% 
   ggplot(aes(allelic_requirement, ratio, fill = larger)) +
@@ -335,7 +332,7 @@ p1 <- d %>%
         plot.caption = element_text(hjust = 0))
 ```
 
-### 3.4 Draw a graph for ratio subraction
+### 3.3 Draw a graph for ratio subraction
 ```{R}
 p2 <- dc %>%
   ggplot(aes(allelic_requirement,ratio_comparison, fill = is_positive)) +
@@ -360,7 +357,7 @@ p2 <- dc %>%
         axis.ticks.y = element_blank())
 ```
 
-### 3.5 Bind two graphs
+### 3.4 Bind two graphs
 ```{r}
 library(cowplot)
 plot_grid(p1, p2, align = "h", rel_widths = c(2.6, 1))
