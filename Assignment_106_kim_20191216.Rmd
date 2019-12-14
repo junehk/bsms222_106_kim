@@ -361,7 +361,7 @@ p2 <- dc %>%
 ```
 
 ### 3.5 Bind two graphs
-```{R}
+```{r}
 library(cowplot)
 plot_grid(p1, p2, align = "h", rel_widths = c(2.6, 1))
 ```
